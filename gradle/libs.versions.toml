@@ -1,0 +1,55 @@
+[versions]
+agp = "8.5.0"
+kotlin = "2.0.0"
+compose = "1.6.11"
+compose-material3 = "1.2.1"
+androidx-activityCompose = "1.9.0"
+compose-plugin = "1.6.11"
+composeUiTooling = "1.6.8"
+
+room = "2.7.0-alpha05"
+ksp = "2.0.0-1.0.22"
+sqlite = "2.5.0-SNAPSHOT"
+
+koin = "3.5.4"
+koinCompose = "1.1.0"
+statelyCommon = "2.0.5"
+
+[libraries]
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "composeUiTooling" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeUiTooling" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "composeUiTooling" }
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+
+#Gradle
+androidGradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+composeGradle = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose" }
+kotlinGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+#Room
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+sqlite-bundled = { module= "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+
+#Koin
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-desktop = { module = "io.insert-koin:koin-desktop", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCompose" }
+stately-common = { module = "co.touchlab:stately-common", version.ref = "statelyCommon" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+room = { id = "androidx.room", version.ref = "room" }
+
