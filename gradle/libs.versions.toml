@@ -6,6 +6,7 @@ compose-material3 = "1.2.1"
 androidx-activityCompose = "1.9.0"
 compose-plugin = "1.6.11"
 composeUiTooling = "1.6.8"
+datastore = "1.1.1"
 
 room = "2.7.0-alpha05"
 ksp = "2.0.0-1.0.22"
@@ -34,6 +35,7 @@ compose-foundation = { module = "androidx.compose.foundation:foundation", versio
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "compose-material3" }
 compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
+datastore-preferences = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore" }
 
 #Gradle
 androidGradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }

@@ -33,12 +33,17 @@ kotlin {
     }
 
     sourceSets {
+        all {
+            languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
+        }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.room.runtime.android)
             implementation(libs.koin.android)
             implementation(libs.compose.navigation)
         }
+
+        @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -66,6 +71,9 @@ kotlin {
             //Room
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
+
+            //Datastore
+            implementation(libs.datastore.preferences)
 
             //Ktor
             implementation(libs.ktor.core)
