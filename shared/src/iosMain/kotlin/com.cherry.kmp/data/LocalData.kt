@@ -5,7 +5,7 @@ import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import platform.Foundation.NSHomeDirectory
 
 fun getAppDatabase(): AppDatabase {
-    val dbFile = NSHomeDirectory() + "/guava.db"
+    val dbFile = NSHomeDirectory() + "/$dbFileName"
     return Room.databaseBuilder<AppDatabase>(
         name = dbFile,
         factory = { AppDatabase::class.instantiateImpl() }

@@ -100,6 +100,7 @@ room {
 }
 
 dependencies {
+    implementation(libs.androidx.material3.android)
     // Room
     add("kspCommonMainMetadata", libs.room.compiler)
 }

@@ -6,7 +6,7 @@ import com.cherry.kmp.data.model.DataModel
 
 @Entity(tableName = "data_table")
 data class DataModelEntity(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String
 )
 
