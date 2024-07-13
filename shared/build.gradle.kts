@@ -84,7 +84,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.guava.cherrykmp"
+    namespace = "com.cherry.kmp"
     compileSdk = 34
     defaultConfig {
         minSdk = 28
