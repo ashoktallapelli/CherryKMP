@@ -1,4 +1,4 @@
-package com.cherry.kmp.data
+package com.cherry.kmp.data.local
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory

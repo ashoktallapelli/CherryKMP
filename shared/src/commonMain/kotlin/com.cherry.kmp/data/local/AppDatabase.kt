@@ -1,9 +1,9 @@
-package com.cherry.kmp.data
+package com.cherry.kmp.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.cherry.kmp.data.dao.DataDao
-import com.cherry.kmp.data.entity.DataModelEntity
+import com.cherry.kmp.data.local.dao.DataDao
+import com.cherry.kmp.data.local.entity.DataModelEntity
 
 internal const val dbFileName = "guava.db"
 

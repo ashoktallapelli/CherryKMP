@@ -3,7 +3,7 @@ package com.cherry.kmp.ui.main
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cherry.kmp.data.entity.DataModelEntity
+import com.cherry.kmp.data.local.entity.DataModelEntity
 import com.cherry.kmp.domain.UiState
 import com.cherry.kmp.domain.model.Post
 import com.cherry.kmp.domain.usecase.GetPostsUseCase

@@ -1,4 +1,4 @@
-package com.cherry.kmp.data.model
+package com.cherry.kmp.domain.model
 
 data class DataModel(
     val id: Long,

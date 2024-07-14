@@ -4,6 +4,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import com.cherry.kmp.data.local.AppDatabase
+import com.cherry.kmp.data.local.dbFileName
+import com.cherry.kmp.data.local.getDataStore
+import com.cherry.kmp.data.local.instantiateImpl
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSHomeDirectory

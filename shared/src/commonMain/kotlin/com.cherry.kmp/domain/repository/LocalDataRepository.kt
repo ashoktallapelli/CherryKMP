@@ -1,6 +1,6 @@
 package com.cherry.kmp.domain.repository
 
-import com.cherry.kmp.data.entity.DataModelEntity
+import com.cherry.kmp.data.local.entity.DataModelEntity
 import kotlinx.coroutines.flow.Flow
 
 

@@ -1,8 +1,8 @@
-package com.cherry.kmp.data.entity
+package com.cherry.kmp.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.cherry.kmp.data.model.DataModel
+import com.cherry.kmp.domain.model.DataModel
 
 @Entity(tableName = "data_table")
 data class DataModelEntity(

@@ -1,10 +1,10 @@
-package com.cherry.kmp.data.dao
+package com.cherry.kmp.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.cherry.kmp.data.entity.DataModelEntity
+import com.cherry.kmp.data.local.entity.DataModelEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

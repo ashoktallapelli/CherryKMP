@@ -1,8 +1,8 @@
 package com.cherry.kmp.data.repository
 
-import com.cherry.kmp.data.AppDataStore
-import com.cherry.kmp.data.AppDatabase
-import com.cherry.kmp.data.entity.DataModelEntity
+import com.cherry.kmp.data.local.AppDataStore
+import com.cherry.kmp.data.local.AppDatabase
+import com.cherry.kmp.data.local.entity.DataModelEntity
 import com.cherry.kmp.domain.repository.LocalDataRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
