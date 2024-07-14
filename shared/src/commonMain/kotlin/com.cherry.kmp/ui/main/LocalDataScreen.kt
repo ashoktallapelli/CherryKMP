@@ -63,11 +63,12 @@ internal fun LocalDataScreen(
         }
 
         tappedItem?.run {
-            Text("Tapped $name ")
+            Text("Tapped $name ",
+                color = Color.White)
         }
         Spacer(Modifier.height(32.dp))
 
-        Text("Current Items (tap to show content):")
+        Text("Current Items (tap to show content):", color = Color.White)
         LazyColumn {
             items(items.value.size) { item ->
                 Text(

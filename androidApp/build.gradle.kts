@@ -5,10 +5,10 @@ plugins {
 }
 
 android {
-    namespace = "com.guava.cherrykmp.android"
+    namespace = "com.cherry.kmp"
     compileSdk = 34
     defaultConfig {
-        applicationId = "com.guava.cherrykmp.android"
+        applicationId = "com.cherry.kmp"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
@@ -28,11 +28,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 

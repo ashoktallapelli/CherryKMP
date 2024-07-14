@@ -98,6 +98,7 @@ android {
 
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    sourceSets["main"].res.srcDirs("src/commonMain/composeResources", "src/androidMain/res")
 
     defaultConfig {
         minSdk = 28
