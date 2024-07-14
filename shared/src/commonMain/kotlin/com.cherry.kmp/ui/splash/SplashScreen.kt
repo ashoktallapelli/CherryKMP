@@ -6,16 +6,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ImageSearch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import cherrykmp.shared.generated.resources.Res
+import cherrykmp.shared.generated.resources.compose_multiplatform
 import com.cherry.kmp.ui.theme.PrimaryColor
 import kotlinx.coroutines.delay
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 internal fun SplashScreen(navigateToMain: () -> Unit, navigateToLogin: () -> Unit) {
@@ -41,7 +42,7 @@ internal fun SplashScreen(navigateToMain: () -> Unit, navigateToLogin: () -> Uni
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            imageVector = Icons.Filled.ImageSearch,
+            painter = painterResource(Res.drawable.compose_multiplatform),
             contentDescription = null,
             modifier = Modifier.scale(scale.value)
         )

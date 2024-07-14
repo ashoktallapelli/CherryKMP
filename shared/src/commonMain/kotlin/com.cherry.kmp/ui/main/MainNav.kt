@@ -22,9 +22,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.cherry.kmp.ui.theme.DefaultNavigationBarItemTheme
 import com.cherry.kmp.ui.navigation.MainNavigation
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+import com.cherry.kmp.ui.theme.DefaultNavigationBarItemTheme
 
 @Composable
 fun MainNav(logout: () -> Unit) {
@@ -40,10 +39,10 @@ fun MainNav(logout: () -> Unit) {
                 modifier = Modifier.fillMaxSize()
             ) {
                 composable(route = MainNavigation.Everything.route) {
-//                    HomeNav(logout = logout)
+                    RemoteDataScreen(navController = navBottomBarController)
                 }
                 composable(route = MainNavigation.Headlines.route) {
-//                    WishlistNav()
+                    LocalDataScreen(navController = navBottomBarController)
                 }
                 composable(route = MainNavigation.Sources.route) {
 //                    CartNav()
@@ -58,7 +57,6 @@ fun MainNav(logout: () -> Unit) {
 }
 
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun BottomNavigationUI(
     navController: NavController,

@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.serialization)
-//    kotlin("plugin.serialization")
     //Room
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
@@ -96,6 +95,10 @@ kotlin {
 android {
     namespace = "com.cherry.kmp"
     compileSdk = 34
+
+    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+
     defaultConfig {
         minSdk = 28
     }

@@ -25,5 +25,8 @@ interface DataDao {
     suspend fun getById(id: Long): DataModelEntity
 
     @Query("SELECT * FROM data_table")
+    suspend fun getAll(): List<DataModelEntity>
+
+    @Query("SELECT * FROM data_table")
     fun getAllAsFlow(): Flow<List<DataModelEntity>>
 }

@@ -9,14 +9,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import okio.Path.Companion.toPath
 
-internal const val dataStoreFileName = "dice.preferences_pb"
+internal const val dataStoreFileName = "guava.preferences_pb"
 
 fun getDataStore(producePath: () -> String): DataStore<Preferences> =
     PreferenceDataStoreFactory.createWithPath(
         produceFile = { producePath().toPath() }
     )
 
-class AppDatastore(private val dataStore: DataStore<Preferences>) {
+class AppDataStore(private val dataStore: DataStore<Preferences>) {
 
     companion object {
         val LANGUAGE = stringPreferencesKey("language")
