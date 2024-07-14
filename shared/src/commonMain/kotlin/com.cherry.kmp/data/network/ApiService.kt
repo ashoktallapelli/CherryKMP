@@ -7,5 +7,5 @@ import io.ktor.client.request.get
 
 class ApiService(private val client: HttpClient) {
     suspend fun getQuotes() = client.get(GetQuotes.path)
-    suspend fun getPosts() = client.get("${NetworkConstants.BASE_URL}${GetPosts.path}")
+    suspend fun getPosts() = client.get(GetPosts.path)
 }

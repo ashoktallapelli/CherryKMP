@@ -21,13 +21,10 @@ private const val NETWORK_TIME_OUT = 6_000L
 
 val httpClient = HttpClient {
     defaultRequest {
-//        url {
-////            protocol = URLProtocol.HTTP
-//            host = NetworkConstants.BASE_URL
-////            parameters.append(
-////                NetworkConstants.CLIENT_ID_KEY, NetworkConstants.CLIENT_ID_VALUE
-////            )
-//        }
+        url {
+            protocol = URLProtocol.HTTPS
+            host = NetworkConstants.BASE_URL
+        }
         contentType(ContentType.Application.Json)
         accept(ContentType.Application.Json)
         header(HttpHeaders.ContentType, ContentType.Application.Json)
