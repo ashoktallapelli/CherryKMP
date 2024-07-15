@@ -5,20 +5,34 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cherry.kmp.data.local.entity.DataModelEntity
 import com.cherry.kmp.domain.UiState
+import com.cherry.kmp.domain.model.NewsResults
 import com.cherry.kmp.domain.model.Post
+import com.cherry.kmp.domain.usecase.GetEverythingUseCase
 import com.cherry.kmp.domain.usecase.GetPostsUseCase
+import com.cherry.kmp.domain.usecase.GetTopHeadlinesUseCase
 import com.cherry.kmp.domain.usecase.LocalDataUseCase
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val getQuotesUseCase: GetPostsUseCase,
-    private val localDataUseCase: LocalDataUseCase
+    private val localDataUseCase: LocalDataUseCase,
+    private val getEverythingUseCase: GetEverythingUseCase,
+    private val getTopHeadlinesUseCase: GetTopHeadlinesUseCase
 ) : ViewModel() {
     val uiState = mutableStateOf<UiState<List<Post>>>(UiState.Loading)
     fun loadItems() {
         viewModelScope.launch {
             getQuotesUseCase(Unit).collect { result ->
                 uiState.value = result
+            }
+        }
+    }
+
+    val uiStateNews = mutableStateOf<UiState<NewsResults>>(UiState.Loading)
+    fun loadItemsNews() {
+        viewModelScope.launch {
+            getEverythingUseCase(Unit).collect { result ->
+                uiStateNews.value = result
             }
         }
     }

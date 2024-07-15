@@ -23,7 +23,11 @@ val httpClient = HttpClient {
     defaultRequest {
         url {
             protocol = URLProtocol.HTTPS
-            host = NetworkConstants.BASE_URL
+            host = NetworkConstants.NEWS_BASE_URL
+            parameters.append(
+                NetworkConstants.API_KEY,
+                NetworkConstants.API_KEY_VALUE
+            )
         }
         contentType(ContentType.Application.Json)
         accept(ContentType.Application.Json)

@@ -5,10 +5,18 @@ sealed class ApiDefinition {
     sealed class ApiEndpoint(val path: String) {
         data object GetPosts : ApiEndpoint(path = "/posts")
         data object GetQuotes : ApiEndpoint(path = "/quotes")
+        data object GetEverything : ApiEndpoint(path = "/everything")
+        data object GetTopHeadlines : ApiEndpoint(path = "/top-headlines")
     }
 
     object ApiField {
-        const val PARAM_QUERY = "query"
-        const val PARAM_PAGE = "page"
+        const val PARAM_QUERY = "q"
+        const val PARAM_FROM = "from"
+        const val PARAM_TO = "to"
+        const val PARAM_SORT_BY = "sortBy"
+        const val PARAM_COUNTRY = "country"
+        const val PARAM_CATEGORY = "category"
+        const val PARAM_SOURCES = "sources"
+        const val PARAM_DOMAINS = "domains"
     }
 }

@@ -30,6 +30,7 @@ kotlin {
         it.binaries.framework {
             baseName = "shared"
             isStatic = true
+            binaryOption("bundleId", "com.cherry.kmp")
         }
     }
 
