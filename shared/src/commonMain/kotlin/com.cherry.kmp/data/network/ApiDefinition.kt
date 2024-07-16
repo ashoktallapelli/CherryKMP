@@ -5,8 +5,8 @@ sealed class ApiDefinition {
     sealed class ApiEndpoint(val path: String) {
         data object GetPosts : ApiEndpoint(path = "/posts")
         data object GetQuotes : ApiEndpoint(path = "/quotes")
-        data object GetEverything : ApiEndpoint(path = "/everything")
-        data object GetTopHeadlines : ApiEndpoint(path = "/top-headlines")
+        data object GetEverything : ApiEndpoint(path = "/v2/everything")
+        data object GetTopHeadlines : ApiEndpoint(path = "/v2/top-headlines")
     }
 
     object ApiField {

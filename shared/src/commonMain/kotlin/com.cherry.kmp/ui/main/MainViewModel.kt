@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cherry.kmp.data.local.entity.DataModelEntity
 import com.cherry.kmp.domain.UiState
+import com.cherry.kmp.domain.model.NewsRequest
 import com.cherry.kmp.domain.model.NewsResults
 import com.cherry.kmp.domain.model.Post
 import com.cherry.kmp.domain.usecase.GetEverythingUseCase
@@ -28,11 +29,20 @@ class MainViewModel(
         }
     }
 
-    val uiStateNews = mutableStateOf<UiState<NewsResults>>(UiState.Loading)
-    fun loadItemsNews() {
+    val newsEverything = mutableStateOf<UiState<NewsResults>>(UiState.Loading)
+    fun loadEverythingNews() {
         viewModelScope.launch {
-            getEverythingUseCase(Unit).collect { result ->
-                uiStateNews.value = result
+            getEverythingUseCase(getEverythingRequest()).collect { result ->
+                newsEverything.value = result
+            }
+        }
+    }
+
+    val newsHeadlines = mutableStateOf<UiState<NewsResults>>(UiState.Loading)
+    fun loadHeadlinesNews() {
+        viewModelScope.launch {
+            getTopHeadlinesUseCase(getHeadlinesRequest()).collect { result ->
+                newsHeadlines.value = result
             }
         }
     }
@@ -64,5 +74,13 @@ class MainViewModel(
         viewModelScope.launch {
             item.value = localDataUseCase.getById(id)
         }
+    }
+
+    private fun getEverythingRequest(): NewsRequest {
+        return NewsRequest(query = "tesla", sortBy = "publishedAt")
+    }
+
+    private fun getHeadlinesRequest(): NewsRequest {
+        return NewsRequest(country = "us", category = "business")
     }
 }

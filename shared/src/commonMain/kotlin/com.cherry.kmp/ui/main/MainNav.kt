@@ -39,13 +39,13 @@ fun MainNav(logout: () -> Unit) {
                 modifier = Modifier.fillMaxSize()
             ) {
                 composable(route = MainNavigation.Everything.route) {
-                    RemoteDataScreen(navController = navBottomBarController)
+                    EverythingScreen(navController = navBottomBarController)
                 }
                 composable(route = MainNavigation.Headlines.route) {
-                    LocalDataScreen(navController = navBottomBarController)
+                    HeadlinesScreen(navController = navBottomBarController)
                 }
                 composable(route = MainNavigation.Sources.route) {
-//                    CartNav()
+                    RemoteDataScreen(navController = navBottomBarController)
                 }
                 composable(route = MainNavigation.Profile.route) {
 //                    ProfileNav(logout = logout)

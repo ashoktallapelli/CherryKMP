@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,7 +18,7 @@ import cherrykmp.shared.generated.resources.compose_multiplatform
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun LoadingWithLogoScreen() {
+fun LoadingScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -34,8 +34,8 @@ fun LoadingWithLogoScreen() {
                 contentDescription = null,
                 modifier = Modifier.size(60.dp)
             )
-            Spacer_16dp()
-            CircularProgressIndicator()
+            Spacer_8dp()
+            LinearProgressIndicator()
         }
     }
 }

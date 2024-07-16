@@ -18,20 +18,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.cherry.kmp.domain.UiState
-import com.cherry.kmp.domain.model.Post
+import com.cherry.kmp.domain.model.Article
 import com.cherry.kmp.ui.component.ErrorScreen
 import com.cherry.kmp.ui.component.LoadingScreen
 import org.koin.compose.koinInject
 
 @Composable
-internal fun RemoteDataScreen(
+internal fun HeadlinesScreen(
     viewModel: MainViewModel = koinInject(),
     navController: NavHostController
 ) {
-    val uiState = viewModel.uiState
+    val uiState = viewModel.newsHeadlines
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.loadItems()
+        viewModel.loadHeadlinesNews()
     }
 
     Column(
@@ -43,12 +43,14 @@ internal fun RemoteDataScreen(
             is UiState.Loading -> {
                 LoadingScreen()
             }
+
             is UiState.Success -> {
-                ItemList(state.data)
+                ItemList(state.data.articles)
             }
+
             is UiState.Error -> {
                 ErrorScreen(state.apiError.message.orEmpty()) {
-                    viewModel.loadItems()
+                    viewModel.loadHeadlinesNews()
                 }
             }
         }
@@ -56,7 +58,7 @@ internal fun RemoteDataScreen(
 }
 
 @Composable
-private fun ItemRow(post: Post) {
+private fun ItemRow(article: Article) {
     Card(
         modifier = Modifier
             .padding(all = 10.dp)
@@ -64,22 +66,24 @@ private fun ItemRow(post: Post) {
     ) {
         Column(modifier = Modifier.padding(all = 10.dp)) {
             Text(
-                post.title,
+                article.title.orEmpty(),
                 fontSize = 25.sp,
                 fontWeight = FontWeight.W700,
                 modifier = Modifier.padding(10.dp)
             )
             Text(
-                post.body, color = Color.Gray, modifier = Modifier.padding(10.dp)
+                article.description.orEmpty(),
+                color = Color.Gray,
+                modifier = Modifier.padding(10.dp)
             )
         }
     }
 }
 
 @Composable
-private fun ItemList(posts: List<Post>) {
+private fun ItemList(articles: List<Article>) {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        posts.forEach { post ->
+        articles.forEach { post ->
             ItemRow(post)
         }
     }
