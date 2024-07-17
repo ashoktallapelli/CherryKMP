@@ -79,6 +79,12 @@ kotlin {
             implementation(libs.ktor.logging)
             implementation(libs.ktor.negotiation)
             implementation(libs.kotlinx.serialization.json)
+
+            //Coil
+            implementation(libs.coil)
+            implementation(libs.coil.network.ktor)
+            implementation(libs.coil.compose.core)
+            implementation(libs.coil.compose)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
