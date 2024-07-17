@@ -24,6 +24,7 @@ navigation-compose = "2.7.7"
 androidx-navigation = "2.7.0-alpha06"
 lifecycleViewmodelCompose = "2.8.0"
 
+gmazzo-config = "5.3.5"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -81,3 +82,5 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
 
+#Used to read the values from config
+gmazzo-buildconfig = {id = "com.github.gmazzo.buildconfig", version.ref = "gmazzo-config"}

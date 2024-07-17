@@ -1,5 +1,7 @@
 package com.cherry.kmp.data.network
 
+import CherryKMP.shared.BuildConfig
+import com.cherry.kmp.data.Constants
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -23,10 +25,10 @@ val httpClient = HttpClient {
     defaultRequest {
         url {
             protocol = URLProtocol.HTTPS
-            host = NetworkConstants.NEWS_BASE_URL
+            host = BuildConfig.BASE_URL
             parameters.append(
-                NetworkConstants.API_KEY,
-                NetworkConstants.API_KEY_VALUE
+                Constants.API_KEY,
+                BuildConfig.API_KEY
             )
         }
         contentType(ContentType.Application.Json)

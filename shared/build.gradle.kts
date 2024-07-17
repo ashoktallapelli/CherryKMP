@@ -7,6 +7,8 @@ plugins {
     //Room
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
+    //Build config
+    alias(libs.plugins.gmazzo.buildconfig)
 }
 
 kotlin {
@@ -14,13 +16,7 @@ kotlin {
         kotlin.srcDir("build/generated/ksp/metadata")
     }
 
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
-        }
-    }
+    androidTarget()
 
     listOf(
         iosX64(),
@@ -120,8 +116,15 @@ dependencies {
     add("kspCommonMainMetadata", libs.room.compiler)
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().configureEach {
-    if (name != "kspCommonMainKotlinMetadata" ) {
-        dependsOn("kspCommonMainKotlinMetadata")
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
     }
+}
+
+buildConfig {
+    buildConfigField("APP_NAME", project.name)
+    buildConfigField("APP_VERSION", provider { "\"${project.version}\"" })
+    buildConfigField("BASE_URL", "newsapi.org")
+    buildConfigField("API_KEY", "api_key")
 }
