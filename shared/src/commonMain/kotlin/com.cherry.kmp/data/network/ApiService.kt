@@ -2,7 +2,6 @@ package com.cherry.kmp.data.network
 
 import com.cherry.kmp.data.network.ApiDefinition.ApiEndpoint.GetEverything
 import com.cherry.kmp.data.network.ApiDefinition.ApiEndpoint.GetPosts
-import com.cherry.kmp.data.network.ApiDefinition.ApiEndpoint.GetQuotes
 import com.cherry.kmp.data.network.ApiDefinition.ApiEndpoint.GetTopHeadlines
 import com.cherry.kmp.data.network.ApiDefinition.ApiField.PARAM_CATEGORY
 import com.cherry.kmp.data.network.ApiDefinition.ApiField.PARAM_COUNTRY
@@ -18,7 +17,6 @@ import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 
 class ApiService(private val client: HttpClient) {
-    suspend fun getQuotes() = client.get(GetQuotes.path)
     suspend fun getPosts() = client.get(GetPosts.path)
     suspend fun getEverything(request: NewsRequest) = client.get(GetEverything.path) {
 
