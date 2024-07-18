@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.NavHostController
 import com.cherry.kmp.domain.UiState
 import com.cherry.kmp.domain.model.Article
@@ -52,9 +53,14 @@ internal fun HeadlinesScreen(
 
 @Composable
 private fun ItemList(articles: List<Article>) {
+    val uriHandler = LocalUriHandler.current
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         articles.forEach { article ->
-            ArticleView(article)
+            ArticleView(article) {
+                article.url?.let {
+                    uriHandler.openUri(it)
+                }
+            }
         }
     }
 }

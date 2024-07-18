@@ -1,5 +1,6 @@
 package com.cherry.kmp.ui.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,11 +17,14 @@ import coil3.compose.AsyncImage
 import com.cherry.kmp.domain.model.Article
 
 @Composable
-fun ArticleView(article: Article) {
+fun ArticleView(article: Article, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(all = 10.dp)
             .fillMaxWidth()
+            .clickable {
+                onClick()
+            }
     ) {
         Column(modifier = Modifier.padding(all = 10.dp)) {
             AsyncImage(
