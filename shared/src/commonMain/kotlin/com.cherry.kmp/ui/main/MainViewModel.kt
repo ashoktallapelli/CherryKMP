@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cherry.kmp.data.local.entity.DataModelEntity
+import com.cherry.kmp.domain.DataConstants
 import com.cherry.kmp.domain.UiState
 import com.cherry.kmp.domain.model.NewsRequest
 import com.cherry.kmp.domain.model.NewsResults
@@ -30,9 +31,9 @@ class MainViewModel(
     }
 
     val newsEverything = mutableStateOf<UiState<NewsResults>>(UiState.Loading)
-    fun loadEverythingNews() {
+    fun loadEverythingNews(request: NewsRequest = getEverythingRequest()) {
         viewModelScope.launch {
-            getEverythingUseCase(getEverythingRequest()).collect { result ->
+            getEverythingUseCase(request).collect { result ->
                 newsEverything.value = result
             }
         }
@@ -77,10 +78,17 @@ class MainViewModel(
     }
 
     private fun getEverythingRequest(): NewsRequest {
-        return NewsRequest(query = "tesla", sortBy = "publishedAt")
+        return NewsRequest(query = DataConstants.QUERY_TELSA, sortBy = DataConstants.PUBLISHED_AT)
     }
 
     private fun getHeadlinesRequest(): NewsRequest {
-        return NewsRequest(country = "us", category = "business")
+        return NewsRequest(
+            query = null,
+            country = DataConstants.COUNTRY_INDIA
+        )
+    }
+
+    fun getEverythingRequestWithSource(source: String): NewsRequest {
+        return NewsRequest(query = null, sources = source)
     }
 }

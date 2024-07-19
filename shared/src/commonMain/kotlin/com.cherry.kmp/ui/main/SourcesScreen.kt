@@ -10,15 +10,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.NavHostController
+import cherrykmp.shared.generated.resources.Res
+import cherrykmp.shared.generated.resources.select_source
+import com.cherry.kmp.domain.DataConstants
 import com.cherry.kmp.domain.UiState
 import com.cherry.kmp.domain.model.Article
 import com.cherry.kmp.ui.component.ArticleView
 import com.cherry.kmp.ui.component.ErrorScreen
+import com.cherry.kmp.ui.component.ExposedDropdownView
 import com.cherry.kmp.ui.component.LoadingScreen
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 @Composable
-internal fun EverythingScreen(
+internal fun SourcesScreen(
     viewModel: MainViewModel = koinInject(),
     navController: NavHostController
 ) {
@@ -32,6 +37,17 @@ internal fun EverythingScreen(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        val items = DataConstants.SOURCE_LIST
+
+        ExposedDropdownView(
+            defaultItem = items[0].name.orEmpty(),
+            items = items,
+            label = stringResource(Res.string.select_source)
+        ) {
+            viewModel.loadEverythingNews(viewModel.getEverythingRequestWithSource(it.id.orEmpty()))
+        }
+
         when (val state = news.value) {
             is UiState.Initial -> {}
             is UiState.Loading -> {

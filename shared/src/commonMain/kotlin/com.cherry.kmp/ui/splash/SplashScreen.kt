@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -14,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import cherrykmp.shared.generated.resources.Res
 import cherrykmp.shared.generated.resources.compose_multiplatform
-import com.cherry.kmp.ui.theme.PrimaryColor
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 
@@ -37,7 +37,7 @@ internal fun SplashScreen(navigateToMain: () -> Unit, navigateToLogin: () -> Uni
 
 
     Column(
-        modifier = Modifier.background(PrimaryColor),
+        modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

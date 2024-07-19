@@ -2,11 +2,9 @@ package com.cherry.kmp.ui.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Newspaper
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Source
 import androidx.compose.material.icons.filled.ViewHeadline
 import androidx.compose.material.icons.outlined.Newspaper
-import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Source
 import androidx.compose.material.icons.outlined.ViewHeadline
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -36,10 +34,10 @@ sealed class MainNavigation(
         unSelectedIcon = Icons.Outlined.Source
     )
 
-    data object Profile : MainNavigation(
-        route = "profile", title = "Profile",
-        selectedIcon = Icons.Filled.Person,
-        unSelectedIcon = Icons.Outlined.Person
-    )
+//    data object Profile : MainNavigation(
+//        route = "profile", title = "Profile",
+//        selectedIcon = Icons.Filled.Person,
+//        unSelectedIcon = Icons.Outlined.Person
+//    )
 }
 

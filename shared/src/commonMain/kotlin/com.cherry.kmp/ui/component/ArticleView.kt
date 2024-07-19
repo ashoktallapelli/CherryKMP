@@ -1,10 +1,13 @@
 package com.cherry.kmp.ui.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,15 +21,19 @@ import com.cherry.kmp.domain.model.Article
 
 @Composable
 fun ArticleView(article: Article, onClick: () -> Unit) {
-    Card(
+    Box(
         modifier = Modifier
-            .padding(all = 10.dp)
             .fillMaxWidth()
+            .padding(4.dp)
+            .background(
+                color = MaterialTheme.colorScheme.surfaceContainer,
+                shape = RoundedCornerShape(8.dp)
+            )
             .clickable {
                 onClick()
             }
     ) {
-        Column(modifier = Modifier.padding(all = 10.dp)) {
+        Column(modifier = Modifier.padding(all = 4.dp)) {
             AsyncImage(
                 model = article.urlToImage,
                 contentDescription = article.author,

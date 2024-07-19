@@ -17,6 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cherrykmp.shared.generated.resources.Res
+import cherrykmp.shared.generated.resources.retry
+import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
@@ -43,7 +46,7 @@ fun ErrorScreen(errorMessage: String, onRetry: () -> Unit) {
         )
         Spacer_16dp()
         Button(onClick = onRetry) {
-            Text(text = "Retry")
+            Text(text = stringResource(Res.string.retry))
         }
     }
 }

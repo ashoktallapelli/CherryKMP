@@ -45,11 +45,11 @@ fun MainNav(logout: () -> Unit) {
                     HeadlinesScreen(navController = navBottomBarController)
                 }
                 composable(route = MainNavigation.Sources.route) {
-                    RemoteDataScreen(navController = navBottomBarController)
+                    SourcesScreen(navController = navBottomBarController)
                 }
-                composable(route = MainNavigation.Profile.route) {
+//                composable(route = MainNavigation.Profile.route) {
 //                    ProfileNav(logout = logout)
-                }
+//                }
             }
         }
 
@@ -83,7 +83,7 @@ fun BottomNavigationUI(
                 MainNavigation.Everything,
                 MainNavigation.Headlines,
                 MainNavigation.Sources,
-                MainNavigation.Profile,
+//                MainNavigation.Profile,
             )
             items.forEach {
                 NavigationBarItem(label = { Text(text = it.title) },

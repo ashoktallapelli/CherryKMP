@@ -50,12 +50,12 @@ fun DefaultButtonTheme() = buttonColors(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultTextFieldTheme() = textFieldColors(
-    focusedContainerColor = TextFieldColor,
-    unfocusedContainerColor = TextFieldColor,
+    focusedContainerColor = MaterialTheme.colorScheme.tertiary,
+    unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
     cursorColor = MaterialTheme.colorScheme.onBackground,
     focusedIndicatorColor = Color.Transparent,
     unfocusedIndicatorColor = Color.Transparent,
-    disabledContainerColor = TextFieldColor,
+    disabledContainerColor = MaterialTheme.colorScheme.tertiary,
     disabledTextColor = MaterialTheme.colorScheme.onBackground,
     disabledIndicatorColor = Color.Transparent,
 )
