@@ -13,29 +13,21 @@ This app displays news from different sources, with data sourced from [News API]
 
 ### Android
 
-<br>
-<img src='./screenshots/android/android1.png' width=200 height=400> <img src='./screenshots/android/android2.png'width=200 height=400> <img src='./screenshots/android/android3.png'width=200 height=400> <img src='./screenshots/android/android4.png'width=200 height=400>
-<br>
-
-https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/android/android1.png
-https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/android/android2.png
-https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/android/android3.png
-https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/android/android4.png
+<p>
+  <img src="screenshots/android/1.png" width="200" height="450"  alt=""/>
+  <img src="screenshots/android/2.png" width="200" height="450"  alt=""/>
+  <img src="screenshots/android/3.png" width="200" height="450"  alt=""/>
+  <img src="screenshots/android/4.png" width="200" height="450"  alt=""/>
+</p>
 
 ### iOS
 
-<br>
-<img src='./screenshots/ios/ios1.png'>
-<img src='./screenshots/ios/ios2.png'>
-<img src='./screenshots/ios/ios3.png'>
-<img src='./screenshots/ios/ios4.png'>
-<br>
-
-https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/ios/ios1.png
-https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/ios/ios2.png
-https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/ios/ios3.png
-https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/ios/ios4.png
-
+<p>
+  <img src="screenshots/ios/1.png" width="200" height="450"  alt=""/>
+  <img src="screenshots/ios/2.png" width="200" height="450"  alt=""/>
+  <img src="screenshots/ios/3.png" width="200" height="450"  alt=""/>
+  <img src="screenshots/ios/4.png" width="200" height="450"  alt=""/>
+</p>
 
 ## Tech Stack:
 
