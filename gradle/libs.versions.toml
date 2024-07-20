@@ -6,6 +6,7 @@ compose-material3 = "1.2.1"
 androidx-activityCompose = "1.9.0"
 compose-plugin = "1.6.11"
 composeUiTooling = "1.6.8"
+datastore = "1.1.1"
 
 room = "2.7.0-alpha05"
 ksp = "2.0.0-1.0.22"
@@ -15,6 +16,17 @@ koin = "3.5.4"
 koinCompose = "1.1.0"
 statelyCommon = "2.0.5"
 
+ktor = "2.3.11"
+kotlinx-serialization = "1.6.3"
+kotlinxCoroutinesCore = "1.8.1"
+
+navigation-compose = "2.7.7"
+androidx-navigation = "2.7.0-alpha06"
+lifecycleViewmodelCompose = "2.8.0"
+
+coil = "3.0.0-alpha06"
+gmazzo-config = "5.3.5"
+
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -23,11 +35,20 @@ compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = 
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "composeUiTooling" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "compose-material3" }
+compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
+datastore-preferences = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore" }
 
 #Gradle
 androidGradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 composeGradle = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose" }
 kotlinGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 #Room
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
@@ -42,6 +63,20 @@ koin-desktop = { module = "io.insert-koin:koin-desktop", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCompose" }
 stately-common = { module = "co.touchlab:stately-common", version.ref = "statelyCommon" }
 
+#Ktor
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor"}
+ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor"}
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+
+#Coil
+coil-compose = {module = "io.coil-kt.coil3:coil-compose", version.ref = "coil"}
+coil-compose-core = {module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil"}
+coil-network-ktor = {module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil"}
+coil = {module = "io.coil-kt.coil3:coil", version.ref = "coil"}
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -49,7 +84,10 @@ kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
 
+#Used to read the values from config
+gmazzo-buildconfig = {id = "com.github.gmazzo.buildconfig", version.ref = "gmazzo-config"}
