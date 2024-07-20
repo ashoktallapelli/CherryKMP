@@ -88,10 +88,8 @@ This app displays news from different sources, with data sourced from [News API]
 
 4. Build and run the app on your preferred device or emulator.
 
+5. To get the data from API, you will need an API key from [News API](https://newsapi.org/). 
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Code References
 
