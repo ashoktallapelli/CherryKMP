@@ -7,7 +7,9 @@
 
 This is a Compose-based Kotlin Multiplatform mobile application. It follows best practices and uses MVVM and clean architecture patterns.
 
-This app displays news from different sources, with data sourced from [News API](https://newsapi.org/).
+Kotlin Multiplatform (KMP) is a powerful feature of Kotlin that allows developers to share code between multiple platforms, including Android, iOS, web, and desktop. By writing common code once and using it across different platforms, KMP helps reduce code duplication and improve code maintainability. This approach allows you to focus on writing platform-specific code only where necessary, leading to a more efficient development process.
+
+This app gathers news from various sources, offering the latest information on different topics. All news data comes from the reliable [News API](https://newsapi.org/), ensuring users get the most recent news articles from around the world.
 
 ## Show case:
 
