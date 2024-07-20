@@ -1,5 +1,6 @@
 package com.cherry.kmp.domain.usecase
 
+import com.cherry.kmp.data.network.ResponseHandler
 import com.cherry.kmp.domain.model.NewsRequest
 import com.cherry.kmp.domain.model.NewsResults
 import com.cherry.kmp.domain.repository.Repository
@@ -11,6 +12,6 @@ class GetTopHeadlinesUseCase(
 ) : UseCase<NewsRequest, NewsResults>(dispatcher) {
 
     override suspend fun execute(params: NewsRequest): NewsResults {
-        return repository.getTopHeadlines(params)
+        return ResponseHandler.handleResponse(repository.getTopHeadlines(params))
     }
 }
