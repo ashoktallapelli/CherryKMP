@@ -14,10 +14,7 @@ This app displays news from different sources, with data sourced from [News API]
 ### Android
 
 <br>
-<img src='./screenshots/android/android1.png' width=100 height=300>
-<img src='./screenshots/android/android2.png'width=100 height=300>
-<img src='./screenshots/android/android3.png'width=100 height=300>
-<img src='./screenshots/android/android4.png'width=100 height=300>
+<img src='./screenshots/android/android1.png' width=200 height=400> <img src='./screenshots/android/android2.png'width=200 height=400> <img src='./screenshots/android/android3.png'width=200 height=400> <img src='./screenshots/android/android4.png'width=200 height=400>
 <br>
 
 https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/android/android1.png
