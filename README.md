@@ -13,12 +13,26 @@ This app displays news from different sources, with data sourced from [News API]
 
 ### Android
 
+<br>
+<img src='./screenshots/android/android1.png'>
+<img src='./screenshots/android/android2.png'>
+<img src='./screenshots/android/android3.png'>
+<img src='./screenshots/android/android4.png'>
+<br>
+
 https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/android/android1.png
 https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/android/android2.png
 https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/android/android3.png
 https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/android/android4.png
 
 ### iOS
+
+<br>
+<img src='./screenshots/ios/ios1.png'>
+<img src='./screenshots/ios/ios2.png'>
+<img src='./screenshots/ios/ios3.png'>
+<img src='./screenshots/ios/ios4.png'>
+<br>
 
 https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/ios/ios1.png
 https://github.com/ashoktallapelli/CherryKMP/blob/develop/screenshots/ios/ios2.png
