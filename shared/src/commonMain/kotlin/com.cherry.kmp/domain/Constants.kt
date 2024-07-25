@@ -2,7 +2,7 @@ package com.cherry.kmp.domain
 
 import com.cherry.kmp.domain.model.Source
 
-object DataConstants {
+object Constants {
     val SOURCE_LIST = listOf(
         Source("techcrunch", "TechCrunch"),
         Source("the-wall-street-journal", "The Wall Street Journal"),

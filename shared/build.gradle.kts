@@ -36,9 +36,6 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
-            implementation(libs.room.runtime.android)
-            implementation(libs.koin.android)
-            implementation(libs.compose.navigation)
         }
 
         @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
