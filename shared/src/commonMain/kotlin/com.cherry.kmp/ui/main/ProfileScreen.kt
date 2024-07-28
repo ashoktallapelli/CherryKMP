@@ -1,109 +1,214 @@
 package com.cherry.kmp.ui.main
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Save
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cherrykmp.shared.generated.resources.Res
-import cherrykmp.shared.generated.resources.compose_multiplatform
+import cherrykmp.shared.generated.resources.email
+import cherrykmp.shared.generated.resources.name
+import cherrykmp.shared.generated.resources.save
+import com.cherry.kmp.common.PermissionCallback
+import com.cherry.kmp.common.PermissionStatus
+import com.cherry.kmp.common.PermissionType
+import com.cherry.kmp.common.createPermissionsManager
+import com.cherry.kmp.common.rememberCameraManager
+import com.cherry.kmp.common.rememberGalleryManager
+import com.cherry.kmp.ui.component.CircleImage
+import com.cherry.kmp.ui.component.GeneralAlertDialog
+import com.cherry.kmp.ui.component.ImageOptionSheet
+import com.cherry.kmp.ui.component.RoundedButton
+import com.cherry.kmp.ui.component.Spacer_16dp
 import com.cherry.kmp.ui.component.Spacer_64dp
-import com.cherry.kmp.ui.component.Spacer_8dp
+import com.cherry.kmp.ui.component.UIComponentState
 import com.cherry.kmp.ui.main.viewmodel.ProfileViewModel
-import org.jetbrains.compose.resources.painterResource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ProfileScreen(
+internal fun ProfileScreen(
     viewModel: ProfileViewModel = koinInject(),
     navController: NavHostController
 ) {
-    val state by viewModel.state.collectAsState()
     LaunchedEffect(key1 = Unit) {
         viewModel.load()
     }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        // Profile Image
-        Image(
-            painter = painterResource(resource = Res.drawable.compose_multiplatform),
-            contentDescription = null,
-            modifier = Modifier
-                .size(120.dp)
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.primary)
-        )
 
-        Spacer(modifier = Modifier.height(16.dp))
+    val state by viewModel.state.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+    var imageBitmap by remember { mutableStateOf<ImageBitmap?>(null) }
 
-        // Name Field
-        OutlinedTextField(
-            value = state.name,
-            onValueChange = {
-                viewModel.setName(it)
-            },
-            label = { Text("Name") },
-            leadingIcon = { Icon(imageVector = Icons.Default.Person, contentDescription = null) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-        )
+    var launchCamera by remember { mutableStateOf(value = false) }
+    var launchGallery by remember { mutableStateOf(value = false) }
+    var launchSetting by remember { mutableStateOf(value = false) }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Email Field
-        OutlinedTextField(
-            value = state.email,
-            onValueChange = { viewModel.setEmail(it) },
-            label = { Text("Email") },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.MailOutline,
-                    contentDescription = null
-                )
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-        )
-
-        Spacer_64dp()
-
-        // Save Button
-        Button(
-            onClick = { viewModel.saveUserProfile() },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
+    val permissionsManager = createPermissionsManager(object : PermissionCallback {
+        override fun onPermissionStatus(
+            permissionType: PermissionType,
+            status: PermissionStatus
         ) {
-            Icon(imageVector = Icons.Default.Save, contentDescription = null)
-            Spacer_8dp()
-            Text("Save")
+            when (status) {
+                PermissionStatus.GRANTED -> {
+                    when (permissionType) {
+                        PermissionType.CAMERA -> launchCamera = true
+                        PermissionType.GALLERY -> launchGallery = true
+                    }
+                }
+
+                else -> {
+                    viewModel.setPermissionDialogState(UIComponentState.Show)
+                }
+            }
+        }
+    })
+
+    val cameraManager = rememberCameraManager {
+        coroutineScope.launch {
+            val bitmap = withContext(Dispatchers.Default) {
+                it?.toImageBitmap()
+            }
+            imageBitmap = bitmap
+        }
+    }
+
+    val galleryManager = rememberGalleryManager {
+        coroutineScope.launch {
+            val bitmap = withContext(Dispatchers.Default) {
+                it?.toImageBitmap()
+            }
+            imageBitmap = bitmap
+        }
+    }
+
+    if (launchGallery) {
+        if (permissionsManager.isPermissionGranted(PermissionType.GALLERY)) {
+            galleryManager.launch()
+        } else {
+            permissionsManager.AskPermission(PermissionType.GALLERY)
+        }
+        launchGallery = false
+    }
+    if (launchCamera) {
+        if (permissionsManager.isPermissionGranted(PermissionType.CAMERA)) {
+            cameraManager.launch()
+        } else {
+            permissionsManager.AskPermission(PermissionType.CAMERA)
+        }
+        launchCamera = false
+    }
+    if (launchSetting) {
+        permissionsManager.LaunchSettings()
+        launchSetting = false
+    }
+
+    if (state.permissionDialog == UIComponentState.Show) {
+        GeneralAlertDialog(title = "Permission Required",
+            message = "To set your profile picture, please grant this permission. You can manage permissions in your device settings.",
+            positiveButtonText = "Settings",
+            negativeButtonText = "Cancel",
+            onDismissRequest = {
+                viewModel.setPermissionDialogState(UIComponentState.Hide)
+            },
+            onPositiveClick = {
+                launchSetting = true
+            },
+            onNegativeClick = {
+            })
+    }
+
+    val sheetState =
+        androidx.compose.material.rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    val scope = rememberCoroutineScope()
+
+    androidx.compose.material.ModalBottomSheetLayout(
+        sheetState = sheetState,
+        sheetContent = {
+            ImageOptionSheet(
+                onGalleryClick = {
+                    scope.launch { sheetState.hide() }
+                    launchGallery = true
+                },
+                onCameraClick = {
+                    scope.launch { sheetState.hide() }
+                    launchCamera = true
+                }
+            )
+        }
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            // Profile Image
+            CircleImage(image = imageBitmap, modifier = Modifier.size(120.dp)) {
+                scope.launch { sheetState.show() }
+            }
+            Spacer_16dp()
+            // Name Field
+            OutlinedTextField(
+                value = state.name,
+                onValueChange = {
+                    viewModel.setName(it)
+                },
+                label = { Text(stringResource(Res.string.name)) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = null
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            )
+            Spacer_16dp()
+            // Email Field
+            OutlinedTextField(
+                value = state.email,
+                onValueChange = { viewModel.setEmail(it) },
+                label = { Text(stringResource(Res.string.email)) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.MailOutline,
+                        contentDescription = null
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            )
+            Spacer_64dp()
+            // Save Button
+            RoundedButton(text = stringResource(Res.string.save), image = Icons.Default.Save) {
+                viewModel.saveUserProfile()
+            }
         }
     }
 }
