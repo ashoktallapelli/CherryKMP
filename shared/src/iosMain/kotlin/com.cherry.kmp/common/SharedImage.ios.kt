@@ -26,9 +26,7 @@ actual class SharedImage(private val image: UIImage?) {
         } else {
             null
         }
-
     }
-
 
     actual fun toImageBitmap(): ImageBitmap? {
         val byteArray = toByteArray()
@@ -42,7 +40,6 @@ actual class SharedImage(private val image: UIImage?) {
     private companion object {
         const val COMPRESSION_QUALITY = 0.99
     }
-
 }
 
 
@@ -54,7 +51,7 @@ private fun compressImage(uiImage: UIImage): UIImage? {
     if (imageSize == -1) return null
     if (resizedImageData == null) return null
 
-    var tryCounter: Int = 5
+    var tryCounter = 5
     while (imageSize > 500000) {
         resizedImageData = UIImageJPEGRepresentation(photo, 0.75)
         imageSize = resizedImageData?.length?.toInt() ?: -1
@@ -65,9 +62,9 @@ private fun compressImage(uiImage: UIImage): UIImage? {
             return null
         }
     }
-    if (imageSize < 500000) {
-        return photo
+    return if (imageSize < 500000) {
+        photo
     } else {
-        return null
+        null
     }
 }

@@ -21,6 +21,7 @@ import com.cherry.kmp.domain.UiState
 import com.cherry.kmp.domain.model.Post
 import com.cherry.kmp.ui.component.ErrorScreen
 import com.cherry.kmp.ui.component.LoadingScreen
+import com.cherry.kmp.ui.main.viewmodel.MainViewModel
 import org.koin.compose.koinInject
 
 @Composable

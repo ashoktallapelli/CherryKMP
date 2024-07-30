@@ -27,15 +27,20 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cherrykmp.shared.generated.resources.Res
+import cherrykmp.shared.generated.resources.cancel
 import cherrykmp.shared.generated.resources.email
 import cherrykmp.shared.generated.resources.name
+import cherrykmp.shared.generated.resources.permission_description
+import cherrykmp.shared.generated.resources.permission_required
 import cherrykmp.shared.generated.resources.save
+import cherrykmp.shared.generated.resources.settings
 import com.cherry.kmp.common.PermissionCallback
 import com.cherry.kmp.common.PermissionStatus
 import com.cherry.kmp.common.PermissionType
 import com.cherry.kmp.common.createPermissionsManager
 import com.cherry.kmp.common.rememberCameraManager
 import com.cherry.kmp.common.rememberGalleryManager
+import com.cherry.kmp.common.toImageBitmap
 import com.cherry.kmp.ui.component.CircleImage
 import com.cherry.kmp.ui.component.GeneralAlertDialog
 import com.cherry.kmp.ui.component.ImageOptionSheet
@@ -88,6 +93,7 @@ internal fun ProfileScreen(
         }
     })
 
+
     val cameraManager = rememberCameraManager {
         coroutineScope.launch {
             val bitmap = withContext(Dispatchers.Default) {
@@ -100,7 +106,7 @@ internal fun ProfileScreen(
     val galleryManager = rememberGalleryManager {
         coroutineScope.launch {
             val bitmap = withContext(Dispatchers.Default) {
-                it?.toImageBitmap()
+                it?.toByteArray()?.toImageBitmap()
             }
             imageBitmap = bitmap
         }
@@ -114,6 +120,7 @@ internal fun ProfileScreen(
         }
         launchGallery = false
     }
+
     if (launchCamera) {
         if (permissionsManager.isPermissionGranted(PermissionType.CAMERA)) {
             cameraManager.launch()
@@ -128,18 +135,9 @@ internal fun ProfileScreen(
     }
 
     if (state.permissionDialog == UIComponentState.Show) {
-        GeneralAlertDialog(title = "Permission Required",
-            message = "To set your profile picture, please grant this permission. You can manage permissions in your device settings.",
-            positiveButtonText = "Settings",
-            negativeButtonText = "Cancel",
-            onDismissRequest = {
-                viewModel.setPermissionDialogState(UIComponentState.Hide)
-            },
-            onPositiveClick = {
-                launchSetting = true
-            },
-            onNegativeClick = {
-            })
+        showPermissionDialog({ launchSetting = true }, {
+            viewModel.setPermissionDialogState(UIComponentState.Hide)
+        })
     }
 
     val sheetState =
@@ -211,4 +209,16 @@ internal fun ProfileScreen(
             }
         }
     }
+}
+
+@Composable
+internal fun showPermissionDialog(onPositiveClick: () -> Unit, onDismiss: () -> Unit) {
+    GeneralAlertDialog(title = stringResource(Res.string.permission_required),
+        message = stringResource(Res.string.permission_description),
+        positiveButtonText = stringResource(Res.string.settings),
+        negativeButtonText = stringResource(Res.string.cancel),
+        onDismissRequest = onDismiss,
+        onPositiveClick = onPositiveClick,
+        onNegativeClick = {
+        })
 }

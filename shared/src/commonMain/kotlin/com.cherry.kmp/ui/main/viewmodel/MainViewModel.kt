@@ -1,4 +1,4 @@
-package com.cherry.kmp.ui.main
+package com.cherry.kmp.ui.main.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
