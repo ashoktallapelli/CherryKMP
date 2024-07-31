@@ -1,5 +1,6 @@
 package com.cherry.kmp.data.local.entity
 
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.cherry.kmp.domain.model.UserProfile
@@ -11,7 +12,7 @@ data class UserProfileEntity(
     val id: Long = 0,
     val name: String,
     val email: String,
-    val image: String? = null
+    val image: ImageBitmap? = null
 )
 
 fun UserProfileEntity.asExternalModel() = UserProfile(

@@ -67,7 +67,6 @@ internal fun ProfileScreen(
 
     val state by viewModel.state.collectAsState()
     val coroutineScope = rememberCoroutineScope()
-    var imageBitmap by remember { mutableStateOf<ImageBitmap?>(null) }
 
     var launchCamera by remember { mutableStateOf(value = false) }
     var launchGallery by remember { mutableStateOf(value = false) }
@@ -99,7 +98,7 @@ internal fun ProfileScreen(
             val bitmap = withContext(Dispatchers.Default) {
                 it?.toImageBitmap()
             }
-            imageBitmap = bitmap
+            viewModel.setProfileImage(bitmap)
         }
     }
 
@@ -108,7 +107,7 @@ internal fun ProfileScreen(
             val bitmap = withContext(Dispatchers.Default) {
                 it?.toByteArray()?.toImageBitmap()
             }
-            imageBitmap = bitmap
+            viewModel.setProfileImage(bitmap)
         }
     }
 
@@ -165,7 +164,7 @@ internal fun ProfileScreen(
                 .padding(16.dp)
         ) {
             // Profile Image
-            CircleImage(image = imageBitmap, modifier = Modifier.size(120.dp)) {
+            CircleImage(image = state.image, modifier = Modifier.size(120.dp)) {
                 scope.launch { sheetState.show() }
             }
             Spacer_16dp()

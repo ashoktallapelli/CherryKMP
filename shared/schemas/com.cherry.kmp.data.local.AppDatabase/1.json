@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a263cdbd839d0ae3bac03136b4941afd",
+    "identityHash": "7f688b83bce9d022d349834e3575ea34",
     "entities": [
       {
         "tableName": "data_table",
@@ -30,7 +30,7 @@
       },
       {
         "tableName": "user_profile",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `email` TEXT NOT NULL, `image` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `email` TEXT NOT NULL, `image` BLOB)",
         "fields": [
           {
             "fieldPath": "id",
@@ -53,7 +53,7 @@
           {
             "fieldPath": "image",
             "columnName": "image",
-            "affinity": "TEXT"
+            "affinity": "BLOB"
           }
         ],
         "primaryKey": {
@@ -66,7 +66,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a263cdbd839d0ae3bac03136b4941afd')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7f688b83bce9d022d349834e3575ea34')"
     ]
   }
 }
