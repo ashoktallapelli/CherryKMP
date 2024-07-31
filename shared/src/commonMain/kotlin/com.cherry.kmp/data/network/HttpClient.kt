@@ -1,7 +1,7 @@
 package com.cherry.kmp.data.network
 
 import CherryKMP.shared.BuildConfig
-import com.cherry.kmp.data.Constants
+import com.cherry.kmp.data.DataConstants
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -27,7 +27,7 @@ val httpClient = HttpClient {
             protocol = URLProtocol.HTTPS
             host = BuildConfig.BASE_URL
             parameters.append(
-                Constants.API_KEY,
+                DataConstants.API_KEY,
                 BuildConfig.API_KEY
             )
         }

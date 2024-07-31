@@ -3,6 +3,9 @@ package com.cherry.kmp.data.repository
 import com.cherry.kmp.data.local.AppDataStore
 import com.cherry.kmp.data.local.AppDatabase
 import com.cherry.kmp.data.local.entity.DataModelEntity
+import com.cherry.kmp.data.local.entity.asEntity
+import com.cherry.kmp.data.local.entity.asExternalModel
+import com.cherry.kmp.domain.model.UserProfile
 import com.cherry.kmp.domain.repository.LocalDataRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -41,6 +44,26 @@ class LocalDataRepositoryImpl(
 
     override fun getAllAsFlow(): Flow<List<DataModelEntity>> {
         return db.dataDao().getAllAsFlow()
+    }
+
+    override suspend fun insertUserProfile(userProfile: UserProfile) {
+        withContext(dispatcher) {
+            db.userProfileDao().save(userProfile.asEntity())
+        }
+    }
+
+    override suspend fun getAllUserProfiles(): List<UserProfile> {
+        return withContext(dispatcher) {
+            db.userProfileDao().getAll().map {
+                it.asExternalModel()
+            }
+        }
+    }
+
+    override suspend fun getUserProfile(userId: Long): UserProfile? {
+        return withContext(dispatcher) {
+            db.userProfileDao().get(userId = userId)?.asExternalModel()
+        }
     }
 
     override suspend fun count(): Int {

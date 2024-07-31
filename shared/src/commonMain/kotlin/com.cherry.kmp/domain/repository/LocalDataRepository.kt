@@ -1,6 +1,7 @@
 package com.cherry.kmp.domain.repository
 
 import com.cherry.kmp.data.local.entity.DataModelEntity
+import com.cherry.kmp.domain.model.UserProfile
 import kotlinx.coroutines.flow.Flow
 
 
@@ -14,6 +15,10 @@ interface LocalDataRepository {
     fun getAllAsFlow(): Flow<List<DataModelEntity>>
     suspend fun count(): Int
     suspend fun deleteAll()
+
+    suspend fun insertUserProfile(userProfile: UserProfile)
+    suspend fun getUserProfile(userId: Long): UserProfile?
+    suspend fun getAllUserProfiles(): List<UserProfile>
 
     //Data Store
     suspend fun getLanguage(): String?

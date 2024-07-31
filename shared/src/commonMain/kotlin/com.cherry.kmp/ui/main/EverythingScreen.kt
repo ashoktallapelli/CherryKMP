@@ -15,6 +15,7 @@ import com.cherry.kmp.domain.model.Article
 import com.cherry.kmp.ui.component.ArticleView
 import com.cherry.kmp.ui.component.ErrorScreen
 import com.cherry.kmp.ui.component.LoadingScreen
+import com.cherry.kmp.ui.main.viewmodel.MainViewModel
 import org.koin.compose.koinInject
 
 @Composable

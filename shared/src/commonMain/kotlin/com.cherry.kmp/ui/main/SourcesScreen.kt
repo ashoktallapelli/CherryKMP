@@ -12,13 +12,14 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.NavHostController
 import cherrykmp.shared.generated.resources.Res
 import cherrykmp.shared.generated.resources.select_source
-import com.cherry.kmp.domain.DataConstants
+import com.cherry.kmp.domain.Constants
 import com.cherry.kmp.domain.UiState
 import com.cherry.kmp.domain.model.Article
 import com.cherry.kmp.ui.component.ArticleView
 import com.cherry.kmp.ui.component.ErrorScreen
 import com.cherry.kmp.ui.component.ExposedDropdownView
 import com.cherry.kmp.ui.component.LoadingScreen
+import com.cherry.kmp.ui.main.viewmodel.MainViewModel
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
@@ -38,7 +39,7 @@ internal fun SourcesScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        val items = DataConstants.SOURCE_LIST
+        val items = Constants.SOURCE_LIST
 
         ExposedDropdownView(
             defaultItem = items[0].name.orEmpty(),

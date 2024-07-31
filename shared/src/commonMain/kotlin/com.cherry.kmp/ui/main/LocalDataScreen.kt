@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.cherry.kmp.data.local.entity.DataModelEntity
+import com.cherry.kmp.ui.main.viewmodel.MainViewModel
 import org.koin.compose.koinInject
 import kotlin.random.Random
 

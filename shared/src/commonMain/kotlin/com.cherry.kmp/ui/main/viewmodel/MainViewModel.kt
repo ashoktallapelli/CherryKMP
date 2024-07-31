@@ -1,10 +1,10 @@
-package com.cherry.kmp.ui.main
+package com.cherry.kmp.ui.main.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cherry.kmp.data.local.entity.DataModelEntity
-import com.cherry.kmp.domain.DataConstants
+import com.cherry.kmp.domain.Constants
 import com.cherry.kmp.domain.UiState
 import com.cherry.kmp.domain.model.NewsRequest
 import com.cherry.kmp.domain.model.NewsResults
@@ -78,13 +78,13 @@ class MainViewModel(
     }
 
     private fun getEverythingRequest(): NewsRequest {
-        return NewsRequest(query = DataConstants.QUERY_TELSA, sortBy = DataConstants.PUBLISHED_AT)
+        return NewsRequest(query = Constants.QUERY_TELSA, sortBy = Constants.PUBLISHED_AT)
     }
 
     private fun getHeadlinesRequest(): NewsRequest {
         return NewsRequest(
             query = null,
-            country = DataConstants.COUNTRY_INDIA
+            country = Constants.COUNTRY_INDIA
         )
     }
 
