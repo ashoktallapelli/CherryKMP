@@ -22,6 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.cherry.kmp.ui.main.profile.ProfileNav
 import com.cherry.kmp.ui.navigation.MainNavigation
 import com.cherry.kmp.ui.theme.DefaultNavigationBarItemTheme
 
@@ -48,7 +49,8 @@ fun MainNav(logout: () -> Unit) {
                     SourcesScreen(navController = navBottomBarController)
                 }
                 composable(route = MainNavigation.Profile.route) {
-                    ProfileScreen(navController = navBottomBarController)
+                    ProfileNav(navigateToMain = {
+                    })
                 }
             }
         }

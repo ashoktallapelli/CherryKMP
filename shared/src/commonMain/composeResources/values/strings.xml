@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">Cherry KMP</string>
     <string name="select_source">Select Source</string>
+    <string name="all_news">All News</string>
+    <string name="news_headlines">News Headlines</string>
+    <string name="news_sources">News from Sources</string>
+    <string name="everything">Everything</string>
+    <string name="headlines">Headlines</string>
+    <string name="sources">Sources</string>
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
     <string name="retry">Retry</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
@@ -10,6 +18,8 @@
     <string name="camera">Camera</string>
     <string name="settings">Settings</string>
     <string name="cancel">Cancel</string>
+    <string name="back">Back</string>
+    <string name="edit">Edit</string>
     <string name="permission_required">Permission Required</string>
     <string name="permission_description">To set your profile picture, please grant this permission. You can manage permissions in your device settings.</string>
 </resources>
