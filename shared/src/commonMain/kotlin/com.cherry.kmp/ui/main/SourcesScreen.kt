@@ -39,7 +39,7 @@ internal fun SourcesScreen(
         MyToolbar(title = stringResource(Res.string.sources),
             showNavigation = false,
             showEditIcon = false,
-            onBackClick = {},
+            onNavigationClick = {},
             onEditClick = {})
     }, content = {
         Column(

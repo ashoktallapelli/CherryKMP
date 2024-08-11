@@ -9,6 +9,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Save
@@ -148,8 +149,9 @@ internal fun EditProfileScreen(
             MyToolbar(
                 title = stringResource(Res.string.edit_profile),
                 showNavigation = true,
+                navigationIcon = Icons.Filled.Close,
                 showEditIcon = false,
-                onBackClick = {
+                onNavigationClick = {
                     navigateToProfile()
                 }, {})
         },

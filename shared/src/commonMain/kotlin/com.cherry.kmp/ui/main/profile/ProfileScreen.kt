@@ -51,7 +51,7 @@ internal fun ProfileScreen(
             title = stringResource(Res.string.profile),
             showNavigation = false,
             showEditIcon = true,
-            onBackClick = {},
+            onNavigationClick = {},
             onEditClick = { navigateToEditProfile() })
     },
         content = {

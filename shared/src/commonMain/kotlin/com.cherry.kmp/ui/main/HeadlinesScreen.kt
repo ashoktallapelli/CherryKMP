@@ -39,7 +39,7 @@ internal fun HeadlinesScreen(
             title = stringResource(Res.string.news_headlines),
             showNavigation = false,
             showEditIcon = false,
-            onBackClick = {},
+            onNavigationClick = {},
             onEditClick = {})
     },
         content = {

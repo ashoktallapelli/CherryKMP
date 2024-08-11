@@ -39,7 +39,7 @@ internal fun EverythingScreen(
             title = stringResource(Res.string.all_news),
             showNavigation = false,
             showEditIcon = false,
-            onBackClick = {},
+            onNavigationClick = {},
             onEditClick = {})
     },
         content = {

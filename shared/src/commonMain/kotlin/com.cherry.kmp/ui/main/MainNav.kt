@@ -22,34 +22,54 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.cherry.kmp.ui.main.profile.ProfileNav
+import com.cherry.kmp.ui.main.profile.EditProfileScreen
+import com.cherry.kmp.ui.main.profile.ProfileScreen
 import com.cherry.kmp.ui.navigation.MainNavigation
 import com.cherry.kmp.ui.theme.DefaultNavigationBarItemTheme
 
 @Composable
 fun MainNav(logout: () -> Unit) {
 
-    val navBottomBarController = rememberNavController()
+    val navController = rememberNavController()
+    val currentDestination =
+        navController.currentBackStackEntryAsState().value?.destination
+
+    val shouldShowBottomBar = when (currentDestination?.route) {
+        MainNavigation.Everything.route,
+        MainNavigation.Headlines.route,
+        MainNavigation.Sources.route,
+        MainNavigation.Profile.route -> true
+
+        else -> false
+    }
     Scaffold(bottomBar = {
-        BottomNavigationUI(navController = navBottomBarController)
+        if (shouldShowBottomBar) {
+            BottomNavigationUI(navController = navController)
+        }
     }) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             NavHost(
                 startDestination = MainNavigation.Everything.route,
-                navController = navBottomBarController,
+                navController = navController,
                 modifier = Modifier.fillMaxSize()
             ) {
                 composable(route = MainNavigation.Everything.route) {
-                    EverythingScreen(navController = navBottomBarController)
+                    EverythingScreen(navController = navController)
                 }
                 composable(route = MainNavigation.Headlines.route) {
-                    HeadlinesScreen(navController = navBottomBarController)
+                    HeadlinesScreen(navController = navController)
                 }
                 composable(route = MainNavigation.Sources.route) {
-                    SourcesScreen(navController = navBottomBarController)
+                    SourcesScreen(navController = navController)
                 }
                 composable(route = MainNavigation.Profile.route) {
-                    ProfileNav(navigateToMain = {
+                    ProfileScreen(navigateToEditProfile = {
+                        navController.navigate(MainNavigation.EditProfile.route)
+                    })
+                }
+                composable(route = MainNavigation.EditProfile.route) {
+                    EditProfileScreen(navigateToProfile = {
+                        navController.navigate(MainNavigation.Profile.route)
                     })
                 }
             }
@@ -92,10 +112,12 @@ fun BottomNavigationUI(
                     colors = DefaultNavigationBarItemTheme(),
                     selected = it.route == currentRoute,
                     icon = {
-                        Icon(
-                            if (it.route == currentRoute) it.selectedIcon else it.unSelectedIcon,
-                            it.title
-                        )
+                        (if (it.route == currentRoute) it.selectedIcon else it.unSelectedIcon)?.let { it1 ->
+                            Icon(
+                                it1,
+                                it.title
+                            )
+                        }
                     },
                     onClick = {
                         if (currentRoute != it.route) {
