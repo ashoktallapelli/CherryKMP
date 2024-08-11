@@ -1,4 +1,4 @@
-package com.cherry.kmp.ui.main
+package com.cherry.kmp.ui.main.profile
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Save
@@ -23,11 +25,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import cherrykmp.shared.generated.resources.Res
 import cherrykmp.shared.generated.resources.cancel
+import cherrykmp.shared.generated.resources.edit_profile
 import cherrykmp.shared.generated.resources.email
 import cherrykmp.shared.generated.resources.name
 import cherrykmp.shared.generated.resources.permission_description
@@ -44,11 +45,11 @@ import com.cherry.kmp.common.toImageBitmap
 import com.cherry.kmp.ui.component.CircleImage
 import com.cherry.kmp.ui.component.GeneralAlertDialog
 import com.cherry.kmp.ui.component.ImageOptionSheet
+import com.cherry.kmp.ui.component.MyToolbar
 import com.cherry.kmp.ui.component.RoundedButton
 import com.cherry.kmp.ui.component.Spacer_16dp
 import com.cherry.kmp.ui.component.Spacer_64dp
 import com.cherry.kmp.ui.component.UIComponentState
-import com.cherry.kmp.ui.main.viewmodel.ProfileViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -57,9 +58,9 @@ import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-internal fun ProfileScreen(
+internal fun EditProfileScreen(
     viewModel: ProfileViewModel = koinInject(),
-    navController: NavHostController
+    navigateToProfile: () -> Unit,
 ) {
     LaunchedEffect(key1 = Unit) {
         viewModel.load()
@@ -143,71 +144,89 @@ internal fun ProfileScreen(
         androidx.compose.material.rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
 
-    androidx.compose.material.ModalBottomSheetLayout(
-        sheetState = sheetState,
-        sheetContent = {
-            ImageOptionSheet(
-                onGalleryClick = {
-                    scope.launch { sheetState.hide() }
-                    launchGallery = true
-                },
-                onCameraClick = {
-                    scope.launch { sheetState.hide() }
-                    launchCamera = true
+    Scaffold(
+        topBar = {
+            MyToolbar(
+                title = stringResource(Res.string.edit_profile),
+                showNavigation = true,
+                navigationIcon = Icons.Filled.Close,
+                showEditIcon = false,
+                onNavigationClick = {
+                    navigateToProfile()
+                }, {})
+        },
+        content = {
+            androidx.compose.material.ModalBottomSheetLayout(
+                sheetState = sheetState,
+                sheetContent = {
+                    ImageOptionSheet(
+                        onGalleryClick = {
+                            scope.launch { sheetState.hide() }
+                            launchGallery = true
+                        },
+                        onCameraClick = {
+                            scope.launch { sheetState.hide() }
+                            launchCamera = true
+                        }
+                    )
                 }
-            )
-        }
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
-            // Profile Image
-            CircleImage(image = state.image, modifier = Modifier.size(120.dp)) {
-                scope.launch { sheetState.show() }
-            }
-            Spacer_16dp()
-            // Name Field
-            OutlinedTextField(
-                value = state.name,
-                onValueChange = {
-                    viewModel.setName(it)
-                },
-                label = { Text(stringResource(Res.string.name)) },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        contentDescription = null
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                ) {
+                    // Profile Image
+                    CircleImage(image = state.image, modifier = Modifier.size(120.dp)) {
+                        scope.launch { sheetState.show() }
+                    }
+                    Spacer_16dp()
+                    // Name Field
+                    OutlinedTextField(
+                        value = state.name,
+                        onValueChange = {
+                            viewModel.setName(it)
+                        },
+                        label = { Text(stringResource(Res.string.name)) },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Person,
+                                contentDescription = null
+                            )
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
                     )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-            )
-            Spacer_16dp()
-            // Email Field
-            OutlinedTextField(
-                value = state.email,
-                onValueChange = { viewModel.setEmail(it) },
-                label = { Text(stringResource(Res.string.email)) },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.MailOutline,
-                        contentDescription = null
+                    Spacer_16dp()
+                    // Email Field
+                    OutlinedTextField(
+                        value = state.email,
+                        onValueChange = { viewModel.setEmail(it) },
+                        label = { Text(stringResource(Res.string.email)) },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.MailOutline,
+                                contentDescription = null
+                            )
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
                     )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-            )
-            Spacer_64dp()
-            // Save Button
-            RoundedButton(text = stringResource(Res.string.save), image = Icons.Default.Save) {
-                viewModel.saveUserProfile()
+                    Spacer_64dp()
+                    // Save Button
+                    RoundedButton(
+                        text = stringResource(Res.string.save),
+                        image = Icons.Default.Save
+                    ) {
+                        viewModel.saveUserProfile()
+                        navigateToProfile()
+                    }
+                }
             }
         }
-    }
+    )
 }
 
 @Composable

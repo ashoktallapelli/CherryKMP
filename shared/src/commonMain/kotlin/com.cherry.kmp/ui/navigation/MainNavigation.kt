@@ -14,8 +14,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 sealed class MainNavigation(
     val route: String,
     val title: String,
-    val selectedIcon: ImageVector,
-    val unSelectedIcon: ImageVector,
+    val selectedIcon: ImageVector? = null,
+    val unSelectedIcon: ImageVector? = null,
 ) {
 
     data object Everything : MainNavigation(
@@ -40,6 +40,10 @@ sealed class MainNavigation(
         route = "profile", title = "Profile",
         selectedIcon = Icons.Filled.Person,
         unSelectedIcon = Icons.Outlined.Person
+    )
+
+    data object EditProfile : MainNavigation(
+        route = "editProfile", title = "Edit Profile"
     )
 }
 

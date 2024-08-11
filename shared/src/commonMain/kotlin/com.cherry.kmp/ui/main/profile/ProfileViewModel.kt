@@ -1,4 +1,4 @@
-package com.cherry.kmp.ui.main.viewmodel
+package com.cherry.kmp.ui.main.profile
 
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.ViewModel

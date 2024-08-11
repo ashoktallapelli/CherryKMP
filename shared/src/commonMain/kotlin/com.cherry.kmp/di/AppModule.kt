@@ -5,7 +5,7 @@ import com.cherry.kmp.domain.usecase.GetPostsUseCase
 import com.cherry.kmp.domain.usecase.GetTopHeadlinesUseCase
 import com.cherry.kmp.domain.usecase.LocalDataUseCase
 import com.cherry.kmp.ui.main.viewmodel.MainViewModel
-import com.cherry.kmp.ui.main.viewmodel.ProfileViewModel
+import com.cherry.kmp.ui.main.profile.ProfileViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.dsl.module
