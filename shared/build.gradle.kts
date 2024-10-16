@@ -60,6 +60,7 @@ kotlin {
             implementation(libs.androidx.navigation.compose)
 
             //Koin
+            implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             // required by koin
@@ -106,8 +107,8 @@ android {
         minSdk = 28
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
