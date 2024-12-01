@@ -28,7 +28,7 @@ internal fun HeadlinesScreen(
     viewModel: MainViewModel = koinInject(),
     navController: NavHostController
 ) {
-    val uiState = viewModel.newsHeadlines
+    val uiState = viewModel.newsHeadlinesUiState
 
     LaunchedEffect(key1 = Unit) {
         viewModel.loadHeadlinesNews()
