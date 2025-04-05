@@ -4,10 +4,10 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.serialization)
-    //Room
+    // Room
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
-    //Build config
+    // Build config
     alias(libs.plugins.gmazzo.buildconfig)
 }
 
