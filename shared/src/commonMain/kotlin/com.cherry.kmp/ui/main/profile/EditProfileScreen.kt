@@ -63,10 +63,10 @@ internal fun EditProfileScreen(
     navigateToProfile: () -> Unit,
 ) {
     LaunchedEffect(key1 = Unit) {
-        viewModel.load()
+        viewModel.loadUserProfile()
     }
 
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.uiState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
 
     var launchCamera by remember { mutableStateOf(value = false) }
@@ -87,7 +87,7 @@ internal fun EditProfileScreen(
                 }
 
                 else -> {
-                    viewModel.setPermissionDialogState(UIComponentState.Show)
+                    viewModel.updatePermissionDialogState(UIComponentState.Show)
                 }
             }
         }
@@ -99,7 +99,7 @@ internal fun EditProfileScreen(
             val bitmap = withContext(Dispatchers.Default) {
                 it?.toImageBitmap()
             }
-            viewModel.setProfileImage(bitmap)
+            viewModel.updateProfileImage(bitmap)
         }
     }
 
@@ -108,7 +108,7 @@ internal fun EditProfileScreen(
             val bitmap = withContext(Dispatchers.Default) {
                 it?.toByteArray()?.toImageBitmap()
             }
-            viewModel.setProfileImage(bitmap)
+            viewModel.updateProfileImage(bitmap)
         }
     }
 
@@ -136,7 +136,7 @@ internal fun EditProfileScreen(
 
     if (state.permissionDialog == UIComponentState.Show) {
         showPermissionDialog({ launchSetting = true }, {
-            viewModel.setPermissionDialogState(UIComponentState.Hide)
+            viewModel.updatePermissionDialogState(UIComponentState.Hide)
         })
     }
 
@@ -185,7 +185,7 @@ internal fun EditProfileScreen(
                     OutlinedTextField(
                         value = state.name,
                         onValueChange = {
-                            viewModel.setName(it)
+                            viewModel.updateName(it)
                         },
                         label = { Text(stringResource(Res.string.name)) },
                         leadingIcon = {
@@ -202,7 +202,7 @@ internal fun EditProfileScreen(
                     // Email Field
                     OutlinedTextField(
                         value = state.email,
-                        onValueChange = { viewModel.setEmail(it) },
+                        onValueChange = { viewModel.updateEmail(it) },
                         label = { Text(stringResource(Res.string.email)) },
                         leadingIcon = {
                             Icon(

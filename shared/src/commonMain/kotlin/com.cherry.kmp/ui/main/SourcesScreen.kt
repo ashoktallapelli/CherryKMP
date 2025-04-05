@@ -30,7 +30,7 @@ import org.koin.compose.koinInject
 internal fun SourcesScreen(
     viewModel: MainViewModel = koinInject(), navController: NavHostController
 ) {
-    val news = viewModel.newsEverything
+    val news = viewModel.newsEverythingUiState
 
     LaunchedEffect(key1 = Unit) {
         viewModel.loadEverythingNews()

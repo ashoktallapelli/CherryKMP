@@ -39,9 +39,9 @@ internal fun ProfileScreen(
     navigateToEditProfile: () -> Unit,
 ) {
     LaunchedEffect(key1 = Unit) {
-        viewModel.load()
+        viewModel.loadUserProfile()
     }
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.uiState.collectAsState()
     val sheetState =
         androidx.compose.material.rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
@@ -70,7 +70,7 @@ internal fun ProfileScreen(
                     enabled = false,
                     value = state.name,
                     onValueChange = {
-                        viewModel.setName(it)
+                        viewModel.updateName(it)
                     },
                     label = { Text(stringResource(Res.string.name)) },
                     leadingIcon = {
@@ -88,7 +88,7 @@ internal fun ProfileScreen(
                 OutlinedTextField(
                     enabled = false,
                     value = state.email,
-                    onValueChange = { viewModel.setEmail(it) },
+                    onValueChange = { viewModel.updateEmail(it) },
                     label = { Text(stringResource(Res.string.email)) },
                     leadingIcon = {
                         Icon(

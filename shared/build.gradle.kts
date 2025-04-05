@@ -4,10 +4,10 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.serialization)
-    //Room
+    // Room
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
-    //Build config
+    // Build config
     alias(libs.plugins.gmazzo.buildconfig)
 }
 
@@ -60,6 +60,7 @@ kotlin {
             implementation(libs.androidx.navigation.compose)
 
             //Koin
+            implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             // required by koin
@@ -106,8 +107,8 @@ android {
         minSdk = 28
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 

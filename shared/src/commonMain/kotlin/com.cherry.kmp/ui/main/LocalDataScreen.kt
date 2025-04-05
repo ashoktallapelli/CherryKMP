@@ -35,10 +35,10 @@ internal fun LocalDataScreen(
 ) {
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.getAllValues()
+        viewModel.loadAllLocalItems()
     }
 
-    val items = viewModel.allItems
+    val items = viewModel.allLocalItems
     var tappedItem by remember { mutableStateOf<DataModelEntity?>(null) }
     Column(
         Modifier
@@ -49,7 +49,7 @@ internal fun LocalDataScreen(
         Row(modifier = Modifier.padding(16.dp)) {
             Button(onClick = {
                 val item = DataModelEntity(name = "item ${Random.nextInt()}")
-                viewModel.insert(item)
+                viewModel.insertLocalItem(item)
             }) {
                 Text("Add item")
             }
@@ -57,7 +57,7 @@ internal fun LocalDataScreen(
 
             Button(onClick = {
                 tappedItem = null
-                viewModel.deleteAll()
+                viewModel.deleteAllLocalItems()
             }) {
                 Text("Delete all")
             }
@@ -75,8 +75,8 @@ internal fun LocalDataScreen(
                 Text(
                     items.value[item].name,
                     modifier = Modifier.clickable {
-                        viewModel.getById(items.value[item].id)
-                        tappedItem = viewModel.item.value
+                        viewModel.getLocalItemById(items.value[item].id)
+                        tappedItem = viewModel.currentLocalItem.value
                     },
                     color = Color.White
                 )

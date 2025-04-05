@@ -29,10 +29,10 @@ internal fun RemoteDataScreen(
     viewModel: MainViewModel = koinInject(),
     navController: NavHostController
 ) {
-    val uiState = viewModel.uiState
+    val uiState = viewModel.postsUiState
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.loadItems()
+        viewModel.loadPosts()
     }
 
     Column(
@@ -49,7 +49,7 @@ internal fun RemoteDataScreen(
             }
             is UiState.Error -> {
                 ErrorScreen(state.apiError.message.orEmpty()) {
-                    viewModel.loadItems()
+                    viewModel.loadAllLocalItems()
                 }
             }
         }

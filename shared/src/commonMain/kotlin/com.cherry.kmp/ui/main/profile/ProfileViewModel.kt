@@ -19,35 +19,45 @@ data class UserProfileState(
     val permissionDialog: UIComponentState = UIComponentState.Hide,
 )
 
+/**
+ * A ViewModel that manages the user's profile data.
+ *
+ * This ViewModel is responsible for loading, saving, and updating the user's profile information.
+ * It exposes the current profile state as a [StateFlow] of [UserProfileState].
+ *
+ * @property localDataUseCase The use case for accessing and storing local data.
+ */
+
 class ProfileViewModel(private val localDataUseCase: LocalDataUseCase) : ViewModel() {
 
-    private val _state = MutableStateFlow(UserProfileState())
-    val state: StateFlow<UserProfileState> = _state
+    private val _uiState = MutableStateFlow(UserProfileState())
+    val uiState: StateFlow<UserProfileState> = _uiState
 
-    fun setName(name: String) {
-        _state.update { it.copy(name = name) }
+    fun updateName(name: String) {
+        _uiState.update { it.copy(name = name) }
     }
 
-    fun setEmail(email: String) {
-        _state.update { it.copy(email = email) }
+    fun updateEmail(email: String) {
+        _uiState.update { it.copy(email = email) }
     }
 
-    fun setProfileImage(image: ImageBitmap?) {
-        _state.update { it.copy(image = image) }
+    fun updateProfileImage(image: ImageBitmap?) {
+        _uiState.update { it.copy(image = image) }
     }
 
-    fun setPermissionDialogState(uiState: UIComponentState) {
-        _state.update { it.copy(permissionDialog = uiState) }
+    fun updatePermissionDialogState(uiState: UIComponentState) {
+        _uiState.update { it.copy(permissionDialog = uiState) }
     }
 
-    fun load() {
+    fun loadUserProfile() {
         viewModelScope.launch {
-            val profiles = localDataUseCase.getAllUserProfiles()
-            if (profiles.isNotEmpty()) {
-                val profile = profiles.first()
-                _state.update {
+            localDataUseCase.getAllUserProfiles().firstOrNull()?.let { profile ->
+                _uiState.update {
                     it.copy(
-                        name = profile.name, image = profile.image, email = profile.email, id = profile.id
+                        name = profile.name,
+                        image = profile.image,
+                        email = profile.email,
+                        id = profile.id
                     )
                 }
             }
@@ -56,9 +66,12 @@ class ProfileViewModel(private val localDataUseCase: LocalDataUseCase) : ViewMod
 
     fun saveUserProfile() {
         viewModelScope.launch {
-            val state = state.value
+            val currentUiState = uiState.value
             val profile = UserProfile(
-                id = state.id, name = state.name, email = state.email, image = state.image
+                id = currentUiState.id,
+                name = currentUiState.name,
+                email = currentUiState.email,
+                image = currentUiState.image
             )
             localDataUseCase.saveUserProfile(profile)
         }
