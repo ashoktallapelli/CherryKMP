@@ -14,7 +14,7 @@ This app gathers news from various sources, offering the latest information on d
 Diagram:
 
 <p>
-  <img src="screenshots/diagram.png" width="5620" height="2700"  alt=""/>
+  <img src="screenshots/diagram.png" width="1024" height="720"  alt=""/>
 </p>  
 
 
