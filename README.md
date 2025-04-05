@@ -11,6 +11,12 @@ Kotlin Multiplatform (KMP) is a powerful feature of Kotlin that allows developer
 
 This app gathers news from various sources, offering the latest information on different topics. All news data comes from the reliable [News API](https://newsapi.org/), ensuring users get the most recent news articles from around the world.
 
+Diagram:
+
+<p>
+  <img src="screenshots/diagram.png" width="1024" height="720"  alt=""/>
+</p>  
+
 
 ## Show case:
 
