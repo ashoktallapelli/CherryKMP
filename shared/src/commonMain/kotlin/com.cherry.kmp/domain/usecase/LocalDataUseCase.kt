@@ -15,7 +15,7 @@ class LocalDataUseCase(private val repository: LocalDataRepository) {
         repository.insert(item)
     }
 
-    suspend fun getById(id: Long): DataModelEntity {
+    suspend fun getById(id: Long): DataModelEntity? {
         return repository.getById(id)
     }
 

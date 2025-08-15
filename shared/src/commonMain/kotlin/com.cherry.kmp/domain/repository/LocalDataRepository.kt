@@ -10,7 +10,7 @@ interface LocalDataRepository {
     //Database
     suspend fun insert(item: DataModelEntity)
     suspend fun insertAll(data: List<DataModelEntity>)
-    suspend fun getById(id: Long): DataModelEntity
+    suspend fun getById(id: Long): DataModelEntity?
     suspend fun getAll(): List<DataModelEntity>
     fun getAllAsFlow(): Flow<List<DataModelEntity>>
     suspend fun count(): Int

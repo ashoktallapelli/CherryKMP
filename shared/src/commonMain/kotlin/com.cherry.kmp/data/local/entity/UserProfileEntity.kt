@@ -2,11 +2,17 @@ package com.cherry.kmp.data.local.entity
 
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.cherry.kmp.domain.model.UserProfile
 
-
-@Entity(tableName = "user_profile")
+@Entity(
+    tableName = "user_profile",
+    indices = [
+        Index(value = ["email"], unique = true),
+        Index(value = ["name"], unique = false)
+    ]
+)
 data class UserProfileEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,

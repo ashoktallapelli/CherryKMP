@@ -88,7 +88,7 @@ class MainViewModel(
 
     fun getLocalItemById(id: Long) {
         viewModelScope.launch {
-            currentLocalItem.value = localDataUseCase.getById(id)
+            currentLocalItem.value = localDataUseCase.getById(id) ?: DataModelEntity(0L, "")
         }
     }
 

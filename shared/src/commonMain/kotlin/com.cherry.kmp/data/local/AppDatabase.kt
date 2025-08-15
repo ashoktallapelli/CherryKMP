@@ -14,7 +14,11 @@ import com.cherry.kmp.data.local.entity.UserProfileEntity
 
 internal const val dbFileName = "guava.db"
 
-@Database(entities = [DataModelEntity::class, UserProfileEntity::class], version = 1)
+@Database(
+    entities = [DataModelEntity::class, UserProfileEntity::class], 
+    version = 1,
+    exportSchema = true
+)
 @TypeConverters(ImageConverter::class)
 abstract class AppDatabase : RoomDatabase(), DB {
     abstract fun dataDao(): DataDao

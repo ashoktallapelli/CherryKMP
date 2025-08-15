@@ -30,7 +30,7 @@ class LocalDataRepositoryImpl(
         }
     }
 
-    override suspend fun getById(id: Long): DataModelEntity {
+    override suspend fun getById(id: Long): DataModelEntity? {
         return withContext(dispatcher) {
             db.dataDao().getById(id)
         }

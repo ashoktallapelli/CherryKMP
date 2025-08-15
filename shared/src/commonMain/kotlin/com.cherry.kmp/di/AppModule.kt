@@ -1,5 +1,6 @@
 package com.cherry.kmp.di
 
+import com.cherry.kmp.data.local.DatabaseMaintenance
 import com.cherry.kmp.domain.usecase.GetEverythingUseCase
 import com.cherry.kmp.domain.usecase.GetPostsUseCase
 import com.cherry.kmp.domain.usecase.GetTopHeadlinesUseCase
@@ -16,6 +17,9 @@ val appModule = module {
     single { LocalDataUseCase(get()) }
     single { GetEverythingUseCase(get(), Dispatchers.IO) }
     single { GetTopHeadlinesUseCase(get(), Dispatchers.IO) }
+    
+    // Database maintenance
+    single { DatabaseMaintenance(get()) }
     
     // ViewModels as factories to prevent memory leaks
     // Each screen gets a new instance that dies with the UI
