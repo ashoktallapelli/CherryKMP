@@ -34,6 +34,11 @@ accompanistPermissions = "0.34.0"
 kermit = "2.0.4"
 androidx-biometric = "1.2.0-alpha05"
 
+# Testing  
+kotest = "5.8.0"
+mockk = "1.13.8"
+turbine = "1.0.0"
+
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -93,6 +98,16 @@ kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutinesCore" }
+
+# Testing libraries
+kotest-framework-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
+ktor-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesCore" }
+turbine-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+mockk-io = { module = "io.mockk:mockk", version.ref = "mockk" }
+koin-test = { module = "io.insert-koin:koin-test" }
 
 
 [plugins]

@@ -11,7 +11,6 @@ plugins {
     alias(libs.plugins.room)
     // Build config
     alias(libs.plugins.gmazzo.buildconfig)
-    alias(libs.plugins.google.services)
 }
 
 kotlin {
@@ -37,22 +36,16 @@ kotlin {
         all {
             languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
         }
-//        commonTest.dependencies {
-//            implementation(kotlin("test"))
-//            implementation(kotlin("test-common"))
-//            implementation(kotlin("test-annotations-common"))
-//
-//            implementation(libs.kotest.framework.engine)
-//            implementation(libs.kotest.assertions.core)
-//            implementation(libs.kotest.property)
-//            implementation(libs.ktor.mock)
-//            implementation(libs.coroutines.test)
-//            implementation(libs.turbine.turbine)
-//            implementation(libs.mockk.io)
-//
-//            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-//            implementation(compose.uiTest)
-//        }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(kotlin("test-common"))
+            implementation(kotlin("test-annotations-common"))
+        }
+        
+        androidUnitTest.dependencies {
+            implementation(kotlin("test-junit"))
+            implementation("junit:junit:4.13.2")
+        }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.accompanist.permissions)
