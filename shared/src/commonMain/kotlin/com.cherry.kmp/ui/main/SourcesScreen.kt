@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
@@ -30,7 +32,7 @@ import org.koin.compose.koinInject
 internal fun SourcesScreen(
     viewModel: MainViewModel = koinInject(), navController: NavHostController
 ) {
-    val news = viewModel.newsEverythingUiState
+    val news by viewModel.newsEverythingUiState.collectAsState()
 
     LaunchedEffect(key1 = Unit) {
         viewModel.loadEverythingNews()
@@ -57,7 +59,7 @@ internal fun SourcesScreen(
                 viewModel.loadEverythingNews(viewModel.getEverythingRequestWithSource(it.id.orEmpty()))
             }
 
-            when (val state = news.value) {
+            when (val state = news) {
                 is UiState.Initial -> {}
                 is UiState.Loading -> {
                     LoadingScreen()
@@ -85,7 +87,10 @@ internal fun SourcesScreen(
 private fun ItemList(articles: List<Article>) {
     val uriHandler = LocalUriHandler.current
     LazyColumn {
-        items(articles) { article ->
+        items(
+            items = articles,
+            key = { article -> article.url ?: article.title ?: article.hashCode() }
+        ) { article ->
             ArticleView(article) {
                 article.url?.let {
                     uriHandler.openUri(it)

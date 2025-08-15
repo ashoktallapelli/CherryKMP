@@ -10,6 +10,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,7 +31,7 @@ internal fun RemoteDataScreen(
     viewModel: MainViewModel = koinInject(),
     navController: NavHostController
 ) {
-    val uiState = viewModel.postsUiState
+    val uiState by viewModel.postsUiState.collectAsState()
 
     LaunchedEffect(key1 = Unit) {
         viewModel.loadPosts()
@@ -39,7 +41,7 @@ internal fun RemoteDataScreen(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        when (val state = uiState.value) {
+        when (val state = uiState) {
             is UiState.Initial -> {}
             is UiState.Loading -> {
                 LoadingScreen()

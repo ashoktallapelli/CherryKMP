@@ -38,4 +38,6 @@ data class NewsRequest(
     val category: String? = null,
     val sources: String? = null,
     val domains: String? = null,
+    val pageSize: Int = 20, // Limit articles per page for better performance
+    val page: Int = 1,
 )

@@ -9,6 +9,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
@@ -31,7 +33,7 @@ internal fun HeadlinesScreen(
     viewModel: MainViewModel = koinInject(),
     navController: NavHostController
 ) {
-    val uiState = viewModel.newsHeadlinesUiState
+    val uiState by viewModel.newsHeadlinesUiState.collectAsState()
 
     LaunchedEffect(key1 = Unit) {
         viewModel.loadHeadlinesNews()
@@ -50,7 +52,7 @@ internal fun HeadlinesScreen(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                when (val state = uiState.value) {
+                when (val state = uiState) {
                     is UiState.Initial -> {}
                     is UiState.Loading -> {
                         LoadingScreen()
@@ -80,11 +82,14 @@ private fun ItemList(articles: List<Article>, showOfflineIndicator: Boolean = fa
     val uriHandler = LocalUriHandler.current
     LazyColumn {
         if (showOfflineIndicator) {
-            item {
+            item(key = "offline_indicator") {
                 OfflineIndicator()
             }
         }
-        items(articles) { article ->
+        items(
+            items = articles,
+            key = { article -> article.url ?: article.title ?: article.hashCode() }
+        ) { article ->
             ArticleView(article) {
                 article.url?.let {
                     uriHandler.openUri(it)

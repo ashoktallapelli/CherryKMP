@@ -3,6 +3,9 @@ package com.cherry.kmp.ui.main.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import com.cherry.kmp.common.LoggerConfig
 import com.cherry.kmp.data.local.entity.DataModelEntity
 import com.cherry.kmp.domain.Constants
@@ -23,9 +26,17 @@ class MainViewModel(
     private val getTopHeadlinesUseCase: GetTopHeadlinesUseCase
 ) : ViewModel() {
 
-    val postsUiState = mutableStateOf<UiState<List<Post>>>(UiState.Loading)
-    val newsEverythingUiState = mutableStateOf<UiState<NewsResults>>(UiState.Loading)
-    val newsHeadlinesUiState = mutableStateOf<UiState<NewsResults>>(UiState.Loading)
+    // StateFlow for better performance and state management
+    private val _postsUiState = MutableStateFlow<UiState<List<Post>>>(UiState.Initial)
+    val postsUiState: StateFlow<UiState<List<Post>>> = _postsUiState.asStateFlow()
+    
+    private val _newsEverythingUiState = MutableStateFlow<UiState<NewsResults>>(UiState.Initial)
+    val newsEverythingUiState: StateFlow<UiState<NewsResults>> = _newsEverythingUiState.asStateFlow()
+    
+    private val _newsHeadlinesUiState = MutableStateFlow<UiState<NewsResults>>(UiState.Initial)
+    val newsHeadlinesUiState: StateFlow<UiState<NewsResults>> = _newsHeadlinesUiState.asStateFlow()
+    
+    // Keep local items as mutableStateOf for simple state
     val allLocalItems = mutableStateOf<List<DataModelEntity>>(emptyList())
     val currentLocalItem = mutableStateOf(DataModelEntity(0L, ""))
 
@@ -34,7 +45,7 @@ class MainViewModel(
         viewModelScope.launch {
             getPostsUseCase(Unit).collect { result ->
                 LoggerConfig.logger.d { "Posts loaded: ${if (result is UiState.Success) "Success with ${result.data.size} items" else result::class.simpleName}" }
-                postsUiState.value = result
+                _postsUiState.value = result
             }
         }
     }
@@ -42,7 +53,7 @@ class MainViewModel(
     fun loadEverythingNews(request: NewsRequest = getEverythingRequest()) {
         viewModelScope.launch {
             getEverythingUseCase(request).collect { result ->
-                newsEverythingUiState.value = result
+                _newsEverythingUiState.value = result
             }
         }
     }
@@ -50,7 +61,7 @@ class MainViewModel(
     fun loadHeadlinesNews() {
         viewModelScope.launch {
             getTopHeadlinesUseCase(getHeadlinesRequest()).collect { result ->
-                newsHeadlinesUiState.value = result
+                _newsHeadlinesUiState.value = result
             }
         }
     }
