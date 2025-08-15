@@ -48,5 +48,43 @@
 	<string>We need access to your camera for...</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to your photo library for...</string>
+	
+	<!-- URL Schemes for Deep Linking -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<!-- HTTPS URLs -->
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.cherry.kmp.https</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>https</string>
+			</array>
+		</dict>
+		<!-- HTTP URLs -->
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.cherry.kmp.http</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>http</string>
+			</array>
+		</dict>
+		<!-- Custom scheme -->
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.cherry.kmp.custom</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>cherrykmp</string>
+			</array>
+		</dict>
+	</array>
+	
+	<!-- Associated Domains for Universal Links -->
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:cherry.kmp</string>
+	</array>
 </dict>
 </plist>

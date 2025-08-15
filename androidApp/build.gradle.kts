@@ -49,5 +49,8 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
     debugImplementation(libs.compose.ui.tooling)
+    
+    // Koin BOM for version alignment
+    implementation(platform(libs.koin.bom))
     implementation(libs.koin.android)
 }

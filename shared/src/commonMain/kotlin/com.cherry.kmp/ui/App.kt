@@ -11,11 +11,12 @@ import androidx.navigation.compose.rememberNavController
 import com.cherry.kmp.common.LoggerConfig
 import com.cherry.kmp.ui.main.MainNav
 import com.cherry.kmp.ui.navigation.AppNavigation
+import com.cherry.kmp.ui.navigation.DeepLinkData
 import com.cherry.kmp.ui.splash.SplashNav
 import com.cherry.kmp.ui.theme.AppTheme
 
 @Composable
-internal fun App() {
+internal fun App(deepLinkData: DeepLinkData? = null) {
     // Initialize logging configuration once at app startup
     LaunchedEffect(Unit) {
         LoggerConfig.initialize()
@@ -36,10 +37,13 @@ internal fun App() {
                     })
                 }
                 composable(route = AppNavigation.Main.route) {
-                    MainNav {
-                        navigator.popBackStack()
-                        navigator.navigate(AppNavigation.Splash.route)
-                    }
+                    MainNav(
+                        deepLinkData = deepLinkData,
+                        onLogout = {
+                            navigator.popBackStack()
+                            navigator.navigate(AppNavigation.Splash.route)
+                        }
+                    )
                 }
             }
         }
