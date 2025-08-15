@@ -1,6 +1,7 @@
 package com.cherry.kmp.data.network
 
 import CherryKMP.shared.BuildConfig
+import com.cherry.kmp.common.LoggerConfig
 import com.cherry.kmp.data.DataConstants
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
@@ -55,15 +56,15 @@ val httpClient = HttpClient {
     install(Logging) {
         logger = object : Logger {
             override fun log(message: String) {
-                println("Logger Ktor => $message")
+                LoggerConfig.networkLogger.d { message }
             }
         }
-        level = LogLevel.ALL
+        level = if (BuildConfig.DEBUG) LogLevel.ALL else LogLevel.NONE
     }
 
     install(ResponseObserver) {
         onResponse { response ->
-            println("HTTP status: ${response.status.value}")
+            LoggerConfig.networkLogger.d { "HTTP Response: ${response.status.value}" }
         }
     }
 }

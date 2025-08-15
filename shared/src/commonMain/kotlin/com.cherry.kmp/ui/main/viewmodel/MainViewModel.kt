@@ -3,6 +3,7 @@ package com.cherry.kmp.ui.main.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cherry.kmp.common.LoggerConfig
 import com.cherry.kmp.data.local.entity.DataModelEntity
 import com.cherry.kmp.domain.Constants
 import com.cherry.kmp.domain.UiState
@@ -29,8 +30,10 @@ class MainViewModel(
     val currentLocalItem = mutableStateOf(DataModelEntity(0L, ""))
 
     fun loadPosts() {
+        LoggerConfig.logger.d { "Loading posts..." }
         viewModelScope.launch {
             getPostsUseCase(Unit).collect { result ->
+                LoggerConfig.logger.d { "Posts loaded: ${if (result is UiState.Success) "Success with ${result.data.size} items" else result::class.simpleName}" }
                 postsUiState.value = result
             }
         }

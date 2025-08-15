@@ -108,6 +108,9 @@ kotlin {
             implementation(libs.coil.network.ktor)
             implementation(libs.coil.compose.core)
             implementation(libs.coil.compose)
+            
+            //Kermit Logging
+            implementation(libs.kermit)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -129,6 +132,17 @@ android {
     defaultConfig {
         minSdk = 28
     }
+    
+    buildTypes {
+        getByName("debug") {
+            // Debug builds have logging enabled
+        }
+        getByName("release") {
+            // Release builds have logging disabled
+            isMinifyEnabled = false
+        }
+    }
+    
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
@@ -169,4 +183,7 @@ buildConfig {
     buildConfigField("APP_VERSION", provider { "\"${project.version}\"" })
     buildConfigField("BASE_URL", getEnvVar("NEWS_BASE_URL", "newsapi.org"))
     buildConfigField("API_KEY", getEnvVar("NEWS_API_KEY", ""))
+    
+    // Debug flag - defaults to true, will be overridden in release builds
+    buildConfigField("DEBUG", true)
 }
