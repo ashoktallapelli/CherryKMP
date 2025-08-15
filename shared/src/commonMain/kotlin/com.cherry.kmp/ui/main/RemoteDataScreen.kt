@@ -47,6 +47,9 @@ internal fun RemoteDataScreen(
             is UiState.Success -> {
                 ItemList(state.data)
             }
+            is UiState.CachedSuccess -> {
+                ItemList(state.data)
+            }
             is UiState.Error -> {
                 ErrorScreen(state.apiError.message.orEmpty()) {
                     viewModel.loadAllLocalItems()

@@ -3,9 +3,10 @@ package com.cherry.kmp.domain.exception
 import io.ktor.http.HttpStatusCode
 
 sealed class ApiException(message: String) : Exception(message) {
-    class NotFoundException : ApiException("Not Found")
-    class UnauthorizedException : ApiException("Unauthorized! Please check the API Key")
-    class BadRequestException : ApiException("Bad Request")
-    class ServerErrorException : ApiException("Server Error")
-    class UnknownException(status: HttpStatusCode) : ApiException("Unknown error: $status")
+    class NotFoundException : ApiException("Content not found. Please try again later.")
+    class UnauthorizedException : ApiException("Unable to access news. Please check your connection.")
+    class BadRequestException : ApiException("Invalid request. Please try again.")
+    class ServerErrorException : ApiException("News service temporarily unavailable. Please try again later.")
+    class UnknownException(status: HttpStatusCode) : ApiException("Something went wrong. Please try again later.")
+    class NetworkException : ApiException("No internet connection. Please check your network and try again.")
 }

@@ -2,6 +2,8 @@ package com.cherry.kmp.ui.main
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
@@ -10,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cherrykmp.shared.generated.resources.Res
 import cherrykmp.shared.generated.resources.news_headlines
@@ -57,6 +60,11 @@ internal fun HeadlinesScreen(
                         ItemList(state.data.articles)
                     }
 
+                    is UiState.CachedSuccess -> {
+                        // Show cached data with offline indicator
+                        ItemList(state.data.articles, showOfflineIndicator = true)
+                    }
+
                     is UiState.Error -> {
                         ErrorScreen(state.apiError.message.orEmpty()) {
                             viewModel.loadHeadlinesNews()
@@ -68,9 +76,14 @@ internal fun HeadlinesScreen(
 }
 
 @Composable
-private fun ItemList(articles: List<Article>) {
+private fun ItemList(articles: List<Article>, showOfflineIndicator: Boolean = false) {
     val uriHandler = LocalUriHandler.current
     LazyColumn {
+        if (showOfflineIndicator) {
+            item {
+                OfflineIndicator()
+            }
+        }
         items(articles) { article ->
             ArticleView(article) {
                 article.url?.let {
@@ -78,5 +91,24 @@ private fun ItemList(articles: List<Article>) {
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun OfflineIndicator() {
+    // Simple offline indicator
+    androidx.compose.material3.Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        colors = androidx.compose.material3.CardDefaults.cardColors(
+            containerColor = androidx.compose.material3.MaterialTheme.colorScheme.surfaceVariant
+        )
+    ) {
+        androidx.compose.material3.Text(
+            text = "📱 Showing cached content - No internet connection",
+            modifier = Modifier.padding(12.dp),
+            style = androidx.compose.material3.MaterialTheme.typography.bodySmall
+        )
     }
 }

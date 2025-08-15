@@ -1,5 +1,6 @@
 package com.cherry.kmp.data.repository
 
+import com.cherry.kmp.common.RetryHelper
 import com.cherry.kmp.data.network.ApiService
 import com.cherry.kmp.domain.model.NewsRequest
 import com.cherry.kmp.domain.model.Post
@@ -11,14 +12,20 @@ class RepositoryImpl(
     private val apiService: ApiService
 ) : Repository {
     override suspend fun getPosts(): List<Post> {
-        return apiService.getPosts().body()
+        return RetryHelper.retry {
+            apiService.getPosts().body()
+        }
     }
 
     override suspend fun getEverything(request: NewsRequest): HttpResponse {
-        return apiService.getEverything(request)
+        return RetryHelper.retry {
+            apiService.getEverything(request)
+        }
     }
 
     override suspend fun getTopHeadlines(request: NewsRequest): HttpResponse {
-        return apiService.getTopHeadlines(request)
+        return RetryHelper.retry {
+            apiService.getTopHeadlines(request)
+        }
     }
 }

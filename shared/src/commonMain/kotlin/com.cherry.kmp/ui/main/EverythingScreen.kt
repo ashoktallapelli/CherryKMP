@@ -57,6 +57,10 @@ internal fun EverythingScreen(
                         ItemList(state.data.articles)
                     }
 
+                    is UiState.CachedSuccess -> {
+                        ItemList(state.data.articles)
+                    }
+
                     is UiState.Error -> {
                         ErrorScreen(state.apiError.message.orEmpty()) {
                             viewModel.loadEverythingNews()
