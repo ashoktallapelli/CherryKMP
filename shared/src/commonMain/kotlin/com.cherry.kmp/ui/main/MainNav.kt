@@ -25,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import com.cherry.kmp.ui.main.profile.EditProfileScreen
 import com.cherry.kmp.ui.main.profile.ProfileScreen
 import com.cherry.kmp.ui.navigation.MainNavigation
+import com.cherry.kmp.ui.settings.SecuritySettingsScreen
 import com.cherry.kmp.ui.theme.DefaultNavigationBarItemTheme
 
 @Composable
@@ -63,14 +64,22 @@ fun MainNav(logout: () -> Unit) {
                     SourcesScreen(navController = navController)
                 }
                 composable(route = MainNavigation.Profile.route) {
-                    ProfileScreen(navigateToEditProfile = {
-                        navController.navigate(MainNavigation.EditProfile.route)
-                    })
+                    ProfileScreen(
+                        navigateToEditProfile = {
+                            navController.navigate(MainNavigation.EditProfile.route)
+                        },
+                        navigateToSecuritySettings = {
+                            navController.navigate(MainNavigation.SecuritySettings.route)
+                        }
+                    )
                 }
                 composable(route = MainNavigation.EditProfile.route) {
                     EditProfileScreen(navigateToProfile = {
                         navController.navigate(MainNavigation.Profile.route)
                     })
+                }
+                composable(route = MainNavigation.SecuritySettings.route) {
+                    SecuritySettingsScreen(navController = navController)
                 }
             }
         }

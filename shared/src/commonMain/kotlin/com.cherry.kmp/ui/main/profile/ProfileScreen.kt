@@ -11,6 +11,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Security
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -37,6 +39,7 @@ import org.koin.compose.koinInject
 internal fun ProfileScreen(
     viewModel: ProfileViewModel = koinInject(),
     navigateToEditProfile: () -> Unit,
+    navigateToSecuritySettings: () -> Unit = {},
 ) {
     LaunchedEffect(key1 = Unit) {
         viewModel.loadUserProfile()
@@ -100,6 +103,23 @@ internal fun ProfileScreen(
                         .fillMaxWidth()
                         .padding(8.dp)
                 )
+                
+                Spacer_16dp()
+                
+                // Security Settings Button
+                Button(
+                    onClick = navigateToSecuritySettings,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Security,
+                        contentDescription = null,
+                        modifier = Modifier.padding(end = 8.dp)
+                    )
+                    Text("Security Settings")
+                }
             }
         }
     )

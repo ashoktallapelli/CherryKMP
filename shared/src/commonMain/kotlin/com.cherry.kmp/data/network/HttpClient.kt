@@ -3,6 +3,7 @@ package com.cherry.kmp.data.network
 import CherryKMP.shared.BuildConfig
 import com.cherry.kmp.common.LoggerConfig
 import com.cherry.kmp.data.DataConstants
+import com.cherry.kmp.security.CertificatePinning
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -67,4 +68,7 @@ val httpClient = HttpClient {
             LoggerConfig.networkLogger.d { "HTTP Response: ${response.status.value}" }
         }
     }
+
+    // Install certificate pinning for enhanced security
+    install(CertificatePinning)
 }

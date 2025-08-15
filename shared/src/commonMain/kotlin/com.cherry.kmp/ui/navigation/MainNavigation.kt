@@ -45,5 +45,9 @@ sealed class MainNavigation(
     data object EditProfile : MainNavigation(
         route = "editProfile", title = "Edit Profile"
     )
+
+    data object SecuritySettings : MainNavigation(
+        route = "securitySettings", title = "Security Settings"
+    )
 }
 

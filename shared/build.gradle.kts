@@ -56,6 +56,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.accompanist.permissions)
+            implementation(libs.androidx.biometric)
 
             implementation(project.dependencies.platform(libs.firebase.bom))
             implementation(libs.firebase.auth)
