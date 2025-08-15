@@ -17,5 +17,7 @@ sealed class ApiDefinition {
         const val PARAM_CATEGORY = "category"
         const val PARAM_SOURCES = "sources"
         const val PARAM_DOMAINS = "domains"
+        const val PARAM_PAGE_SIZE = "pageSize"
+        const val PARAM_PAGE = "page"
     }
 }

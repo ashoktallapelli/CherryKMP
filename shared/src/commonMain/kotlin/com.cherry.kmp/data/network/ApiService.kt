@@ -7,6 +7,8 @@ import com.cherry.kmp.data.network.ApiDefinition.ApiField.PARAM_CATEGORY
 import com.cherry.kmp.data.network.ApiDefinition.ApiField.PARAM_COUNTRY
 import com.cherry.kmp.data.network.ApiDefinition.ApiField.PARAM_DOMAINS
 import com.cherry.kmp.data.network.ApiDefinition.ApiField.PARAM_FROM
+import com.cherry.kmp.data.network.ApiDefinition.ApiField.PARAM_PAGE
+import com.cherry.kmp.data.network.ApiDefinition.ApiField.PARAM_PAGE_SIZE
 import com.cherry.kmp.data.network.ApiDefinition.ApiField.PARAM_QUERY
 import com.cherry.kmp.data.network.ApiDefinition.ApiField.PARAM_SORT_BY
 import com.cherry.kmp.data.network.ApiDefinition.ApiField.PARAM_SOURCES
@@ -18,27 +20,26 @@ import io.ktor.client.request.parameter
 
 class ApiService(private val client: HttpClient) {
     suspend fun getPosts() = client.get(GetPosts.path)
+    
     suspend fun getEverything(request: NewsRequest) = client.get(GetEverything.path) {
-
-        //Need to improve
-        request.query?.let { parameter(PARAM_QUERY, it) }
-        request.from?.let { parameter(PARAM_FROM, it) }
-        request.to?.let { parameter(PARAM_TO, it) }
-        request.sortBy?.let { parameter(PARAM_SORT_BY, it) }
-        request.sources?.let { parameter(PARAM_SOURCES, it) }
-        request.domains?.let { parameter(PARAM_DOMAINS, it) }
+        addCommonParameters(request)
     }
 
     suspend fun getTopHeadlines(request: NewsRequest) = client.get(GetTopHeadlines.path) {
-
-        //Need to improve
+        addCommonParameters(request)
+        request.country?.let { parameter(PARAM_COUNTRY, it) }
+        request.category?.let { parameter(PARAM_CATEGORY, it) }
+    }
+    
+    private fun io.ktor.client.request.HttpRequestBuilder.addCommonParameters(request: NewsRequest) {
         request.query?.let { parameter(PARAM_QUERY, it) }
         request.from?.let { parameter(PARAM_FROM, it) }
         request.to?.let { parameter(PARAM_TO, it) }
         request.sortBy?.let { parameter(PARAM_SORT_BY, it) }
         request.sources?.let { parameter(PARAM_SOURCES, it) }
         request.domains?.let { parameter(PARAM_DOMAINS, it) }
-        request.country?.let { parameter(PARAM_COUNTRY, it) }
-        request.category?.let { parameter(PARAM_CATEGORY, it) }
+        // Add pagination support
+        parameter(PARAM_PAGE_SIZE, request.pageSize)
+        parameter(PARAM_PAGE, request.page)
     }
 }
