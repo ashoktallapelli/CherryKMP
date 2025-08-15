@@ -11,10 +11,14 @@ import kotlinx.coroutines.IO
 import org.koin.dsl.module
 
 val appModule = module {
+    // UseCases can remain singletons as they're stateless
     single { GetPostsUseCase(get(), Dispatchers.IO) }
     single { LocalDataUseCase(get()) }
     single { GetEverythingUseCase(get(), Dispatchers.IO) }
     single { GetTopHeadlinesUseCase(get(), Dispatchers.IO) }
-    single { MainViewModel(get(), get(), get(), get()) }
-    single { ProfileViewModel(get()) }
+    
+    // ViewModels as factories to prevent memory leaks
+    // Each screen gets a new instance that dies with the UI
+    factory { MainViewModel(get(), get(), get(), get()) }
+    factory { ProfileViewModel(get()) }
 }
