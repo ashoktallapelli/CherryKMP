@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
@@ -9,6 +11,7 @@ plugins {
     alias(libs.plugins.room)
     // Build config
     alias(libs.plugins.gmazzo.buildconfig)
+    alias(libs.plugins.google.services)
 }
 
 kotlin {
@@ -34,9 +37,29 @@ kotlin {
         all {
             languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
         }
+//        commonTest.dependencies {
+//            implementation(kotlin("test"))
+//            implementation(kotlin("test-common"))
+//            implementation(kotlin("test-annotations-common"))
+//
+//            implementation(libs.kotest.framework.engine)
+//            implementation(libs.kotest.assertions.core)
+//            implementation(libs.kotest.property)
+//            implementation(libs.ktor.mock)
+//            implementation(libs.coroutines.test)
+//            implementation(libs.turbine.turbine)
+//            implementation(libs.mockk.io)
+//
+//            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+//            implementation(compose.uiTest)
+//        }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.accompanist.permissions)
+
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.firebase.auth)
+            implementation(libs.kotlinx.coroutines.play.services)
         }
 
         @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
@@ -97,7 +120,7 @@ kotlin {
 
 android {
     namespace = "com.cherry.kmp"
-    compileSdk = 34
+    compileSdk = 35
 
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
@@ -118,6 +141,7 @@ room {
 
 dependencies {
     implementation(libs.androidx.material3.android)
+//    testImplementation(libs.junit)
     // Room
     add("kspCommonMainMetadata", libs.room.compiler)
 }
@@ -128,9 +152,21 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().con
     }
 }
 
+// Read environment variables from .env file
+val envFile = project.rootProject.file(".env")
+val envProperties = Properties()
+if (envFile.exists()) {
+    envProperties.load(envFile.inputStream())
+}
+
+// Helper function to get environment variable with fallback
+fun getEnvVar(key: String, defaultValue: String = ""): String {
+    return envProperties.getProperty(key) ?: System.getenv(key) ?: defaultValue
+}
+
 buildConfig {
     buildConfigField("APP_NAME", project.name)
     buildConfigField("APP_VERSION", provider { "\"${project.version}\"" })
-    buildConfigField("BASE_URL", "newsapi.org")
-    buildConfigField("API_KEY", "api_key")
+    buildConfigField("BASE_URL", getEnvVar("NEWS_BASE_URL", "newsapi.org"))
+    buildConfigField("API_KEY", getEnvVar("NEWS_API_KEY", ""))
 }

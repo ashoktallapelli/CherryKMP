@@ -1,27 +1,29 @@
 [versions]
 agp = "8.9.0"
-kotlin = "2.0.20"
-compose = "1.7.6"
+kotlin = "2.1.0"
+compose = "1.7.8"
 compose-material3 = "1.3.1"
-androidx-activityCompose = "1.9.3"
+androidx-activityCompose = "1.10.1"
 compose-plugin = "1.6.11"
-composeUiTooling = "1.7.6"
-datastore = "1.1.2"
+composeUiTooling = "1.7.8"
+datastore = "1.1.3"
 
 room = "2.7.0-alpha05"
-ksp = "2.0.20-1.0.24"
+ksp = "2.1.0-1.0.29"
 sqlite = "2.5.0-SNAPSHOT"
 
-koin = "3.5.4"
-koinCompose = "1.1.0"
-koin-bom = "4.0.0"
+koin-bom = "4.0.4"
 statelyCommon = "2.0.5"
 
 ktor = "2.3.12"
-kotlinx-serialization = "1.6.3"
-kotlinxCoroutinesCore = "1.8.1"
+kotlinx-serialization = "1.7.3"
+kotlinxCoroutinesCore = "1.9.0"
 
-navigation-compose = "2.8.5"
+firebase-bom = "32.7.0"
+google-services = "4.4.0"
+kotlinx-coroutines = "1.9.0"
+
+navigation-compose = "2.8.9"
 androidx-navigation = "2.7.0-alpha06"
 lifecycleViewmodelCompose = "2.8.0"
 
@@ -82,6 +84,11 @@ coil = {module = "io.coil-kt.coil3:coil", version.ref = "coil"}
 
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
 
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
+kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutinesCore" }
+
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -93,6 +100,7 @@ serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref 
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 
 #Used to read the values from config
 gmazzo-buildconfig = {id = "com.github.gmazzo.buildconfig", version.ref = "gmazzo-config"}

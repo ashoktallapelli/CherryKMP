@@ -95,9 +95,23 @@ Diagram:
 
 3. Sync the project to download all dependencies.
 
-4. Build and run the app on your preferred device or emulator.
+4. **Set up API keys** (Required for app functionality):
 
-5. To get the data from API, you will need an API key from [News API](https://newsapi.org/). 
+   a. Copy the environment template:
+   ```bash
+   cp .env.example .env
+   ```
+
+   b. Get your News API key from [News API](https://newsapi.org/)
+
+   c. Open `.env` file and replace `your_news_api_key_here` with your actual API key:
+   ```
+   NEWS_API_KEY=your_actual_api_key_here
+   ```
+
+   **Important:** Never commit the `.env` file to version control. It's already added to `.gitignore`.
+
+5. Build and run the app on your preferred device or emulator. 
 
 
 ## Code References

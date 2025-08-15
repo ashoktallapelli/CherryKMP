@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.cherry.kmp"
-    compileSdk = 34
+    compileSdk = 35
     defaultConfig {
         applicationId = "com.cherry.kmp"
         minSdk = 28
