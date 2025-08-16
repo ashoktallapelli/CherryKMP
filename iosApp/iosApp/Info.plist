@@ -49,6 +49,10 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to your photo library for...</string>
 	
+	<!-- Performance optimization for high refresh rate iPhones -->
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	
 	<!-- URL Schemes for Deep Linking -->
 	<key>CFBundleURLTypes</key>
 	<array>

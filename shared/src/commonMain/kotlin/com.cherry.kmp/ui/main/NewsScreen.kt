@@ -20,15 +20,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Article
+import androidx.compose.material.icons.automirrored.filled.Article
+import androidx.compose.material.icons.automirrored.filled.TrendingUp
 import androidx.compose.material.icons.filled.NewReleases
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Source
-import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,9 +35,6 @@ import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ScrollableTabRow
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -50,33 +45,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.cherry.kmp.ui.theme.MinimalistColors
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.layout.ContentScale
 import androidx.navigation.NavHostController
-import cherrykmp.shared.generated.resources.Res
-import cherrykmp.shared.generated.resources.all_news
-import cherrykmp.shared.generated.resources.headlines
-import cherrykmp.shared.generated.resources.sources
 import com.cherry.kmp.domain.UiState
 import com.cherry.kmp.domain.model.Article
-import com.cherry.kmp.domain.model.Source
 import com.cherry.kmp.ui.component.ArticleView
 import com.cherry.kmp.ui.component.ErrorScreen
 import com.cherry.kmp.ui.component.LoadingScreen
-import com.cherry.kmp.ui.component.MyToolbar
 import com.cherry.kmp.ui.main.viewmodel.MainViewModel
-import com.cherry.kmp.ui.navigation.navigateToArticle
-import org.jetbrains.compose.resources.stringResource
+import com.cherry.kmp.ui.theme.MinimalistColors
 import org.koin.compose.koinInject
 
 enum class NewsTab(
@@ -84,8 +68,8 @@ enum class NewsTab(
     val icon: ImageVector,
     val description: String
 ) {
-    EVERYTHING("All News", Icons.Default.Article, "Latest articles from all sources"),
-    HEADLINES("Headlines", Icons.Default.TrendingUp, "Breaking news and top stories"),
+    EVERYTHING("All News", Icons.AutoMirrored.Filled.Article, "Latest articles from all sources"),
+    HEADLINES("Headlines", Icons.AutoMirrored.Filled.TrendingUp, "Breaking news and top stories"),
     SOURCES("Sources", Icons.Default.Source, "News sources and publications")
 }
 
