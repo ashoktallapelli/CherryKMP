@@ -107,10 +107,8 @@ sealed class DeepLinkData {
             is Search -> NavigationRoutes.SearchResults.createRoute(query, category)
             is Section -> {
                 when (section) {
-                    "headlines" -> NavigationRoutes.Headlines.route
-                    "sources" -> NavigationRoutes.Sources.route
-                    "everything" -> NavigationRoutes.Everything.route
-                    else -> NavigationRoutes.Everything.route
+                    "headlines", "sources", "everything" -> NavigationRoutes.News.route
+                    else -> NavigationRoutes.News.route
                 }
             }
         }

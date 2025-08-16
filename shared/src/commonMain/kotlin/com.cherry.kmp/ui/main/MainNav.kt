@@ -1,23 +1,31 @@
 package com.cherry.kmp.ui.main
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.cherry.kmp.ui.theme.MinimalistColors
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -32,7 +40,6 @@ import com.cherry.kmp.ui.navigation.NavigationManager
 import com.cherry.kmp.ui.navigation.DeepLinkData
 import com.cherry.kmp.ui.settings.SecuritySettingsScreen
 import com.cherry.kmp.ui.screens.ArticleDetailScreen
-import com.cherry.kmp.ui.theme.DefaultNavigationBarItemTheme
 
 @Composable
 fun MainNav(
@@ -48,7 +55,7 @@ fun MainNav(
             val route = linkData.toNavigationRoute()
             navController.navigate(route) {
                 // Clear back stack to avoid navigation issues  
-                popUpTo(navController.graph.startDestinationRoute ?: NavigationRoutes.Everything.route) {
+                popUpTo(navController.graph.startDestinationRoute ?: NavigationRoutes.Home.route) {
                     saveState = false
                 }
                 launchSingleTop = true
@@ -59,9 +66,9 @@ fun MainNav(
         navController.currentBackStackEntryAsState().value?.destination
 
     val shouldShowBottomBar = when (currentDestination?.route) {
-        NavigationRoutes.Everything.route,
-        NavigationRoutes.Headlines.route,
-        NavigationRoutes.Sources.route,
+        NavigationRoutes.Home.route,
+        NavigationRoutes.News.route,
+        NavigationRoutes.Favorites.route,
         NavigationRoutes.Profile.route -> true
 
         else -> false
@@ -73,19 +80,20 @@ fun MainNav(
     }) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             NavHost(
-                startDestination = NavigationRoutes.Everything.route,
+                startDestination = NavigationRoutes.Home.route,
                 navController = navController,
                 modifier = Modifier.fillMaxSize()
             ) {
                 // Main Tab Screens
-                composable(route = NavigationRoutes.Everything.route) {
-                    EverythingScreen(navController = navController)
+                composable(route = NavigationRoutes.Home.route) {
+                    NewsScreen(navController = navController) // Using NewsScreen as Home for now
                 }
-                composable(route = NavigationRoutes.Headlines.route) {
-                    HeadlinesScreen(navController = navController)
+                composable(route = NavigationRoutes.News.route) {
+                    NewsScreen(navController = navController)
                 }
-                composable(route = NavigationRoutes.Sources.route) {
-                    SourcesScreen(navController = navController)
+                composable(route = NavigationRoutes.Favorites.route) {
+                    // Placeholder for Favorites screen
+                    NewsScreen(navController = navController) // Using NewsScreen as placeholder
                 }
                 composable(route = NavigationRoutes.Profile.route) {
                     ProfileScreen(
@@ -135,50 +143,72 @@ fun MainNav(
 fun BottomNavigationUI(
     navController: NavController,
 ) {
-
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    val items = NavigationRoutes.mainTabRoutes
 
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(10.dp),
-        shape = RoundedCornerShape(
-            topStart = 16.dp,
-            topEnd = 16.dp
-        )
+    // Floating bottom navigation bar
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp, vertical = 24.dp),
+        contentAlignment = Alignment.BottomCenter
     ) {
-        NavigationBar(
-            containerColor = MaterialTheme.colorScheme.background,
-            contentColor = MaterialTheme.colorScheme.background,
-            tonalElevation = 8.dp
+        Card(
+            modifier = Modifier.wrapContentSize(),
+            elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MinimalistColors.DeepCharcoal
+            ),
+            shape = RoundedCornerShape(32.dp)
         ) {
-
-            val items = NavigationRoutes.mainTabRoutes
-            items.forEach { item ->
-                NavigationBarItem(label = { Text(text = item.title) },
-                    colors = DefaultNavigationBarItemTheme(),
-                    selected = item.route == currentRoute,
-                icon = {
-                    (if (item.route == currentRoute) item.selectedIcon else item.unSelectedIcon)?.let { icon ->
+            Row(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                items.forEach { item ->
+                    val isSelected = item.route == currentRoute
+                    
+                    Box(
+                        modifier = Modifier
+                            .size(48.dp)
+                            .clip(CircleShape)
+                            .background(
+                                if (isSelected) 
+                                    MinimalistColors.PureWhite 
+                                else 
+                                    Color.Transparent
+                            )
+                            .clickable {
+                                if (currentRoute != item.route) {
+                                    navController.navigate(item.route) {
+                                        navController.graph.startDestinationRoute?.let { route ->
+                                            popUpTo(route) {
+                                                saveState = true
+                                            }
+                                        }
+                                        launchSingleTop = true
+                                        restoreState = true
+                                    }
+                                }
+                            },
+                        contentAlignment = Alignment.Center
+                    ) {
                         Icon(
-                            icon,
-                            item.title
+                            imageVector = if (isSelected) 
+                                item.selectedIcon ?: item.unSelectedIcon!! 
+                            else 
+                                item.unSelectedIcon ?: item.selectedIcon!!,
+                            contentDescription = item.title,
+                            modifier = Modifier.size(20.dp),
+                            tint = if (isSelected) 
+                                MinimalistColors.DeepCharcoal 
+                            else 
+                                MinimalistColors.PureWhite
                         )
                     }
-                },
-                onClick = {
-                    if (currentRoute != item.route) {
-                        navController.navigate(item.route) {
-                            navController.graph.startDestinationRoute?.let { route ->
-                                popUpTo(route) {
-                                    saveState = true
-                                }
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    }
-                })
+                }
             }
         }
     }

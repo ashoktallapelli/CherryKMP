@@ -23,7 +23,7 @@ actual class PermissionsManager actual constructor(private val callback: Permiss
     PermissionHandler {
 
     @Composable
-    override fun AskPermission(permission: PermissionType) {
+    actual override fun AskPermission(permission: PermissionType) {
         when (permission) {
             PermissionType.CAMERA -> {
                 val status: AVAuthorizationStatus =
@@ -90,7 +90,7 @@ actual class PermissionsManager actual constructor(private val callback: Permiss
     }
 
     @Composable
-    override fun isPermissionGranted(permission: PermissionType): Boolean {
+    actual override fun isPermissionGranted(permission: PermissionType): Boolean {
         return when (permission) {
             PermissionType.CAMERA -> {
                 val status: AVAuthorizationStatus =
@@ -107,7 +107,7 @@ actual class PermissionsManager actual constructor(private val callback: Permiss
     }
 
     @Composable
-    override fun LaunchSettings() {
+    actual override fun LaunchSettings() {
         NSURL.URLWithString(UIApplicationOpenSettingsURLString)?.let {
             UIApplication.sharedApplication.openURL(it)
         }

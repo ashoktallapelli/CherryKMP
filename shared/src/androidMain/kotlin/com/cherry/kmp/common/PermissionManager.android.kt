@@ -21,7 +21,7 @@ actual class PermissionsManager actual constructor(private val callback: Permiss
 
     @OptIn(ExperimentalPermissionsApi::class)
     @Composable
-    override fun AskPermission(permission: PermissionType) {
+    actual override fun AskPermission(permission: PermissionType) {
         val lifecycleOwner = LocalLifecycleOwner.current
 
         when (permission) {
@@ -59,7 +59,7 @@ actual class PermissionsManager actual constructor(private val callback: Permiss
 
     @OptIn(ExperimentalPermissionsApi::class)
     @Composable
-    override fun isPermissionGranted(permission: PermissionType): Boolean {
+    actual override fun isPermissionGranted(permission: PermissionType): Boolean {
         return when (permission) {
             PermissionType.CAMERA -> {
                 val cameraPermissionState = rememberPermissionState(Manifest.permission.CAMERA)
@@ -75,7 +75,7 @@ actual class PermissionsManager actual constructor(private val callback: Permiss
     }
 
     @Composable
-    override fun LaunchSettings() {
+    actual override fun LaunchSettings() {
         val context = LocalContext.current
         Intent(
             Settings.ACTION_APPLICATION_DETAILS_SETTINGS,

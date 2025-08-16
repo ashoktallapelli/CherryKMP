@@ -13,13 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-val Shapes = Shapes(
-    extraSmall = RoundedCornerShape(4.dp),
-    small = RoundedCornerShape(8.dp),
-    medium = RoundedCornerShape(16.dp),
-    large = RoundedCornerShape(24.dp),
-    extraLarge = RoundedCornerShape(32.dp)
+// Professional Shape Design System
+val AppShapes = Shapes(
+    extraSmall = RoundedCornerShape(6.dp),   // Slightly more rounded for modern look
+    small = RoundedCornerShape(12.dp),       // Cards, buttons
+    medium = RoundedCornerShape(16.dp),      // Modal dialogs, large cards
+    large = RoundedCornerShape(20.dp),       // Bottom sheets, large containers
+    extraLarge = RoundedCornerShape(28.dp)   // Full screen modals
 )
+
+// Legacy shapes for backward compatibility
+val Shapes = AppShapes
 
 
 @Composable

@@ -2,41 +2,42 @@ package com.cherry.kmp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val primaryLight = Color(0xFF65558F)
-val onPrimaryLight = Color(0xFFFFFFFF)
-val primaryContainerLight = Color(0xFFEADDFF)
-val onPrimaryContainerLight = Color(0xFF21005D)
-val secondaryLight = Color(0xFF625B71)
+// Minimalist High-Contrast Palette - Clean & Modern
+val primaryLight = Color(0xFF212529)        // Deep Charcoal - Primary Actions
+val onPrimaryLight = Color(0xFFFFFFFF)       // Pure White on Primary
+val primaryContainerLight = Color(0xFFF5F6F7)  // Very Light Grey Container
+val onPrimaryContainerLight = Color(0xFF212529)
+val secondaryLight = Color(0xFF212529)      // Consistent Charcoal
 val onSecondaryLight = Color(0xFFFFFFFF)
-val secondaryContainerLight = Color(0xFFE8DEF8)
-val onSecondaryContainerLight = Color(0xFF1D192B)
-val tertiaryLight = Color(0xFF7D5260)
+val secondaryContainerLight = Color(0xFFF5F6F7)  // Light Grey Container
+val onSecondaryContainerLight = Color(0xFF212529)
+val tertiaryLight = Color(0xFF212529)       // Consistent with Primary
 val onTertiaryLight = Color(0xFFFFFFFF)
-val tertiaryContainerLight = Color(0xFFFFD8E4)
-val onTertiaryContainerLight = Color(0xFF31111D)
+val tertiaryContainerLight = Color(0xFFF5F6F7)
+val onTertiaryContainerLight = Color(0xFF212529)
 val errorLight = Color(0xFFB3261E)
 val onErrorLight = Color(0xFFFFFFFF)
 val errorContainerLight = Color(0xFFF9DEDC)
 val onErrorContainerLight = Color(0xFF410E0B)
-val backgroundLight = Color(0xFFFEF7FF)
-val onBackgroundLight = Color(0xFF1D1B20)
-val surfaceLight = Color(0xFFFEF7FF)
-val onSurfaceLight = Color(0xFF1D1B20)
-val surfaceVariantLight = Color(0xFFE7E0EC)
-val onSurfaceVariantLight = Color(0xFF49454F)
-val outlineLight = Color(0xFF79747E)
-val outlineVariantLight = Color(0xFFCAC4D0)
+val backgroundLight = Color(0xFFFFFFFF)     // Pure White Background
+val onBackgroundLight = Color(0xFF212529)   // Deep Charcoal Text
+val surfaceLight = Color(0xFFFFFFFF)        // Pure White Surfaces
+val onSurfaceLight = Color(0xFF212529)
+val surfaceVariantLight = Color(0xFFF5F6F7) // Very Light Grey Variants
+val onSurfaceVariantLight = Color(0xFF212529)
+val outlineLight = Color(0xFFF5F6F7)        // Light Grey Outline
+val outlineVariantLight = Color(0xFFF5F6F7) // Consistent Light Grey
 val scrimLight = Color(0xFF000000)
-val inverseSurfaceLight = Color(0xFF322F35)
-val inverseOnSurfaceLight = Color(0xFFF5EFF7)
-val inversePrimaryLight = Color(0xFFD0BCFF)
-val surfaceDimLight = Color(0xFFDED8E1)
-val surfaceBrightLight = Color(0xFFFEF7FF)
+val inverseSurfaceLight = Color(0xFF212529)
+val inverseOnSurfaceLight = Color(0xFFFFFFFF)
+val inversePrimaryLight = Color(0xFFFFFFFF)
+val surfaceDimLight = Color(0xFFF5F6F7)
+val surfaceBrightLight = Color(0xFFFFFFFF)
 val surfaceContainerLowestLight = Color(0xFFFFFFFF)
-val surfaceContainerLowLight = Color(0xFFF7F2FA)
-val surfaceContainerLight = Color(0xFFF3EDF7)
-val surfaceContainerHighLight = Color(0xFFECE6F0)
-val surfaceContainerHighestLight = Color(0xFFE6E0E9)
+val surfaceContainerLowLight = Color(0xFFF5F6F7)
+val surfaceContainerLight = Color(0xFFF5F6F7)
+val surfaceContainerHighLight = Color(0xFFF5F6F7)
+val surfaceContainerHighestLight = Color(0xFFF5F6F7)
 
 val primaryLightMediumContrast = Color(0xFF493971)
 val onPrimaryLightMediumContrast = Color(0xFFFFFFFF)
@@ -110,41 +111,42 @@ val surfaceContainerLightHighContrast = Color(0xFFF2ECF4)
 val surfaceContainerHighLightHighContrast = Color(0xFFECE6EE)
 val surfaceContainerHighestLightHighContrast = Color(0xFFE6E1E9)
 
-val primaryDark = Color(0xFFD0BCFE)
-val onPrimaryDark = Color(0xFF381E72)
-val primaryContainerDark = Color(0xFF4F378B)
-val onPrimaryContainerDark = Color(0xFFEADDFF)
-val secondaryDark = Color(0xFFCCC2DC)
-val onSecondaryDark = Color(0xFF332D41)
-val secondaryContainerDark = Color(0xFF4A4458)
-val onSecondaryContainerDark = Color(0xFFE8DEF8)
-val tertiaryDark = Color(0xFFEFB8C8)
-val onTertiaryDark = Color(0xFF492532)
-val tertiaryContainerDark = Color(0xFF633B48)
-val onTertiaryContainerDark = Color(0xFFFFD8E4)
+// Minimalist Dark Theme - High Contrast & Clean
+val primaryDark = Color(0xFFFFFFFF)          // Pure White on Dark
+val onPrimaryDark = Color(0xFF212529)
+val primaryContainerDark = Color(0xFF212529)
+val onPrimaryContainerDark = Color(0xFFFFFFFF)
+val secondaryDark = Color(0xFFF5F6F7)        // Light Grey on Dark
+val onSecondaryDark = Color(0xFF212529)
+val secondaryContainerDark = Color(0xFF212529)
+val onSecondaryContainerDark = Color(0xFFF5F6F7)
+val tertiaryDark = Color(0xFFF5F6F7)         // Consistent Light Grey
+val onTertiaryDark = Color(0xFF212529)
+val tertiaryContainerDark = Color(0xFF212529)
+val onTertiaryContainerDark = Color(0xFFF5F6F7)
 val errorDark = Color(0xFFF2B8B5)
 val onErrorDark = Color(0xFF601410)
 val errorContainerDark = Color(0xFF8C1D18)
 val onErrorContainerDark = Color(0xFFF9DEDC)
-val backgroundDark = Color(0xFF141218)
-val onBackgroundDark = Color(0xFFE6E0E9)
-val surfaceDark = Color(0xFF141218)
-val onSurfaceDark = Color(0xFFE6E0E9)
-val surfaceVariantDark = Color(0xFF49454F)
-val onSurfaceVariantDark = Color(0xFFCAC4D0)
-val outlineDark = Color(0xFF938F99)
-val outlineVariantDark = Color(0xFF49454F)
+val backgroundDark = Color(0xFF212529)       // Deep Charcoal Background
+val onBackgroundDark = Color(0xFFFFFFFF)     // Pure White Text
+val surfaceDark = Color(0xFF212529)          // Consistent Charcoal Surface
+val onSurfaceDark = Color(0xFFFFFFFF)
+val surfaceVariantDark = Color(0xFFF5F6F7)   // Light Grey Variants
+val onSurfaceVariantDark = Color(0xFF212529)
+val outlineDark = Color(0xFFF5F6F7)          // Light Grey Outline
+val outlineVariantDark = Color(0xFFF5F6F7)   // Consistent Light Grey
 val scrimDark = Color(0xFF000000)
-val inverseSurfaceDark = Color(0xFFE6E0E9)
-val inverseOnSurfaceDark = Color(0xFF322F35)
-val inversePrimaryDark = Color(0xFF6750A4)
-val surfaceDimDark = Color(0xFF141218)
-val surfaceBrightDark = Color(0xFF3B383E)
-val surfaceContainerLowestDark = Color(0xFF0F0D13)
-val surfaceContainerLowDark = Color(0xFF1D1B20)
-val surfaceContainerDark = Color(0xFF211F26)
-val surfaceContainerHighDark = Color(0xFF2B2930)
-val surfaceContainerHighestDark = Color(0xFF36343B)
+val inverseSurfaceDark = Color(0xFFFFFFFF)
+val inverseOnSurfaceDark = Color(0xFF212529)
+val inversePrimaryDark = Color(0xFF212529)
+val surfaceDimDark = Color(0xFF212529)
+val surfaceBrightDark = Color(0xFFF5F6F7)
+val surfaceContainerLowestDark = Color(0xFF212529)
+val surfaceContainerLowDark = Color(0xFF212529)
+val surfaceContainerDark = Color(0xFF212529)
+val surfaceContainerHighDark = Color(0xFFF5F6F7)
+val surfaceContainerHighestDark = Color(0xFFF5F6F7)
 
 val primaryDarkMediumContrast = Color(0xFFD3C1FF)
 val onPrimaryDarkMediumContrast = Color(0xFF1B0942)
@@ -217,3 +219,37 @@ val surfaceContainerLowDarkHighContrast = Color(0xFF1C1B20)
 val surfaceContainerDarkHighContrast = Color(0xFF211F24)
 val surfaceContainerHighDarkHighContrast = Color(0xFF2B292F)
 val surfaceContainerHighestDarkHighContrast = Color(0xFF36343A)
+
+// Minimalist Brand Colors - High Contrast & Clean
+object MinimalistColors {
+    // Core Minimalist Palette
+    val DeepCharcoal = Color(0xFF212529)     // Primary dark color
+    val LightGrey = Color(0xFFF5F6F7)        // Subtle background/surface
+    val PureWhite = Color(0xFFFFFFFF)        // Clean backgrounds/text
+    
+    // Text Colors
+    val PrimaryText = Color(0xFF212529)      // Main text color
+    val SecondaryText = Color(0xFF212529)    // Consistent text
+    val InverseText = Color(0xFFFFFFFF)      // White text on dark
+    
+    // Surface Colors
+    val PrimarySurface = Color(0xFFFFFFFF)   // Main surface
+    val SecondarySurface = Color(0xFFF5F6F7) // Elevated surface
+    val DarkSurface = Color(0xFF212529)      // Dark mode surface
+    
+    // Interactive Colors
+    val ActiveState = Color(0xFF212529)      // Active elements
+    val HoverState = Color(0xFFF5F6F7)       // Hover effects
+    val FocusState = Color(0xFF212529)       // Focus rings
+    
+    // Status Colors (minimal palette)
+    val SuccessGreen = Color(0xFF28A745)     // Success state
+    val WarningOrange = Color(0xFFFFC107)    // Warning state  
+    val ErrorRed = Color(0xFFDC3545)         // Error state
+    val InfoBlue = Color(0xFF007BFF)         // Information
+    
+    // Border/Outline Colors
+    val Border = Color(0xFFF5F6F7)           // Subtle borders
+    val FocusBorder = Color(0xFF212529)      // Focus borders
+    val Divider = Color(0xFFF5F6F7)          // Content dividers
+}

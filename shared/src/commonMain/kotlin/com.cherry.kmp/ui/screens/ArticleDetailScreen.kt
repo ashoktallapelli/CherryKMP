@@ -1,20 +1,32 @@
 package com.cherry.kmp.ui.screens
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.AccessTime
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.cherry.kmp.domain.model.Post
+import com.cherry.kmp.ui.theme.MinimalistColors
 import com.cherry.kmp.domain.usecase.GetPostsUseCase
 import com.cherry.kmp.domain.UiState
 import com.cherry.kmp.ui.component.ErrorScreen
@@ -60,32 +72,17 @@ fun ArticleDetailScreen(
         }
     }
     
+    val currentState = uiState
+    val showShareButton = currentState is UiState.Success && currentState.data != null
+    
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Article Details") },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
+            ElegantArticleHeader(
+                onBackClick = { navController.popBackStack() },
+                onShareClick = {
+                    // TODO: Implement sharing functionality
                 },
-                actions = {
-                    when (val state = uiState) {
-                        is UiState.Success -> {
-                            state.data?.let { article ->
-                                IconButton(
-                                    onClick = { 
-                                        // TODO: Implement sharing functionality
-                                        // shareArticle(article)
-                                    }
-                                ) {
-                                    Icon(Icons.Default.Share, contentDescription = "Share")
-                                }
-                            }
-                        }
-                        else -> { /* No share button for loading/error states */ }
-                    }
-                }
+                showShareButton = showShareButton
             )
         }
     ) { paddingValues ->
@@ -94,7 +91,7 @@ fun ArticleDetailScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            when (val state = uiState) {
+            when (val state = currentState) {
                 is UiState.Loading -> {
                     LoadingScreen()
                 }
@@ -105,15 +102,19 @@ fun ArticleDetailScreen(
                         onRetry = {
                             scope.launch {
                                 uiState = UiState.Loading
-                                getPostsUseCase(Unit).collect { postsState ->
-                                    when (postsState) {
-                                        is UiState.Success -> {
-                                            val article = postsState.data.find { it.id == articleId }
-                                            uiState = UiState.Success(article)
+                                try {
+                                    getPostsUseCase(Unit).collect { postsState ->
+                                        when (postsState) {
+                                            is UiState.Success -> {
+                                                val article = postsState.data.find { it.id == articleId }
+                                                uiState = UiState.Success(article)
+                                            }
+                                            is UiState.Error -> uiState = UiState.Error(postsState.apiError)
+                                            else -> {}
                                         }
-                                        is UiState.Error -> uiState = UiState.Error(postsState.apiError)
-                                        else -> {}
                                     }
+                                } catch (e: Exception) {
+                                    uiState = UiState.Error(e)
                                 }
                             }
                         }
@@ -143,56 +144,235 @@ fun ArticleDetailScreen(
 }
 
 @Composable
+private fun ElegantArticleHeader(
+    onBackClick: () -> Unit,
+    onShareClick: () -> Unit,
+    showShareButton: Boolean
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MinimalistColors.PrimarySurface
+        ),
+        shape = RoundedCornerShape(
+            bottomStart = 24.dp,
+            bottomEnd = 24.dp
+        )
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Transparent)
+                .padding(horizontal = 24.dp, vertical = 20.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Left side - Back button and title
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Card(
+                        modifier = Modifier.size(48.dp),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MinimalistColors.SecondarySurface
+                        ),
+                        shape = RoundedCornerShape(16.dp),
+                        onClick = onBackClick
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Back",
+                                tint = MinimalistColors.PrimaryText.copy(alpha = 0.8f),
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                    }
+                    
+                    Column {
+                        Text(
+                            text = "Article Details",
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = MinimalistColors.PrimaryText
+                        )
+                        Text(
+                            text = "Read full article content",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MinimalistColors.PrimaryText.copy(alpha = 0.7f)
+                        )
+                    }
+                }
+                
+                // Right side - Share button (if available)
+                if (showShareButton) {
+                    Card(
+                        modifier = Modifier.size(48.dp),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MinimalistColors.SecondarySurface
+                        ),
+                        shape = RoundedCornerShape(16.dp),
+                        onClick = onShareClick
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Share,
+                                contentDescription = "Share",
+                                tint = MinimalistColors.PrimaryText.copy(alpha = 0.8f),
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
 private fun ArticleContent(article: Post) {
+    var isContentLoaded by remember { mutableStateOf(false) }
+    
+    LaunchedEffect(article) {
+        isContentLoaded = true
+    }
+    
+    val contentAnimationScale by animateFloatAsState(
+        targetValue = if (isContentLoaded) 1f else 0.95f,
+        animationSpec = tween(
+            durationMillis = 400,
+            easing = FastOutSlowInEasing
+        )
+    )
+    
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+            .padding(16.dp)
+            .scale(contentAnimationScale),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        // Article metadata
+        // Article Header Card
         Card(
             modifier = Modifier.fillMaxWidth(),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MinimalistColors.SecondarySurface
+            ),
+            shape = RoundedCornerShape(24.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Transparent)
+                    .padding(24.dp)
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    // Article Title
+                    Text(
+                        text = article.title,
+                        style = MaterialTheme.typography.headlineMedium.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = MinimalistColors.PrimaryText
+                    )
+                    
+                    // Article Metadata
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(24.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Author Info
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Person,
+                                contentDescription = null,
+                                tint = MinimalistColors.PrimaryText.copy(alpha = 0.8f),
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Text(
+                                text = "User ${article.userId}",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MinimalistColors.PrimaryText.copy(alpha = 0.8f)
+                            )
+                        }
+                        
+                        // Article ID
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.AccessTime,
+                                contentDescription = null,
+                                tint = MinimalistColors.PrimaryText.copy(alpha = 0.8f),
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Text(
+                                text = "Article #${article.id}",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MinimalistColors.PrimaryText.copy(alpha = 0.8f)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Article Content Card
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MinimalistColors.SecondarySurface
+            ),
+            shape = RoundedCornerShape(20.dp)
         ) {
             Column(
-                modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                modifier = Modifier.padding(24.dp)
             ) {
                 Text(
-                    text = "Article #${article.id}",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    text = "Article Content",
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.SemiBold
+                    ),
+                    color = MinimalistColors.PrimaryText,
+                    modifier = Modifier.padding(bottom = 16.dp)
                 )
+                
                 Text(
-                    text = "By User ${article.userId}",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    text = article.body,
+                    style = MaterialTheme.typography.bodyLarge,
+                    lineHeight = MaterialTheme.typography.bodyLarge.lineHeight * 1.5,
+                    color = MinimalistColors.PrimaryText.copy(alpha = 0.9f),
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
         }
         
-        // Article title
-        Text(
-            text = article.title,
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.fillMaxWidth()
-        )
-        
-        Divider()
-        
-        // Article body
-        Text(
-            text = article.body,
-            style = MaterialTheme.typography.bodyLarge,
-            lineHeight = MaterialTheme.typography.bodyLarge.lineHeight * 1.4,
-            modifier = Modifier.fillMaxWidth()
-        )
-        
         // Add some bottom spacing
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(50.dp))
     }
 }
 
@@ -201,36 +381,57 @@ private fun ArticleNotFound(
     articleId: Int,
     onBackClick: () -> Unit
 ) {
-    Column(
+    Card(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .fillMaxWidth()
+            .padding(16.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MinimalistColors.SecondarySurface
+        ),
+        shape = RoundedCornerShape(20.dp)
     ) {
-        Text(
-            text = "Article Not Found",
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
-        )
-        
-        Spacer(modifier = Modifier.height(16.dp))
-        
-        Text(
-            text = "The article with ID $articleId could not be found.",
-            style = MaterialTheme.typography.bodyLarge,
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        
-        Spacer(modifier = Modifier.height(24.dp))
-        
-        Button(
-            onClick = onBackClick,
-            modifier = Modifier.fillMaxWidth()
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Go Back")
+            Icon(
+                imageVector = Icons.Default.Person,
+                contentDescription = null,
+                modifier = Modifier.size(48.dp),
+                tint = MinimalistColors.PrimaryText
+            )
+            
+            Spacer(modifier = Modifier.height(16.dp))
+            
+            Text(
+                text = "Article Not Found",
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    fontWeight = FontWeight.Bold
+                ),
+                color = MinimalistColors.PrimaryText,
+                textAlign = TextAlign.Center
+            )
+            
+            Spacer(modifier = Modifier.height(8.dp))
+            
+            Text(
+                text = "The article with ID $articleId could not be found.",
+                style = MaterialTheme.typography.bodyLarge,
+                textAlign = TextAlign.Center,
+                color = MinimalistColors.PrimaryText.copy(alpha = 0.7f)
+            )
+            
+            Spacer(modifier = Modifier.height(24.dp))
+            
+            FilledTonalButton(
+                onClick = onBackClick,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Go Back")
+            }
         }
     }
 }

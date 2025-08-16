@@ -251,7 +251,7 @@ val unspecified_scheme = ColorFamily(
 @Composable
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false, // Disable dynamic colors for consistent branding
     content: @Composable() () -> Unit
 ) {
     val colorScheme = if (darkTheme) {
@@ -263,6 +263,7 @@ fun AppTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = AppTypography,
+        shapes = AppShapes,
         content = content
     )
 }

@@ -59,9 +59,7 @@ class NavigationManager(private val navController: NavController) {
     fun navigateToMainTab(route: NavigationRoutes) {
         navigateTo(route.route) {
             // Clear back stack to start destination
-            popUpTo(NavigationRoutes.Everything.route) {
-                saveState = true
-            }
+            popUpTo(NavigationRoutes.News.route)
             launchSingleTop = true
             restoreState = true
         }
@@ -90,9 +88,9 @@ class NavigationManager(private val navController: NavController) {
      * Clear entire navigation stack and go to start destination
      */
     fun navigateToStartAndClearStack() {
-        navigateTo(NavigationRoutes.Everything.route) {
-            popUpTo(NavigationRoutes.Everything.route) { 
-                inclusive = true 
+        navigateTo(NavigationRoutes.News.route) {
+            popUpTo(NavigationRoutes.News.route) {
+                inclusive = true
             }
             launchSingleTop = true
         }
@@ -127,20 +125,20 @@ class NavigationManager(private val navController: NavController) {
         try {
             when {
                 route.contains("article/") -> {
-                    // If article navigation fails, go to everything screen
-                    navController.navigate(NavigationRoutes.Everything.route)
+                    // If article navigation fails, go to news screen
+                    navController.navigate(NavigationRoutes.News.route)
                 }
                 route.contains("category/") -> {
-                    // If category navigation fails, go to everything screen  
-                    navController.navigate(NavigationRoutes.Everything.route)
+                    // If category navigation fails, go to news screen  
+                    navController.navigate(NavigationRoutes.News.route)
                 }
                 route.contains("search") -> {
-                    // If search navigation fails, go to everything screen
-                    navController.navigate(NavigationRoutes.Everything.route)
+                    // If search navigation fails, go to news screen
+                    navController.navigate(NavigationRoutes.News.route)
                 }
                 else -> {
                     // For any other error, try to go to start destination
-                    navController.navigate(NavigationRoutes.Everything.route)
+                    navController.navigate(NavigationRoutes.News.route)
                 }
             }
         } catch (fallbackError: Exception) {

@@ -2,7 +2,16 @@ package com.cherry.kmp.common
 
 import androidx.compose.runtime.Composable
 
-expect class PermissionsManager(callback: PermissionCallback) : PermissionHandler
+expect class PermissionsManager(callback: PermissionCallback) : PermissionHandler {
+    @Composable
+    override fun AskPermission(permission: PermissionType)
+    
+    @Composable
+    override fun isPermissionGranted(permission: PermissionType): Boolean
+    
+    @Composable
+    override fun LaunchSettings()
+}
 
 interface PermissionCallback {
     fun onPermissionStatus(permissionType: PermissionType, status: PermissionStatus)

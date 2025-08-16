@@ -1,14 +1,16 @@
 package com.cherry.kmp.ui.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Newspaper
+import androidx.compose.material.icons.filled.Article
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Source
-import androidx.compose.material.icons.filled.ViewHeadline
-import androidx.compose.material.icons.outlined.Newspaper
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Article
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Source
-import androidx.compose.material.icons.outlined.ViewHeadline
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
@@ -22,25 +24,25 @@ sealed class NavigationRoutes(
 ) {
     
     // Main Tab Navigation
-    data object Everything : NavigationRoutes(
-        route = "everything",
-        title = "Everything", 
-        selectedIcon = Icons.Filled.Newspaper,
-        unSelectedIcon = Icons.Outlined.Newspaper
+    data object Home : NavigationRoutes(
+        route = "home",
+        title = "Home",
+        selectedIcon = Icons.Filled.Home,
+        unSelectedIcon = Icons.Outlined.Home
     )
     
-    data object Headlines : NavigationRoutes(
-        route = "headlines",
-        title = "Headlines",
-        selectedIcon = Icons.Filled.ViewHeadline,
-        unSelectedIcon = Icons.Outlined.ViewHeadline
+    data object News : NavigationRoutes(
+        route = "news",
+        title = "News",
+        selectedIcon = Icons.Filled.Article,
+        unSelectedIcon = Icons.Outlined.Article
     )
     
-    data object Sources : NavigationRoutes(
-        route = "sources", 
-        title = "Sources",
-        selectedIcon = Icons.Filled.Source,
-        unSelectedIcon = Icons.Outlined.Source
+    data object Favorites : NavigationRoutes(
+        route = "favorites",
+        title = "Favorites",
+        selectedIcon = Icons.Filled.Favorite,
+        unSelectedIcon = Icons.Outlined.FavoriteBorder
     )
     
     data object Profile : NavigationRoutes(
@@ -137,9 +139,9 @@ sealed class NavigationRoutes(
         // Main tab routes for bottom navigation
         val mainTabRoutes: List<NavigationRoutes> by lazy {
             listOf(
-                Everything,
-                Headlines, 
-                Sources,
+                Home,
+                News,
+                Favorites,
                 Profile
             )
         }
@@ -147,7 +149,7 @@ sealed class NavigationRoutes(
         // All available routes for navigation validation
         val allRoutes: List<NavigationRoutes> by lazy {
             listOf(
-                Everything, Headlines, Sources, Profile,
+                News, Profile,
                 ArticleDetail, CategoryNews, SourceNews, SearchResults,
                 EditProfile, SecuritySettings, AppSettings,
                 Onboarding, Login, NotFound, NoInternet
@@ -157,7 +159,7 @@ sealed class NavigationRoutes(
         // Deep linkable routes (for external access)
         val deepLinkRoutes: List<NavigationRoutes> by lazy {
             listOf(
-                Everything, Headlines, Sources,
+                News,
                 ArticleDetail, CategoryNews, SourceNews, SearchResults
             )
         }
