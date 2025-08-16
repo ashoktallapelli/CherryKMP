@@ -14,6 +14,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,7 +39,8 @@ internal fun LocalDataScreen(
         viewModel.loadAllLocalItems()
     }
 
-    val items = viewModel.allLocalItems
+    val items by viewModel.allLocalItems.collectAsState()
+    val currentLocalItem by viewModel.currentLocalItem.collectAsState()
     var tappedItem by remember { mutableStateOf<DataModelEntity?>(null) }
     Column(
         Modifier
@@ -71,12 +73,12 @@ internal fun LocalDataScreen(
 
         Text("Current Items (tap to show content):", color = Color.White)
         LazyColumn {
-            items(items.value.size) { item ->
+            items(items.size) { index ->
                 Text(
-                    items.value[item].name,
+                    items[index].name,
                     modifier = Modifier.clickable {
-                        viewModel.getLocalItemById(items.value[item].id)
-                        tappedItem = viewModel.currentLocalItem.value
+                        viewModel.getLocalItemById(items[index].id)
+                        tappedItem = currentLocalItem
                     },
                     color = Color.White
                 )
