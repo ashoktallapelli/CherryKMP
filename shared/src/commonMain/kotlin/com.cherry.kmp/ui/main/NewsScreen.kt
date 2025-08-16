@@ -17,7 +17,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -57,6 +59,9 @@ import com.cherry.kmp.ui.theme.MinimalistColors
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.lerp
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.layout.ContentScale
 import androidx.navigation.NavHostController
 import cherrykmp.shared.generated.resources.Res
 import cherrykmp.shared.generated.resources.all_news
@@ -96,6 +101,9 @@ internal fun NewsScreen(
     val everythingNews by viewModel.newsEverythingUiState.collectAsState()
     val headlinesNews by viewModel.newsHeadlinesUiState.collectAsState()
     
+    // Scroll state for collapsing effect
+    val listState = rememberLazyListState()
+    
     LaunchedEffect(Unit) {
         isScreenLoaded = true
         // Load all data
@@ -110,54 +118,318 @@ internal fun NewsScreen(
         )
     )
 
+    // Calculate scroll progress for collapsing effect
+    val scrollProgress = remember(listState.firstVisibleItemIndex, listState.firstVisibleItemScrollOffset) {
+        when {
+            listState.firstVisibleItemIndex > 1 -> 1f
+            listState.firstVisibleItemIndex == 1 -> (listState.firstVisibleItemScrollOffset / 300f).coerceIn(0f, 1f)
+            else -> 0f
+        }
+    }
+
     Scaffold(
         topBar = {
-            ElegantNewsHeader()
+            CollapsingNewsHeader(
+                selectedTab = selectedTab,
+                scrollProgress = scrollProgress,
+                onTabSelected = { selectedTab = it }
+            )
         }
     ) { paddingValues ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
                 .scale(screenAnimationScale)
         ) {
-            // Header Section with Description
-            NewsHeaderSection(selectedTab = selectedTab)
+            // Get current UI state based on selected tab
+            val currentUiState = when (selectedTab) {
+                NewsTab.EVERYTHING -> everythingNews
+                NewsTab.HEADLINES -> headlinesNews
+                NewsTab.SOURCES -> UiState.Success(emptyList<Article>()) // Empty for sources
+            }
             
-            // Tab Selection
-            NewsTabSelection(
+            NewsContentWithCollapsing(
+                uiState = currentUiState,
                 selectedTab = selectedTab,
-                onTabSelected = { selectedTab = it }
+                listState = listState,
+                scrollProgress = scrollProgress,
+                onTabSelected = { selectedTab = it },
+                onArticleClick = { article ->
+                    // Navigate to article detail - article might not have an id field
+                    // For now, use a dummy navigation
+                    navController.navigate("article/1")
+                },
+                onRetry = { 
+                    when (selectedTab) {
+                        NewsTab.EVERYTHING -> viewModel.loadEverythingNews()
+                        NewsTab.HEADLINES -> viewModel.loadHeadlinesNews()
+                        NewsTab.SOURCES -> { /* No retry for sources yet */ }
+                    }
+                }
             )
-            
-            // Content based on selected tab
-            when (selectedTab) {
-                NewsTab.EVERYTHING -> {
-                    NewsContent(
-                        uiState = everythingNews,
-                        onArticleClick = { article ->
-                            // Navigate to article detail - article might not have an id field
-                            // For now, use a dummy navigation
-                            navController.navigate("article/1")
-                        },
-                        onRetry = { viewModel.loadEverythingNews() }
-                    )
-                }
-                NewsTab.HEADLINES -> {
-                    NewsContent(
-                        uiState = headlinesNews,
-                        onArticleClick = { article ->
-                            // Navigate to article detail - article might not have an id field
-                            // For now, use a dummy navigation
-                            navController.navigate("article/1")
-                        },
-                        onRetry = { viewModel.loadEverythingNews() }
-                    )
-                }
-                NewsTab.SOURCES -> {
-                    EmptySourcesState()
+        }
+    }
+}
+
+@Composable
+private fun CollapsingNewsHeader(
+    selectedTab: NewsTab,
+    scrollProgress: Float,
+    onTabSelected: (NewsTab) -> Unit
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = lerp(0.dp, 8.dp, scrollProgress)),
+        colors = CardDefaults.cardColors(
+            containerColor = MinimalistColors.PrimarySurface
+        ),
+        shape = RoundedCornerShape(
+            bottomStart = lerp(24.dp, 0.dp, scrollProgress),
+            bottomEnd = lerp(24.dp, 0.dp, scrollProgress)
+        )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Transparent)
+        ) {
+            // Main header row
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp, vertical = 20.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // Left side - App branding and tab info
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(lerp(0.dp, 12.dp, scrollProgress))
+                    ) {
+                        Column {
+                            Text(
+                                text = "CherryKMP",
+                                style = MaterialTheme.typography.headlineSmall.copy(
+                                    fontWeight = FontWeight.Bold
+                                ),
+                                color = MinimalistColors.PrimaryText
+                            )
+                            Text(
+                                text = if (scrollProgress > 0.5f) selectedTab.title else "Stay informed with latest news",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MinimalistColors.SecondaryText.copy(alpha = 0.7f),
+                                modifier = Modifier.alpha(1f - (scrollProgress * 0.3f))
+                            )
+                        }
+                        
+                        // Tab icon appears when collapsed
+                        if (scrollProgress > 0.3f) {
+                            Icon(
+                                imageVector = selectedTab.icon,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary.copy(alpha = scrollProgress),
+                                modifier = Modifier
+                                    .size(lerp(0.dp, 24.dp, scrollProgress))
+                                    .alpha(scrollProgress)
+                            )
+                        }
+                    }
+                    
+                    // Right side - Search action
+                    Card(
+                        modifier = Modifier.size(48.dp),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MinimalistColors.SecondarySurface
+                        ),
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = "Search",
+                                tint = MinimalistColors.PrimaryText.copy(alpha = 0.8f),
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                    }
                 }
             }
+            
+            // Collapsed tab selection (appears when scrolled)
+            if (scrollProgress > 0.7f) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp)
+                        .padding(bottom = 16.dp)
+                        .alpha(scrollProgress),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    NewsTab.values().forEach { tab ->
+                        FilterChip(
+                            selected = selectedTab == tab,
+                            onClick = { onTabSelected(tab) },
+                            label = {
+                                Text(
+                                    text = tab.title,
+                                    style = MaterialTheme.typography.labelSmall
+                                )
+                            },
+                            modifier = Modifier.weight(1f),
+                            colors = FilterChipDefaults.filterChipColors(
+                                selectedContainerColor = MinimalistColors.DeepCharcoal,
+                                selectedLabelColor = MinimalistColors.InverseText,
+                                containerColor = MinimalistColors.SecondarySurface,
+                                labelColor = MinimalistColors.PrimaryText
+                            )
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun NewsContentWithCollapsing(
+    uiState: UiState<*>,
+    selectedTab: NewsTab,
+    listState: LazyListState,
+    scrollProgress: Float,
+    onTabSelected: (NewsTab) -> Unit,
+    onArticleClick: (Article) -> Unit,
+    onRetry: () -> Unit
+) {
+    when (uiState) {
+        is UiState.Loading -> {
+            LoadingScreen()
+        }
+        is UiState.Success -> {
+            val data = uiState.data
+            val articles = when (data) {
+                is com.cherry.kmp.domain.model.NewsResults -> data.articles
+                is List<*> -> data.filterIsInstance<Article>()
+                else -> emptyList()
+            }
+            
+            if (articles.isEmpty()) {
+                if (selectedTab == NewsTab.SOURCES) {
+                    EmptySourcesState()
+                } else {
+                    EmptyNewsState()
+                }
+            } else {
+                LazyColumn(
+                    state = listState,
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    // Header section (will be pushed up when scrolling)
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .alpha(1f - scrollProgress)
+                                .padding(bottom = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            // Header Section with Description
+                            NewsHeaderSection(selectedTab = selectedTab)
+                            
+                            // Tab Selection
+                            NewsTabSelection(
+                                selectedTab = selectedTab,
+                                onTabSelected = onTabSelected
+                            )
+                        }
+                    }
+                    
+                    // Spacer item for smooth transition
+                    item {
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
+                    
+                    // Articles
+                    items(articles) { article ->
+                        ElegantArticleCard(
+                            article = article,
+                            onClick = { onArticleClick(article) }
+                        )
+                    }
+                }
+            }
+        }
+        is UiState.Error -> {
+            ErrorScreen(
+                errorMessage = uiState.apiError.message ?: "Unknown error occurred",
+                onRetry = onRetry
+            )
+        }
+        is UiState.CachedSuccess -> {
+            val data = uiState.data
+            val articles = when (data) {
+                is com.cherry.kmp.domain.model.NewsResults -> data.articles
+                is List<*> -> data.filterIsInstance<Article>()
+                else -> emptyList()
+            }
+            
+            if (articles.isEmpty()) {
+                if (selectedTab == NewsTab.SOURCES) {
+                    EmptySourcesState()
+                } else {
+                    EmptyNewsState()
+                }
+            } else {
+                LazyColumn(
+                    state = listState,
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    // Header section (will be pushed up when scrolling)
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .alpha(1f - scrollProgress)
+                                .padding(bottom = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            // Header Section with Description
+                            NewsHeaderSection(selectedTab = selectedTab)
+                            
+                            // Tab Selection
+                            NewsTabSelection(
+                                selectedTab = selectedTab,
+                                onTabSelected = onTabSelected
+                            )
+                        }
+                    }
+                    
+                    // Spacer item for smooth transition
+                    item {
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
+                    
+                    // Articles
+                    items(articles) { article ->
+                        ElegantArticleCard(
+                            article = article,
+                            onClick = { onArticleClick(article) }
+                        )
+                    }
+                }
+            }
+        }
+        is UiState.Initial -> {
+            LoadingScreen()
         }
     }
 }

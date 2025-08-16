@@ -194,7 +194,7 @@ internal fun EditProfileScreen(
                 onBackClick = { navigateToProfile() }
             )
         },
-        content = {
+        content = { paddingValues ->
             androidx.compose.material.ModalBottomSheetLayout(
                 sheetState = sheetState,
                 sheetContent = {
@@ -214,6 +214,7 @@ internal fun EditProfileScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
+                        .padding(paddingValues)
                         .padding(16.dp)
                         .scale(screenAnimationScale),
                     verticalArrangement = Arrangement.spacedBy(24.dp)
