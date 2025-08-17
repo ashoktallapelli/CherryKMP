@@ -178,6 +178,7 @@ buildConfig {
     buildConfigField("APP_VERSION", provider { "\"${project.version}\"" })
     buildConfigField("BASE_URL", getEnvVar("NEWS_BASE_URL", "newsapi.org"))
     buildConfigField("API_KEY", getEnvVar("NEWS_API_KEY", ""))
+    buildConfigField("DATAMALL_API_KEY", getEnvVar("DATAMALL_API_KEY", ""))
     
     // Debug flag - defaults to true, will be overridden in release builds
     buildConfigField("DEBUG", true)

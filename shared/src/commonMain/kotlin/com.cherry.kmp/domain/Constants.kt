@@ -1,6 +1,7 @@
 package com.cherry.kmp.domain
 
 import com.cherry.kmp.domain.model.Source
+import CherryKMP.shared.BuildConfig
 
 object Constants {
     val SOURCE_LIST = listOf(
@@ -23,4 +24,7 @@ object Constants {
     const val CATEGORY_BUSINESS = "business"
     const val PUBLISHED_AT = "publishedAt"
     const val QUERY_TELSA = "tesla"
+    
+    // Singapore DataMall API Configuration
+    val DATAMALL_API_KEY = BuildConfig.DATAMALL_API_KEY
 }
