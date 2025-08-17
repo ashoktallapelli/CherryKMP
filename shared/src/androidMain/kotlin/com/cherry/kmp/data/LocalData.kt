@@ -14,7 +14,10 @@ fun getAppDatabase(context: Context): AppDatabase {
     val dbFile = context.getDatabasePath(dbFileName)
     return Room.databaseBuilder<AppDatabase>(
         context = context.applicationContext, name = dbFile.absolutePath
-    ).setDriver(BundledSQLiteDriver()).fallbackToDestructiveMigration(true).build()
+    ).setDriver(BundledSQLiteDriver())
+    .fallbackToDestructiveMigration(true)
+    .fallbackToDestructiveMigrationOnDowngrade(true)
+    .build()
 }
 
 fun getAppDataStore(context: Context): DataStore<Preferences> = getDataStore(

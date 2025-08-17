@@ -6,11 +6,13 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.outlined.Article
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
@@ -38,6 +40,13 @@ sealed class NavigationRoutes(
         unSelectedIcon = Icons.Outlined.Article
     )
     
+    data object SingaporeTravel : NavigationRoutes(
+        route = "singaporeTravel",
+        title = "SG Travel",
+        selectedIcon = Icons.Filled.LocationOn,
+        unSelectedIcon = Icons.Outlined.LocationOn
+    )
+    
     data object Favorites : NavigationRoutes(
         route = "favorites",
         title = "Favorites",
@@ -51,6 +60,36 @@ sealed class NavigationRoutes(
         selectedIcon = Icons.Filled.Person,
         unSelectedIcon = Icons.Outlined.Person
     )
+    
+    // Singapore Travel Detail Navigation
+    data object TravelOverview : NavigationRoutes(
+        route = "travel/overview",
+        title = "Travel Overview"
+    )
+    
+    data object BusArrivals : NavigationRoutes(
+        route = "travel/bus",
+        title = "Bus Arrivals"
+    )
+    
+    data object MrtStations : NavigationRoutes(
+        route = "travel/mrt",
+        title = "MRT Stations"
+    )
+    
+    data object BusStopDetail : NavigationRoutes(
+        route = "travel/bus/{busStopCode}",
+        title = "Bus Stop Details"
+    ) {
+        fun createRoute(busStopCode: String) = "travel/bus/$busStopCode"
+    }
+    
+    data object MrtStationDetail : NavigationRoutes(
+        route = "travel/mrt/{stationCode}",
+        title = "MRT Station Details"
+    ) {
+        fun createRoute(stationCode: String) = "travel/mrt/$stationCode"
+    }
     
     // Detail Navigation with Arguments
     data object ArticleDetail : NavigationRoutes(
@@ -141,7 +180,7 @@ sealed class NavigationRoutes(
             listOf(
                 Home,
                 News,
-                Favorites,
+                SingaporeTravel,
                 Profile
             )
         }
@@ -149,7 +188,8 @@ sealed class NavigationRoutes(
         // All available routes for navigation validation
         val allRoutes: List<NavigationRoutes> by lazy {
             listOf(
-                News, Profile,
+                News, SingaporeTravel, Favorites, Profile,
+                TravelOverview, BusArrivals, MrtStations, BusStopDetail, MrtStationDetail,
                 ArticleDetail, CategoryNews, SourceNews, SearchResults,
                 EditProfile, SecuritySettings, AppSettings,
                 Onboarding, Login, NotFound, NoInternet

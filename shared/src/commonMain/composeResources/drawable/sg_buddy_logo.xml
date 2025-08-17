@@ -1,0 +1,93 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    
+    <!-- Background Circle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M100,10C150.76,10 190,49.24 190,100C190,150.76 150.76,190 100,190C49.24,190 10,150.76 10,100C10,49.24 49.24,10 100,10Z"/>
+    
+    <!-- Merlion Body - Blue Water -->
+    <path
+        android:fillColor="#2196F3"
+        android:pathData="M70,130C70,130 90,125 100,130C110,125 130,130 130,130C130,140 130,150 130,160C130,170 120,175 100,175C80,175 70,170 70,160C70,150 70,140 70,130Z"/>
+    
+    <!-- Merlion Scales -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M75,135L85,135L80,140ZM90,135L100,135L95,140ZM105,135L115,135L110,140ZM120,135L125,135L122.5,140Z"/>
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M75,145L85,145L80,150ZM90,145L100,145L95,150ZM105,145L115,145L110,150ZM120,145L125,145L122.5,150Z"/>
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M80,155L90,155L85,160ZM95,155L105,155L100,160ZM110,155L120,155L115,160Z"/>
+    
+    <!-- Merlion Head - Red -->
+    <path
+        android:fillColor="#F44336"
+        android:pathData="M85,90C85,85 90,80 100,80C110,80 115,85 115,90C115,95 115,100 115,110C115,120 110,125 100,125C90,125 85,120 85,110C85,100 85,95 85,90Z"/>
+    
+    <!-- Lion Mane -->
+    <path
+        android:fillColor="#D32F2F"
+        android:pathData="M80,85C80,80 85,75 95,75C105,75 115,75 120,85C120,90 118,95 115,95C115,90 110,85 100,85C90,85 85,90 85,95C82,95 80,90 80,85Z"/>
+    
+    <!-- Eyes -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M95,95m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"/>
+    <path
+        android:fillColor="#000000"
+        android:pathData="M105,95m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"/>
+    
+    <!-- Nose -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M100,100L98,102L102,102Z"/>
+    
+    <!-- Mouth -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M100,105C95,108 105,108 100,105"/>
+    
+    <!-- Singapore Flag on Mane -->
+    <path
+        android:fillColor="#FF0000"
+        android:pathData="M88,82L100,82L100,90L88,90Z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M88,86L100,86L100,90L88,90Z"/>
+    
+    <!-- Stars and Crescent -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M90,84L91,85L90,86L89,85ZM92,84L93,85L92,86L91,85ZM94,84L95,85L94,86L93,85ZM96,84L97,85L96,86L95,85ZM98,84L99,85L98,86L97,85Z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M89,84C89,83 90,82 91,83C91,84 90,85 89,84Z"/>
+    
+    <!-- Phone in Merlion's Hand -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M120,100L135,100Q138,100 138,103L138,122Q138,125 135,125L120,125Q117,125 117,122L117,103Q117,100 120,100Z"/>
+    <path
+        android:fillColor="#81C784"
+        android:pathData="M122,102L133,102L133,117L122,117Z"/>
+    <path
+        android:fillColor="#66BB6A"
+        android:pathData="M127.5,120m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"/>
+    
+    <!-- App icon on phone screen -->
+    <path
+        android:fillColor="#2196F3"
+        android:pathData="M124,104L127,104L127,107L124,107Z"/>
+    <path
+        android:fillColor="#FF9800"
+        android:pathData="M128,104L131,104L131,107L128,107Z"/>
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M124,108L131,108L131,110L124,110Z"/>
+</vector>

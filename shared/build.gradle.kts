@@ -69,6 +69,7 @@ kotlin {
 
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.datetime)
 
             //Common viewmodel
             implementation(libs.lifecycle.viewmodel.compose)

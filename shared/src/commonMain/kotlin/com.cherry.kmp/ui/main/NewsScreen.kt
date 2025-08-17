@@ -196,7 +196,7 @@ private fun CollapsingNewsHeader(
                     ) {
                         Column {
                             Text(
-                                text = "CherryKMP",
+                                text = "SG Buddy",
                                 style = MaterialTheme.typography.headlineSmall.copy(
                                     fontWeight = FontWeight.Bold
                                 ),
@@ -445,7 +445,7 @@ private fun ElegantNewsHeader() {
                 // Left side - App branding
                 Column {
                     Text(
-                        text = "CherryKMP",
+                        text = "SG Buddy",
                         style = MaterialTheme.typography.headlineSmall.copy(
                             fontWeight = FontWeight.Bold
                         ),

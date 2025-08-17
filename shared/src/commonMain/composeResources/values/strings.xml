@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cherry KMP</string>
+    <string name="app_name">SG Buddy</string>
     <string name="select_source">Select Source</string>
     <string name="all_news">All News</string>
     <string name="news_headlines">News Headlines</string>
@@ -22,4 +22,14 @@
     <string name="edit">Edit</string>
     <string name="permission_required">Permission Required</string>
     <string name="permission_description">To set your profile picture, please grant this permission. You can manage permissions in your device settings.</string>
+    
+    <!-- Singapore Travel Strings -->
+    <string name="singapore_travel">Singapore Travel</string>
+    <string name="bus_arrivals">Bus Arrivals</string>
+    <string name="mrt_stations">MRT Stations</string>
+    <string name="service_alerts">Service Alerts</string>
+    <string name="nearby_transport">Nearby Transport</string>
+    <string name="real_time_info">Real-time transport information</string>
+    <string name="your_local_companion">Your Local Companion</string>
+    <string name="explore_singapore">Explore Singapore</string>
 </resources>

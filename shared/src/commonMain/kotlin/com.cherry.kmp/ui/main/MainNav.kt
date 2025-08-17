@@ -40,6 +40,10 @@ import com.cherry.kmp.ui.navigation.NavigationManager
 import com.cherry.kmp.ui.navigation.DeepLinkData
 import com.cherry.kmp.ui.settings.SecuritySettingsScreen
 import com.cherry.kmp.ui.screens.ArticleDetailScreen
+import com.cherry.kmp.ui.main.SingaporeTravelScreen
+import com.cherry.kmp.ui.travel.TravelOverviewScreen
+import com.cherry.kmp.ui.travel.BusArrivalsScreen
+import com.cherry.kmp.ui.travel.MrtStationsScreen
 
 @Composable
 fun MainNav(
@@ -68,7 +72,7 @@ fun MainNav(
     val shouldShowBottomBar = when (currentDestination?.route) {
         NavigationRoutes.Home.route,
         NavigationRoutes.News.route,
-        NavigationRoutes.Favorites.route,
+        NavigationRoutes.SingaporeTravel.route,
         NavigationRoutes.Profile.route -> true
 
         else -> false
@@ -91,9 +95,8 @@ fun MainNav(
                 composable(route = NavigationRoutes.News.route) {
                     NewsScreen(navController = navController)
                 }
-                composable(route = NavigationRoutes.Favorites.route) {
-                    // Placeholder for Favorites screen
-                    NewsScreen(navController = navController) // Using NewsScreen as placeholder
+                composable(route = NavigationRoutes.SingaporeTravel.route) {
+                    SingaporeTravelScreen(navController = navController)
                 }
                 composable(route = NavigationRoutes.Profile.route) {
                     ProfileScreen(
@@ -131,6 +134,37 @@ fun MainNav(
                 }
                 composable(route = NavigationRoutes.SecuritySettings.route) {
                     SecuritySettingsScreen(navController = navController)
+                }
+                
+                // Singapore Travel Detail Screens
+                composable(route = NavigationRoutes.TravelOverview.route) {
+                    TravelOverviewScreen(navController = navController)
+                }
+                composable(route = NavigationRoutes.BusArrivals.route) {
+                    BusArrivalsScreen(navController = navController)
+                }
+                composable(route = NavigationRoutes.MrtStations.route) {
+                    MrtStationsScreen(navController = navController)
+                }
+                
+                // Travel Detail Screens with Arguments
+                composable(route = NavigationRoutes.BusStopDetail.route) { backStackEntry ->
+                    val busStopCode = backStackEntry.arguments?.getString("busStopCode")
+                    if (busStopCode != null) {
+                        // TODO: Create BusStopDetailScreen
+                        // BusStopDetailScreen(busStopCode = busStopCode, navController = navController)
+                    } else {
+                        navigationManager.navigateBack()
+                    }
+                }
+                composable(route = NavigationRoutes.MrtStationDetail.route) { backStackEntry ->
+                    val stationCode = backStackEntry.arguments?.getString("stationCode")
+                    if (stationCode != null) {
+                        // TODO: Create MrtStationDetailScreen  
+                        // MrtStationDetailScreen(stationCode = stationCode, navController = navController)
+                    } else {
+                        navigationManager.navigateBack()
+                    }
                 }
             }
         }
