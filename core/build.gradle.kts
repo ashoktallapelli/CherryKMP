@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.serialization)
+    // Build config
+    alias(libs.plugins.gmazzo.buildconfig)
 }
 
 kotlin {
@@ -104,4 +106,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
+}
+
+buildConfig {
+    // Debug flag - defaults to true, will be overridden in release builds
+    buildConfigField("DEBUG", true)
 }

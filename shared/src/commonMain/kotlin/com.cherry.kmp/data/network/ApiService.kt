@@ -1,5 +1,7 @@
 package com.cherry.kmp.data.network
 
+import CherryKMP.shared.BuildConfig
+import com.cherry.kmp.data.DataConstants
 import com.cherry.kmp.data.network.ApiDefinition.ApiEndpoint.GetEverything
 import com.cherry.kmp.data.network.ApiDefinition.ApiEndpoint.GetPosts
 import com.cherry.kmp.data.network.ApiDefinition.ApiEndpoint.GetTopHeadlines
@@ -20,18 +22,22 @@ import io.ktor.client.request.parameter
 
 class ApiService(private val client: HttpClient) {
     suspend fun getPosts() = client.get(GetPosts.path)
-    
-    suspend fun getEverything(request: NewsRequest) = client.get(GetEverything.path) {
-        addCommonParameters(request)
-    }
 
-    suspend fun getTopHeadlines(request: NewsRequest) = client.get(GetTopHeadlines.path) {
-        addCommonParameters(request)
-        request.country?.let { parameter(PARAM_COUNTRY, it) }
-        request.category?.let { parameter(PARAM_CATEGORY, it) }
-    }
-    
+    suspend fun getEverything(request: NewsRequest) =
+        client.get("${BuildConfig.BASE_URL}${GetEverything.path}") {
+            addCommonParameters(request)
+        }
+
+    suspend fun getTopHeadlines(request: NewsRequest) =
+        client.get("${BuildConfig.BASE_URL}${GetTopHeadlines.path}") {
+            addCommonParameters(request)
+            request.country?.let { parameter(PARAM_COUNTRY, it) }
+            request.category?.let { parameter(PARAM_CATEGORY, it) }
+        }
+
     private fun io.ktor.client.request.HttpRequestBuilder.addCommonParameters(request: NewsRequest) {
+        parameter(DataConstants.API_KEY, BuildConfig.API_KEY)
+
         request.query?.let { parameter(PARAM_QUERY, it) }
         request.from?.let { parameter(PARAM_FROM, it) }
         request.to?.let { parameter(PARAM_TO, it) }

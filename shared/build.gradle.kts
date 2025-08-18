@@ -44,7 +44,6 @@ kotlin {
         
         androidUnitTest.dependencies {
             implementation(kotlin("test-junit"))
-            implementation("junit:junit:4.13.2")
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
@@ -156,7 +155,6 @@ room {
 
 dependencies {
     implementation(libs.androidx.material3.android)
-//    testImplementation(libs.junit)
     // Room
     add("kspCommonMainMetadata", libs.room.compiler)
 }
@@ -182,7 +180,7 @@ fun getEnvVar(key: String, defaultValue: String = ""): String {
 buildConfig {
     buildConfigField("APP_NAME", project.name)
     buildConfigField("APP_VERSION", provider { "\"${project.version}\"" })
-    buildConfigField("BASE_URL", getEnvVar("NEWS_BASE_URL", "newsapi.org"))
+    buildConfigField("BASE_URL", getEnvVar("NEWS_BASE_URL", "https://newsapi.org"))
     buildConfigField("API_KEY", getEnvVar("NEWS_API_KEY", ""))
     buildConfigField("DATAMALL_API_KEY", getEnvVar("DATAMALL_API_KEY", ""))
     

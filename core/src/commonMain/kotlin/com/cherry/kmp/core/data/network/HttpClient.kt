@@ -1,9 +1,8 @@
-package com.cherry.kmp.data.network
+package com.cherry.kmp.core.data.network
 
-import CherryKMP.shared.BuildConfig
+import CherryKMP.core.BuildConfig
 import com.cherry.kmp.core.common.LoggerConfig
-import com.cherry.kmp.data.DataConstants
-import com.cherry.kmp.security.CertificatePinning
+import com.cherry.kmp.core.security.CertificatePinning
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -25,14 +24,6 @@ private const val NETWORK_TIME_OUT = 6_000L
 
 val httpClient = HttpClient {
     defaultRequest {
-        url {
-            protocol = URLProtocol.HTTPS
-            host = BuildConfig.BASE_URL
-            parameters.append(
-                DataConstants.API_KEY,
-                BuildConfig.API_KEY
-            )
-        }
         contentType(ContentType.Application.Json)
         accept(ContentType.Application.Json)
         header(HttpHeaders.ContentType, ContentType.Application.Json)

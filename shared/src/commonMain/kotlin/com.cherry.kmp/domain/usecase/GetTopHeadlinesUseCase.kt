@@ -1,6 +1,6 @@
 package com.cherry.kmp.domain.usecase
 
-import com.cherry.kmp.data.network.ResponseHandler
+import com.cherry.kmp.core.data.network.ResponseHandler
 import com.cherry.kmp.domain.model.NewsRequest
 import com.cherry.kmp.domain.model.NewsResults
 import com.cherry.kmp.domain.repository.Repository

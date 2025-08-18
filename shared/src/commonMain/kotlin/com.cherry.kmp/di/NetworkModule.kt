@@ -4,7 +4,7 @@ import com.cherry.kmp.data.local.AppDataStore
 import com.cherry.kmp.domain.repository.LocalDataRepository
 import com.cherry.kmp.data.repository.LocalDataRepositoryImpl
 import com.cherry.kmp.data.network.ApiService
-import com.cherry.kmp.data.network.httpClient
+import com.cherry.kmp.core.data.network.httpClient
 import com.cherry.kmp.data.repository.RepositoryImpl
 import com.cherry.kmp.domain.repository.Repository
 import kotlinx.coroutines.Dispatchers

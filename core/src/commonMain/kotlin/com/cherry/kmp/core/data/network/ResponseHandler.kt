@@ -1,4 +1,4 @@
-package com.cherry.kmp.data.network
+package com.cherry.kmp.core.data.network
 
 import com.cherry.kmp.core.domain.exception.ApiException
 import io.ktor.client.call.body

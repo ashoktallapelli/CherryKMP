@@ -3,6 +3,7 @@ package com.cherry.kmp.security
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
+import com.cherry.kmp.core.security.SecurityConfig
 import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
