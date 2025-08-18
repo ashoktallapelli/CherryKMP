@@ -33,11 +33,12 @@ kotlin {
             implementation(kotlin("test"))
             implementation(kotlin("test-common"))
             implementation(kotlin("test-annotations-common"))
+            implementation(libs.coroutines.test)
+            implementation(libs.koin.test)
         }
         
         androidUnitTest.dependencies {
             implementation(kotlin("test-junit"))
-            implementation("junit:junit:4.13.2")
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
@@ -93,9 +94,6 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
         }
     }
 }
