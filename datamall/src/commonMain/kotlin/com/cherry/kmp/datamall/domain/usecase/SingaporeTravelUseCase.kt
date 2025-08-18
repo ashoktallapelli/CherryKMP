@@ -94,9 +94,9 @@ class GetTrainServiceAlertsUseCase(
 class GetPlatformCrowdDensityUseCase(
     private val repository: SingaporeTravelRepository,
     dispatcher: CoroutineDispatcher
-) : UseCase<String?, List<PlatformCrowdDensity>>(dispatcher) {
+) : UseCase<String, List<PlatformCrowdDensity>>(dispatcher) {
     
-    override suspend fun execute(params: String?): List<PlatformCrowdDensity> {
+    override suspend fun execute(params: String): List<PlatformCrowdDensity> {
         val result = repository.getPlatformCrowdDensity(params)
         return result.getOrElse { throw it }
     }

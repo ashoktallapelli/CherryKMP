@@ -52,7 +52,8 @@ data class TrainAlert(
 data class PlatformCrowdDensity(
     val stationCode: String,
     val crowdLevel: String, // l (Low), m (Moderate), h (High)
-    val timestamp: String
+    val startTime: String,   // Start of time interval
+    val endTime: String      // End of time interval
 )
 
 /**

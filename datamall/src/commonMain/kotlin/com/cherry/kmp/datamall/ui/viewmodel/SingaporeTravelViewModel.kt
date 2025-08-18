@@ -206,7 +206,7 @@ class SingaporeTravelViewModel(
         crowdDensityJob?.cancel()
         crowdDensityJob = viewModelScope.launch {
             _crowdDensityState.value = UiState.Loading
-            getPlatformCrowdDensityUseCase(trainLine)
+            getPlatformCrowdDensityUseCase(trainLine ?: "EWL")
                 .catch { exception ->
                     LoggerConfig.logger.e(exception) { "Error loading platform crowd density" }
                     _crowdDensityState.value = UiState.Error(

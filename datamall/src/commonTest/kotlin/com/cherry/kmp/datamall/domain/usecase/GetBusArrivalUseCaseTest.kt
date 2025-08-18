@@ -175,7 +175,7 @@ class FakeSingaporeTravelRepository : SingaporeTravelRepository {
         return trainAlertsResult ?: Result.failure(RuntimeException("No result set"))
     }
 
-    override suspend fun getPlatformCrowdDensity(trainLine: String?): Result<List<PlatformCrowdDensity>> {
+    override suspend fun getPlatformCrowdDensity(trainLine: String): Result<List<PlatformCrowdDensity>> {
         return crowdDensityResult ?: Result.failure(RuntimeException("No result set"))
     }
 

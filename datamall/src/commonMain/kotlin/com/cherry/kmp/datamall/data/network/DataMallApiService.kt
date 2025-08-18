@@ -10,17 +10,20 @@ import io.ktor.client.request.parameter
  * API service for Singapore DataMall endpoints
  */
 class DataMallApiService(private val client: HttpClient) {
+
+//    https://datamall2.mytransport.sg/ltaodataservice/v3/BusArrival
+//    Description Returns real-time Bus Arrival information of Bus Services at a queri
     
     companion object {
-        private const val BASE_URL = "http://datamall2.mytransport.sg"
+        private const val BASE_URL = "https://datamall2.mytransport.sg/ltaodataservice"
         private const val API_KEY_HEADER = "AccountKey"
         
         // API Endpoints
-        private const val BUS_ARRIVAL_ENDPOINT = "/ltaodataservice/BusArrivalv2"
-        private const val TRAIN_SERVICE_ALERTS_ENDPOINT = "/ltaodataservice/TrainServiceAlerts"
-        private const val PLATFORM_CROWD_DENSITY_ENDPOINT = "/ltaodataservice/PCDRealTime"
-        private const val BUS_STOPS_ENDPOINT = "/ltaodataservice/BusStops"
-        private const val TRAIN_STATIONS_ENDPOINT = "/ltaodataservice/TrainStations"
+        private const val BUS_ARRIVAL_ENDPOINT = "/v3/BusArrival"
+        private const val TRAIN_SERVICE_ALERTS_ENDPOINT = "/TrainServiceAlerts"
+        private const val PLATFORM_CROWD_DENSITY_ENDPOINT = "/PCDRealTime"
+        private const val BUS_STOPS_ENDPOINT = "/BusStops"
+        private const val TRAIN_STATIONS_ENDPOINT = "/TrainStations"
         
         // Parameters
         private const val PARAM_BUS_STOP_CODE = "BusStopCode"
@@ -52,13 +55,15 @@ class DataMallApiService(private val client: HttpClient) {
     
     /**
      * Get real-time platform crowd density
+     * @param trainLine Code of train network line (mandatory). Supported lines:
+     *  CCL, CEL, CGL, DTL, EWL, NEL, NSL, BPL, SLRT, PLRT, TEL
      */
     suspend fun getPlatformCrowdDensity(
-        trainLine: String? = null,
+        trainLine: String,
         apiKey: String
     ) = client.get("$BASE_URL$PLATFORM_CROWD_DENSITY_ENDPOINT") {
         header(API_KEY_HEADER, apiKey)
-        trainLine?.let { parameter(PARAM_TRAIN_LINE, it) }
+        parameter(PARAM_TRAIN_LINE, trainLine)
     }
     
     /**
@@ -147,8 +152,9 @@ data class PlatformCrowdDensityApiResponse(
 @kotlinx.serialization.Serializable
 data class PlatformCrowdDensityDto(
     val Station: String,
-    val CrowdLevel: String,
-    val TimeStamp: String
+    val StartTime: String,
+    val EndTime: String,
+    val CrowdLevel: String
 )
 
 @kotlinx.serialization.Serializable

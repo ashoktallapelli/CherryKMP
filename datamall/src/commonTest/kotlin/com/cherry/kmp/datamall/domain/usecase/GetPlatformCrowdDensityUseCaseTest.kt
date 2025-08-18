@@ -15,22 +15,26 @@ class GetPlatformCrowdDensityUseCaseTest {
         PlatformCrowdDensity(
             stationCode = "NS1",
             crowdLevel = "L",
-            timestamp = "2024-01-01T12:00:00Z"
+            startTime = "2024-01-01T12:00:00Z",
+            endTime = "2024-01-01T12:10:00Z"
         ),
         PlatformCrowdDensity(
             stationCode = "NS2",
             crowdLevel = "M",
-            timestamp = "2024-01-01T12:00:00Z"
+            startTime = "2024-01-01T12:00:00Z",
+            endTime = "2024-01-01T12:10:00Z"
         ),
         PlatformCrowdDensity(
             stationCode = "NS3",
             crowdLevel = "H",
-            timestamp = "2024-01-01T12:00:00Z"
+            startTime = "2024-01-01T12:00:00Z",
+            endTime = "2024-01-01T12:10:00Z"
         ),
         PlatformCrowdDensity(
             stationCode = "EW1",
             crowdLevel = "L",
-            timestamp = "2024-01-01T12:00:00Z"
+            startTime = "2024-01-01T12:00:00Z",
+            endTime = "2024-01-01T12:10:00Z"
         )
     )
 
@@ -43,7 +47,7 @@ class GetPlatformCrowdDensityUseCaseTest {
         val useCase = GetPlatformCrowdDensityUseCase(fakeRepository, Dispatchers.Unconfined)
 
         // When
-        val result = useCase(null).first()
+        val result = useCase("EWL").first()
 
         // Then
         assertTrue(result is UiState.Success)
@@ -84,7 +88,7 @@ class GetPlatformCrowdDensityUseCaseTest {
         val useCase = GetPlatformCrowdDensityUseCase(fakeRepository, Dispatchers.Unconfined)
 
         // When
-        val result = useCase(null).first()
+        val result = useCase("EWL").first()
 
         // Then
         assertTrue(result is UiState.Success)
@@ -101,7 +105,7 @@ class GetPlatformCrowdDensityUseCaseTest {
         val useCase = GetPlatformCrowdDensityUseCase(fakeRepository, Dispatchers.Unconfined)
 
         // When
-        val result = useCase(null).first()
+        val result = useCase("EWL").first()
 
         // Then
         assertTrue(result is UiState.Success)
@@ -118,7 +122,7 @@ class GetPlatformCrowdDensityUseCaseTest {
         val useCase = GetPlatformCrowdDensityUseCase(fakeRepository, Dispatchers.Unconfined)
 
         // When
-        val result = useCase(null).first()
+        val result = useCase("EWL").first()
 
         // Then
         assertTrue(result is UiState.Error)

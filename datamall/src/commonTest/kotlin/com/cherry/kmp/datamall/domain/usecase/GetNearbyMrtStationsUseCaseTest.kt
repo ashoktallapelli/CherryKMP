@@ -24,7 +24,8 @@ class GetNearbyMrtStationsUseCaseTest {
             crowdLevel = PlatformCrowdDensity(
                 stationCode = "CE1",
                 crowdLevel = "L",
-                timestamp = "2024-01-01T12:00:00Z"
+                startTime = "2024-01-01T12:00:00Z",
+                endTime = "2024-01-01T12:10:00Z"
             )
         ),
         MrtStationWithInfo(
@@ -38,7 +39,8 @@ class GetNearbyMrtStationsUseCaseTest {
             crowdLevel = PlatformCrowdDensity(
                 stationCode = "DT16",
                 crowdLevel = "M",
-                timestamp = "2024-01-01T12:00:00Z"
+                startTime = "2024-01-01T12:00:00Z",
+                endTime = "2024-01-01T12:10:00Z"
             )
         ),
         MrtStationWithInfo(

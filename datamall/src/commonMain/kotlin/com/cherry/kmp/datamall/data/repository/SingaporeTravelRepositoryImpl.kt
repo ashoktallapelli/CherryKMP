@@ -51,7 +51,7 @@ class SingaporeTravelRepositoryImpl(
         }
     }
 
-    override suspend fun getPlatformCrowdDensity(trainLine: String?): Result<List<PlatformCrowdDensity>> {
+    override suspend fun getPlatformCrowdDensity(trainLine: String): Result<List<PlatformCrowdDensity>> {
         return try {
             val response = RetryHelper.retry {
                 dataMallApiService.getPlatformCrowdDensity(trainLine, apiKey)
@@ -61,7 +61,8 @@ class SingaporeTravelRepositoryImpl(
                 PlatformCrowdDensity(
                     stationCode = dto.Station,
                     crowdLevel = dto.CrowdLevel,
-                    timestamp = dto.TimeStamp
+                    startTime = dto.StartTime,
+                    endTime = dto.EndTime
                 )
             }
             Result.success(crowdData)
@@ -152,7 +153,7 @@ class SingaporeTravelRepositoryImpl(
                 calculateDistance(location.latitude, location.longitude, station.latitude, station.longitude) <= radiusKm
             }
 
-            val crowdResult = getPlatformCrowdDensity()
+            val crowdResult = getPlatformCrowdDensity("EWL")
             val crowdData = crowdResult.getOrNull() ?: emptyList()
 
             val stationsWithInfo = nearbyStations.map { station ->
