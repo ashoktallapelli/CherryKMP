@@ -5,6 +5,8 @@ import com.cherry.kmp.datamall.data.repository.SingaporeTravelRepositoryImpl
 import com.cherry.kmp.datamall.domain.repository.SingaporeTravelRepository
 import com.cherry.kmp.datamall.domain.usecase.*
 import com.cherry.kmp.datamall.ui.viewmodel.SingaporeTravelViewModel
+import com.cherry.kmp.datamall.navigation.DataMallNavigationHandler
+import com.cherry.kmp.datamall.navigation.DataMallNavigationContract
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.dsl.module
@@ -24,6 +26,9 @@ val dataMallModule = module {
     single { GetBusArrivalUseCase(get(), Dispatchers.IO) }
     single { GetTrainServiceAlertsUseCase(get(), Dispatchers.IO) }
     single { GetPlatformCrowdDensityUseCase(get(), Dispatchers.IO) }
+    
+    // Navigation
+    single<DataMallNavigationContract> { DataMallNavigationHandler(get(), get()) }
     
     // ViewModels as factories to prevent memory leaks
     factory { SingaporeTravelViewModel(get(), get(), get(), get(), get(), get()) }

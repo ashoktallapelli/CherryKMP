@@ -1,4 +1,4 @@
-package com.cherry.kmp.ui.theme
+package com.cherry.kmp.core.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults.buttonColors

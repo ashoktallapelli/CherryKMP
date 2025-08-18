@@ -60,7 +60,7 @@ import com.cherry.kmp.ui.component.ArticleView
 import com.cherry.kmp.ui.component.ErrorScreen
 import com.cherry.kmp.ui.component.LoadingScreen
 import com.cherry.kmp.ui.main.viewmodel.MainViewModel
-import com.cherry.kmp.ui.theme.MinimalistColors
+import com.cherry.kmp.core.ui.theme.MinimalistColors
 import org.koin.compose.koinInject
 
 enum class NewsTab(

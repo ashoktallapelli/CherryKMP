@@ -1,4 +1,4 @@
-package com.cherry.kmp.ui.theme
+package com.cherry.kmp.core.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

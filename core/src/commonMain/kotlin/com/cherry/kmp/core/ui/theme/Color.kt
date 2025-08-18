@@ -1,4 +1,4 @@
-package com.cherry.kmp.ui.theme
+package com.cherry.kmp.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

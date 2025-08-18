@@ -1,4 +1,4 @@
-package com.cherry.kmp.ui.travel
+package com.cherry.kmp.datamall.ui.screens
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -6,6 +6,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,20 +24,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
-import androidx.navigation.NavHostController
+import com.cherry.kmp.datamall.navigation.DataMallNavigationContract
 import com.cherry.kmp.core.domain.UiState
 import com.cherry.kmp.datamall.domain.model.*
-import com.cherry.kmp.ui.component.ErrorScreen
-import com.cherry.kmp.ui.component.LoadingScreen
+import com.cherry.kmp.core.ui.component.ErrorScreen
+import com.cherry.kmp.core.ui.component.LoadingScreen
 import com.cherry.kmp.datamall.ui.viewmodel.SingaporeTravelViewModel
-import com.cherry.kmp.ui.theme.MinimalistColors
+import com.cherry.kmp.core.ui.theme.MinimalistColors
 import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun MrtStationsScreen(
+fun MrtStationsScreen(
     viewModel: SingaporeTravelViewModel = koinInject(),
-    navController: NavHostController
+    navigation: DataMallNavigationContract = koinInject()
 ) {
     var isScreenLoaded by remember { mutableStateOf(false) }
     
@@ -69,7 +70,7 @@ internal fun MrtStationsScreen(
         topBar = {
             CollapsingMrtStationsHeader(
                 scrollProgress = scrollProgress,
-                onBackClick = { navController.navigateUp() }
+                onBackClick = { navigation.navigateBack() }
             )
         }
     ) { paddingValues ->
@@ -87,7 +88,7 @@ internal fun MrtStationsScreen(
                         listState = listState,
                         scrollProgress = scrollProgress,
                         onStationClick = { station ->
-                            navController.navigate("travel/mrt/${station.stationCode}")
+                            navigation.navigateToMrtDetail(station.stationCode)
                         }
                     )
                 }
@@ -106,7 +107,7 @@ internal fun MrtStationsScreen(
                         listState = listState,
                         scrollProgress = scrollProgress,
                         onStationClick = { station ->
-                            navController.navigate("travel/mrt/${station.stationCode}")
+                            navigation.navigateToMrtDetail(station.stationCode)
                         }
                     )
                 }
@@ -216,7 +217,7 @@ private fun CollapsingMrtStationsHeader(
 @Composable
 private fun MrtStationsContent(
     mrtStations: List<MrtStationWithInfo>,
-    listState: androidx.compose.foundation.lazy.LazyListState,
+    listState: LazyListState,
     scrollProgress: Float,
     onStationClick: (MrtStation) -> Unit
 ) {

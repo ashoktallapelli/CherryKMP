@@ -1,4 +1,4 @@
-package com.cherry.kmp.ui.travel
+package com.cherry.kmp.datamall.ui.screens
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -6,6 +6,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -18,28 +19,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
-import androidx.navigation.NavHostController
 import com.cherry.kmp.core.domain.UiState
 import com.cherry.kmp.datamall.domain.model.*
-import com.cherry.kmp.ui.component.ErrorScreen
-import com.cherry.kmp.ui.component.LoadingScreen
 import com.cherry.kmp.datamall.ui.viewmodel.SingaporeTravelViewModel
-import com.cherry.kmp.ui.navigation.NavigationRoutes
-import com.cherry.kmp.ui.theme.MinimalistColors
+import com.cherry.kmp.datamall.navigation.DataMallNavigationContract
 import org.koin.compose.koinInject
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import com.cherry.kmp.core.ui.component.ErrorScreen
+import com.cherry.kmp.core.ui.component.LoadingScreen
+import com.cherry.kmp.core.ui.theme.MinimalistColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun TravelOverviewScreen(
+fun TravelOverviewScreen(
     viewModel: SingaporeTravelViewModel = koinInject(),
-    navController: NavHostController
+    navigation: DataMallNavigationContract = koinInject()
 ) {
     var isScreenLoaded by remember { mutableStateOf(false) }
     
@@ -74,7 +75,7 @@ internal fun TravelOverviewScreen(
         topBar = {
             CollapsingTravelOverviewHeader(
                 scrollProgress = scrollProgress,
-                onBackClick = { navController.navigateUp() }
+                onBackClick = { navigation.navigateBack() }
             )
         }
     ) { paddingValues ->
@@ -97,7 +98,7 @@ internal fun TravelOverviewScreen(
                         trainAlerts = trainAlerts,
                         listState = listState,
                         scrollProgress = scrollProgress,
-                        navController = navController
+                        navigation = navigation
                     )
                 }
                 is UiState.Error -> {
@@ -120,7 +121,7 @@ internal fun TravelOverviewScreen(
                         trainAlerts = trainAlerts,
                         listState = listState,
                         scrollProgress = scrollProgress,
-                        navController = navController
+                        navigation = navigation
                     )
                 }
                 is UiState.Initial -> LoadingScreen()
@@ -230,9 +231,9 @@ private fun CollapsingTravelOverviewHeader(
 private fun TravelOverviewContent(
     travelInfo: SingaporeTravelInfo,
     trainAlerts: List<TrainAlert>,
-    listState: androidx.compose.foundation.lazy.LazyListState,
+    listState: LazyListState,
     scrollProgress: Float,
-    navController: NavHostController
+    navigation: DataMallNavigationContract
 ) {
     LazyColumn(
         state = listState,
@@ -255,7 +256,7 @@ private fun TravelOverviewContent(
         
         // Quick Actions
         item {
-            QuickActionsCard(navController = navController)
+            QuickActionsCard(navigation = navigation)
         }
         
         // Service Status
@@ -268,7 +269,7 @@ private fun TravelOverviewContent(
             TransportSummaryCard(
                 busStopsCount = travelInfo.nearbyBusStops.size,
                 mrtStationsCount = travelInfo.nearbyMrtStations.size,
-                navController = navController
+                navigation = navigation
             )
         }
         
@@ -276,7 +277,7 @@ private fun TravelOverviewContent(
         item {
             NearbyHighlightsCard(
                 travelInfo = travelInfo,
-                navController = navController
+                navigation = navigation
             )
         }
         
@@ -288,7 +289,7 @@ private fun TravelOverviewContent(
 }
 
 @Composable
-private fun QuickActionsCard(navController: NavHostController) {
+private fun QuickActionsCard(navigation: DataMallNavigationContract) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
@@ -314,7 +315,7 @@ private fun QuickActionsCard(navController: NavHostController) {
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Card(
-                    onClick = { navController.navigate(NavigationRoutes.BusArrivals.route) },
+                    onClick = { navigation.navigateToBusArrivals() },
                     modifier = Modifier.weight(1f),
                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                     colors = CardDefaults.cardColors(
@@ -343,7 +344,7 @@ private fun QuickActionsCard(navController: NavHostController) {
                 }
                 
                 Card(
-                    onClick = { navController.navigate(NavigationRoutes.MrtStations.route) },
+                    onClick = { navigation.navigateToMrtStations() },
                     modifier = Modifier.weight(1f),
                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                     colors = CardDefaults.cardColors(
@@ -447,7 +448,7 @@ private fun ServiceStatusCard(trainAlerts: List<TrainAlert>) {
 private fun TransportSummaryCard(
     busStopsCount: Int,
     mrtStationsCount: Int,
-    navController: NavHostController
+    navigation: DataMallNavigationContract
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -477,7 +478,7 @@ private fun TransportSummaryCard(
                     icon = Icons.Default.DirectionsBus,
                     count = busStopsCount,
                     label = "Bus Stops",
-                    onClick = { navController.navigate(NavigationRoutes.BusArrivals.route) },
+                    onClick = { navigation.navigateToBusArrivals() },
                     modifier = Modifier.weight(1f)
                 )
                 
@@ -485,7 +486,7 @@ private fun TransportSummaryCard(
                     icon = Icons.Default.Train,
                     count = mrtStationsCount,
                     label = "MRT Stations",
-                    onClick = { navController.navigate(NavigationRoutes.MrtStations.route) },
+                    onClick = { navigation.navigateToMrtStations() },
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -495,7 +496,7 @@ private fun TransportSummaryCard(
 
 @Composable
 private fun TransportCountCard(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    icon: ImageVector,
     count: Int,
     label: String,
     onClick: () -> Unit,
@@ -540,7 +541,7 @@ private fun TransportCountCard(
 @Composable
 private fun NearbyHighlightsCard(
     travelInfo: SingaporeTravelInfo,
-    navController: NavHostController
+    navigation: DataMallNavigationContract
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -566,7 +567,7 @@ private fun NearbyHighlightsCard(
                     color = MinimalistColors.PrimaryText
                 )
                 
-                TextButton(onClick = { navController.navigate(NavigationRoutes.BusArrivals.route) }) {
+                TextButton(onClick = { navigation.navigateToBusArrivals() }) {
                     Text("View All")
                 }
             }
@@ -579,7 +580,7 @@ private fun NearbyHighlightsCard(
                     icon = Icons.Default.DirectionsBus,
                     title = closestBusStop.busStop.description,
                     subtitle = "Closest bus stop • ${closestBusStop.distance?.let { "${(it * 10).toInt() / 10.0} km" } ?: ""}",
-                    onClick = { navController.navigate("travel/bus/${closestBusStop.busStop.busStopCode}") }
+                    onClick = { navigation.navigateToBusDetail(closestBusStop.busStop.busStopCode) }
                 )
             }
             
@@ -590,7 +591,7 @@ private fun NearbyHighlightsCard(
                     icon = Icons.Default.Train,
                     title = closestMrtStation.station.stationName,
                     subtitle = "Closest MRT station • ${closestMrtStation.distance?.let { "${(it * 10).toInt() / 10.0} km" } ?: ""}",
-                    onClick = { navController.navigate("travel/mrt/${closestMrtStation.station.stationCode}") }
+                    onClick = { navigation.navigateToMrtDetail(closestMrtStation.station.stationCode) }
                 )
             }
             
@@ -607,7 +608,7 @@ private fun NearbyHighlightsCard(
 
 @Composable
 private fun HighlightItem(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    icon: ImageVector,
     title: String,
     subtitle: String,
     onClick: () -> Unit
@@ -689,8 +690,8 @@ private fun LastUpdatedCard(lastUpdated: String) {
 
 private fun formatLastUpdated(lastUpdated: String): String {
     return try {
-        val instant = kotlinx.datetime.Instant.parse(lastUpdated)
-        val localDateTime = instant.toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
+        val instant = Instant.parse(lastUpdated)
+        val localDateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
         "${localDateTime.hour.toString().padStart(2, '0')}:${localDateTime.minute.toString().padStart(2, '0')}"
     } catch (e: Exception) {
         "Unknown"

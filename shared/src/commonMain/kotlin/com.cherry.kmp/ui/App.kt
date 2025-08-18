@@ -13,7 +13,7 @@ import com.cherry.kmp.ui.main.MainNav
 import com.cherry.kmp.ui.navigation.AppNavigation
 import com.cherry.kmp.ui.navigation.DeepLinkData
 import com.cherry.kmp.ui.splash.SplashNav
-import com.cherry.kmp.ui.theme.AppTheme
+import com.cherry.kmp.core.ui.theme.AppTheme
 
 @Composable
 internal fun App(deepLinkData: DeepLinkData? = null) {

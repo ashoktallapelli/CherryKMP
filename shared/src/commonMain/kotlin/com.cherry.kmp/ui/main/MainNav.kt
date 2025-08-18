@@ -15,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,7 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.cherry.kmp.ui.theme.MinimalistColors
+import com.cherry.kmp.core.ui.theme.MinimalistColors
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -40,10 +39,13 @@ import com.cherry.kmp.ui.navigation.NavigationManager
 import com.cherry.kmp.ui.navigation.DeepLinkData
 import com.cherry.kmp.ui.settings.SecuritySettingsScreen
 import com.cherry.kmp.ui.screens.ArticleDetailScreen
-import com.cherry.kmp.ui.main.SingaporeTravelScreen
-import com.cherry.kmp.ui.travel.TravelOverviewScreen
-import com.cherry.kmp.ui.travel.BusArrivalsScreen
-import com.cherry.kmp.ui.travel.MrtStationsScreen
+import com.cherry.kmp.datamall.ui.screens.TravelOverviewScreen
+import com.cherry.kmp.datamall.ui.screens.BusArrivalsScreen
+import com.cherry.kmp.datamall.ui.screens.MrtStationsScreen
+import com.cherry.kmp.datamall.navigation.DataMallNavigationHandler
+import com.cherry.kmp.ui.navigation.MainNavigationHandler
+import com.cherry.kmp.ui.navigation.MainDataMallRouteProvider
+import androidx.compose.runtime.remember
 
 @Composable
 fun MainNav(
@@ -52,6 +54,11 @@ fun MainNav(
 ) {
     val navController = rememberNavController()
     val navigationManager = NavigationManager(navController)
+    
+    // Create navigation abstractions for datamall module
+    val mainNavigationHandler = remember { MainNavigationHandler(navController) }
+    val dataMallRouteProvider = remember { MainDataMallRouteProvider() }
+    val dataMallNavigation = remember { DataMallNavigationHandler(mainNavigationHandler, dataMallRouteProvider) }
     
     // Handle deep link navigation
     LaunchedEffect(deepLinkData) {
@@ -138,13 +145,13 @@ fun MainNav(
                 
                 // Singapore Travel Detail Screens
                 composable(route = NavigationRoutes.TravelOverview.route) {
-                    TravelOverviewScreen(navController = navController)
+                    TravelOverviewScreen(navigation = dataMallNavigation)
                 }
                 composable(route = NavigationRoutes.BusArrivals.route) {
-                    BusArrivalsScreen(navController = navController)
+                    BusArrivalsScreen(navigation = dataMallNavigation)
                 }
                 composable(route = NavigationRoutes.MrtStations.route) {
-                    MrtStationsScreen(navController = navController)
+                    MrtStationsScreen(navigation = dataMallNavigation)
                 }
                 
                 // Travel Detail Screens with Arguments
