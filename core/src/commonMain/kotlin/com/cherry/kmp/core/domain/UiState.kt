@@ -1,4 +1,4 @@
-package com.cherry.kmp.domain
+package com.cherry.kmp.core.domain
 
 sealed interface UiState<out T> {
     object Initial : UiState<Nothing>

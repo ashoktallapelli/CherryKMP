@@ -1,8 +1,8 @@
-package com.cherry.kmp.domain.usecase
+package com.cherry.kmp.datamall.domain.usecase
 
-import com.cherry.kmp.domain.model.*
-import com.cherry.kmp.domain.repository.SingaporeTravelRepository
-import com.cherry.kmp.domain.usecase.base.UseCase
+import com.cherry.kmp.datamall.domain.model.*
+import com.cherry.kmp.datamall.domain.repository.SingaporeTravelRepository
+import com.cherry.kmp.core.domain.usecase.base.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
 
 /**

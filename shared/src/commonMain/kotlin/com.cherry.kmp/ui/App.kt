@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.cherry.kmp.common.LoggerConfig
+import com.cherry.kmp.core.common.LoggerConfig
 import com.cherry.kmp.ui.main.MainNav
 import com.cherry.kmp.ui.navigation.AppNavigation
 import com.cherry.kmp.ui.navigation.DeepLinkData

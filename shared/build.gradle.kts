@@ -106,6 +106,12 @@ kotlin {
             
             //Kermit Logging
             implementation(libs.kermit)
+            
+            // Core module dependency
+            api(project(":core"))
+            
+            // DataMall module
+            api(project(":datamall"))
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

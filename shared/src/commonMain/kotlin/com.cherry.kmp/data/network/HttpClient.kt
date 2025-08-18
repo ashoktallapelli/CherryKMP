@@ -1,7 +1,7 @@
 package com.cherry.kmp.data.network
 
 import CherryKMP.shared.BuildConfig
-import com.cherry.kmp.common.LoggerConfig
+import com.cherry.kmp.core.common.LoggerConfig
 import com.cherry.kmp.data.DataConstants
 import com.cherry.kmp.security.CertificatePinning
 import io.ktor.client.HttpClient

@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.cherry.kmp.domain.UiState
+import com.cherry.kmp.core.domain.UiState
 import com.cherry.kmp.domain.model.Post
 import com.cherry.kmp.ui.component.ErrorScreen
 import com.cherry.kmp.ui.component.LoadingScreen

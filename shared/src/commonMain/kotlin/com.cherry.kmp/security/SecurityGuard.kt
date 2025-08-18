@@ -1,6 +1,6 @@
 package com.cherry.kmp.security
 
-import com.cherry.kmp.common.LoggerConfig
+import com.cherry.kmp.core.common.LoggerConfig
 import com.cherry.kmp.domain.usecase.SecuritySettingsUseCase
 
 /**

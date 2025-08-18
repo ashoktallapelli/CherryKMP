@@ -1,6 +1,6 @@
-package com.cherry.kmp.common
+package com.cherry.kmp.core.common
 
-import com.cherry.kmp.domain.exception.ApiException
+import com.cherry.kmp.core.domain.exception.ApiException
 import kotlinx.coroutines.delay
 
 /**

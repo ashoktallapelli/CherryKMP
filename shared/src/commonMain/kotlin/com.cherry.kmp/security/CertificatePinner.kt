@@ -1,6 +1,6 @@
 package com.cherry.kmp.security
 
-import com.cherry.kmp.common.LoggerConfig
+import com.cherry.kmp.core.common.LoggerConfig
 import io.ktor.client.plugins.api.createClientPlugin
 import io.ktor.client.request.HttpRequestPipeline
 import io.ktor.http.isSuccess

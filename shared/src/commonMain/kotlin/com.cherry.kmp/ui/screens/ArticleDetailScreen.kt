@@ -28,7 +28,7 @@ import androidx.navigation.NavController
 import com.cherry.kmp.domain.model.Post
 import com.cherry.kmp.ui.theme.MinimalistColors
 import com.cherry.kmp.domain.usecase.GetPostsUseCase
-import com.cherry.kmp.domain.UiState
+import com.cherry.kmp.core.domain.UiState
 import com.cherry.kmp.ui.component.ErrorScreen
 import com.cherry.kmp.ui.component.LoadingScreen
 import kotlinx.coroutines.launch

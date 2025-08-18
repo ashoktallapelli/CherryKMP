@@ -2,7 +2,7 @@ package com.cherry.kmp.domain.usecase
 
 import com.cherry.kmp.domain.model.Post
 import com.cherry.kmp.domain.repository.Repository
-import com.cherry.kmp.domain.usecase.base.UseCase
+import com.cherry.kmp.core.domain.usecase.base.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
 
 class GetPostsUseCase(

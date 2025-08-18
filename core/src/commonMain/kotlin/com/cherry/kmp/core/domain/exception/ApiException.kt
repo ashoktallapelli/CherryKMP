@@ -1,4 +1,4 @@
-package com.cherry.kmp.domain.exception
+package com.cherry.kmp.core.domain.exception
 
 import io.ktor.http.HttpStatusCode
 

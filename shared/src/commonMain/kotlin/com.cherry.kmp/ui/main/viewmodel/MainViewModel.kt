@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
-import com.cherry.kmp.common.LoggerConfig
+import com.cherry.kmp.core.common.LoggerConfig
 import com.cherry.kmp.data.local.entity.DataModelEntity
 import com.cherry.kmp.domain.Constants
-import com.cherry.kmp.domain.UiState
-import com.cherry.kmp.domain.exception.ApiException
+import com.cherry.kmp.core.domain.UiState
+import com.cherry.kmp.core.domain.exception.ApiException
 import com.cherry.kmp.domain.model.NewsRequest
 import com.cherry.kmp.domain.model.NewsResults
 import com.cherry.kmp.domain.model.Post

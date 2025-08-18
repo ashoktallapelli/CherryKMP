@@ -17,7 +17,7 @@ import cherrykmp.shared.generated.resources.Res
 import cherrykmp.shared.generated.resources.news_sources
 import cherrykmp.shared.generated.resources.sources
 import com.cherry.kmp.domain.Constants
-import com.cherry.kmp.domain.UiState
+import com.cherry.kmp.core.domain.UiState
 import com.cherry.kmp.domain.model.Article
 import com.cherry.kmp.ui.component.ArticleView
 import com.cherry.kmp.ui.component.ErrorScreen

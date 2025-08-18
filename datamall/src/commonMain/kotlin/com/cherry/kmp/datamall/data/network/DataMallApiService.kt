@@ -1,6 +1,6 @@
-package com.cherry.kmp.data.network
+package com.cherry.kmp.datamall.data.network
 
-import com.cherry.kmp.domain.model.*
+import com.cherry.kmp.datamall.domain.model.*
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.header

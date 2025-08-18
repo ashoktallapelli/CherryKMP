@@ -1,6 +1,6 @@
 package com.cherry.kmp.data.network
 
-import com.cherry.kmp.domain.exception.ApiException
+import com.cherry.kmp.core.domain.exception.ApiException
 import io.ktor.client.call.body
 import io.ktor.client.statement.*
 import io.ktor.http.*

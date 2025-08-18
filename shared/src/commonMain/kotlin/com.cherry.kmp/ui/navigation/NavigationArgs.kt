@@ -3,7 +3,7 @@ package com.cherry.kmp.ui.navigation
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.cherry.kmp.common.LoggerConfig
+import com.cherry.kmp.core.common.LoggerConfig
 
 /**
  * Type-safe navigation argument definitions and validation

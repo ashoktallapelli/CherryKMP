@@ -54,7 +54,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.navigation.NavHostController
-import com.cherry.kmp.domain.UiState
+import com.cherry.kmp.core.domain.UiState
 import com.cherry.kmp.domain.model.Article
 import com.cherry.kmp.ui.component.ArticleView
 import com.cherry.kmp.ui.component.ErrorScreen

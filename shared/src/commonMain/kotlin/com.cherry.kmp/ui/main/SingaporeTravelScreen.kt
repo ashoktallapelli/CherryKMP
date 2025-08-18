@@ -25,11 +25,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.navigation.NavHostController
-import com.cherry.kmp.domain.UiState
-import com.cherry.kmp.domain.model.*
+import com.cherry.kmp.core.domain.UiState
+import com.cherry.kmp.datamall.ui.viewmodel.SingaporeTravelViewModel
+import com.cherry.kmp.datamall.domain.model.*
 import com.cherry.kmp.ui.component.ErrorScreen
 import com.cherry.kmp.ui.component.LoadingScreen
-import com.cherry.kmp.ui.main.viewmodel.SingaporeTravelViewModel
 import com.cherry.kmp.ui.navigation.NavigationRoutes
 import com.cherry.kmp.ui.theme.MinimalistColors
 import org.koin.compose.koinInject

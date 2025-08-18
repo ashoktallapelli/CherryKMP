@@ -1,10 +1,10 @@
-package com.cherry.kmp.data.repository
+package com.cherry.kmp.datamall.data.repository
 
-import com.cherry.kmp.common.RetryHelper
-import com.cherry.kmp.data.network.DataMallApiService
-import com.cherry.kmp.data.network.*
-import com.cherry.kmp.domain.model.*
-import com.cherry.kmp.domain.repository.SingaporeTravelRepository
+import com.cherry.kmp.core.common.RetryHelper
+import com.cherry.kmp.datamall.data.network.DataMallApiService
+import com.cherry.kmp.datamall.data.network.*
+import com.cherry.kmp.datamall.domain.model.*
+import com.cherry.kmp.datamall.domain.repository.SingaporeTravelRepository
 import io.ktor.client.call.body
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone

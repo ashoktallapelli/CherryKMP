@@ -2,7 +2,7 @@ package com.cherry.kmp.ui.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavOptionsBuilder
-import com.cherry.kmp.common.LoggerConfig
+import com.cherry.kmp.core.common.LoggerConfig
 
 /**
  * Navigation manager for type-safe navigation throughout the app

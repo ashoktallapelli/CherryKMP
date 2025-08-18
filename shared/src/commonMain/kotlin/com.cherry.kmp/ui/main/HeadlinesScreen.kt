@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cherrykmp.shared.generated.resources.Res
 import cherrykmp.shared.generated.resources.news_headlines
-import com.cherry.kmp.domain.UiState
+import com.cherry.kmp.core.domain.UiState
 import com.cherry.kmp.domain.model.Article
 import com.cherry.kmp.ui.component.ArticleView
 import com.cherry.kmp.ui.component.ErrorScreen

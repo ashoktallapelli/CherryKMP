@@ -1,6 +1,6 @@
 package com.cherry.kmp.data.repository
 
-import com.cherry.kmp.common.RetryHelper
+import com.cherry.kmp.core.common.RetryHelper
 import com.cherry.kmp.data.network.ApiService
 import com.cherry.kmp.domain.model.NewsRequest
 import com.cherry.kmp.domain.model.Post

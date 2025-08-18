@@ -1,6 +1,6 @@
-package com.cherry.kmp.domain.repository
+package com.cherry.kmp.datamall.domain.repository
 
-import com.cherry.kmp.domain.model.*
+import com.cherry.kmp.datamall.domain.model.*
 
 interface SingaporeTravelRepository {
     suspend fun getBusArrival(busStopCode: String, serviceNo: String? = null): Result<BusArrivalResponse>

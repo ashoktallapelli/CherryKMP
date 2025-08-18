@@ -1,4 +1,4 @@
-package com.cherry.kmp.domain.model
+package com.cherry.kmp.datamall.domain.model
 
 import kotlinx.serialization.Serializable
 

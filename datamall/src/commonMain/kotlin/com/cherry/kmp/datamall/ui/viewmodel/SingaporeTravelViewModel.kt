@@ -1,4 +1,4 @@
-package com.cherry.kmp.ui.main.viewmodel
+package com.cherry.kmp.datamall.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import com.cherry.kmp.common.LoggerConfig
-import com.cherry.kmp.domain.UiState
-import com.cherry.kmp.domain.exception.ApiException
-import com.cherry.kmp.domain.model.*
-import com.cherry.kmp.domain.usecase.*
+import com.cherry.kmp.core.common.LoggerConfig
+import com.cherry.kmp.core.domain.UiState
+import com.cherry.kmp.core.domain.exception.ApiException
+import com.cherry.kmp.datamall.domain.model.*
+import com.cherry.kmp.datamall.domain.usecase.*
 
 class SingaporeTravelViewModel(
     private val getSingaporeTravelInfoUseCase: GetSingaporeTravelInfoUseCase,

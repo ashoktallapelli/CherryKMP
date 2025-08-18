@@ -16,4 +16,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "CherryKMP"
 include(":androidApp")
+include(":core")
 include(":shared")
+include(":datamall")

@@ -1,6 +1,6 @@
-package com.cherry.kmp.domain.usecase.base
+package com.cherry.kmp.core.domain.usecase.base
 
-import com.cherry.kmp.domain.UiState
+import com.cherry.kmp.core.domain.UiState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

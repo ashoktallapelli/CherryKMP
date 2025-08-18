@@ -2,7 +2,7 @@ package com.cherry.kmp.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cherry.kmp.common.LoggerConfig
+import com.cherry.kmp.core.common.LoggerConfig
 import com.cherry.kmp.domain.usecase.SecuritySettingsUseCase
 import com.cherry.kmp.security.BiometricAuth
 import com.cherry.kmp.security.BiometricResult
